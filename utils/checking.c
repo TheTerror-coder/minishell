@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freemem.c                                          :+:      :+:    :+:   */
+/*   checking.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/11 19:51:53 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/07/10 19:40:47 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/07/10 20:42:23 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-void	ft_freetvars(t_vars *v)
+t_bool	ft_checkessentials(t_vars *v)
 {
-	if (v->line)
-		free(v->line);
-	if (v->argv)
-		ft_freesplit(v->argv);
-	if (v->paths)
-		ft_freesplit(v->paths);
-	if (v->cmdpath)
-		free(v->cmdpath);
-	free(v);
-	v = NULL;
+	if (v)
+		return (__TRUE);
+	return (__TRUE);
 }
 
-void	ft_exitprocss(t_vars *v, int status)
+t_bool	ft_cmdidentity(t_vars *v)
 {
-	ft_freetvars(v);
-	exit(status);
+	if (v)
+		return (__TRUE);
+	return (__TRUE);
 }

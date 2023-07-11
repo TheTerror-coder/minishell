@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freemem.c                                          :+:      :+:    :+:   */
+/*   parsing1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/11 19:51:53 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/07/09 15:49:16 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/07/11 16:06:37 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-void	ft_freetvars(t_vars *v)
+t_bool	ft_goprompt(char *msg, t_typ action)
 {
-	if (v->line)
-		free(v->line);
-	if (v->argv)
-		ft_freesplit(v->argv);
-	if (v->paths)
-		ft_freesplit(v->paths);
-	if (v->cmdpath)
-		free(v->cmdpath);
-	free(v);
-	v = NULL;
+	if (!msg)
+		return (__FALSE);
+	if (action == PRINT_ERROR)
+		ft_putendl_fd(msg, 1);
+	else
+		perror(msg);
+	return (__FALSE);
 }
 
-void	ft_exitprocss(t_vars *v, int status)
+t_bool	ft_setargv(t_vars *v)
 {
-	ft_freetvars(v);
-	exit(status);
+	v->argv = ft_split(v->line, ' ');
+	if (!v->argv || !v->argv[0])
+		return (ft_goprompt(NULL, PRINT_ERROR));
+	return (__TRUE);
 }

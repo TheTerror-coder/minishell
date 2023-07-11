@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freemem.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/11 19:51:53 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/07/11 18:15:53 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/07/11 19:49:01 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-
-void	ft_freetvars(t_vars *v)
+int	main(void)
 {
-	if (v->line)
-		free(v->line);
-	if (v->argv)
-		ft_freesplit(v->argv);
-	if (v->paths)
-		ft_freesplit(v->paths);
-	if (v->cmdpath)
-		free(v->cmdpath);
-	free(v);
-	v = NULL;
-}
+	t_vars	*v;
 
-void	ft_exitprocss(t_vars *v, int status)
-{
-	ft_freetvars(v);
-	exit(status);
+	v = ft_initvars();
+	if (!v)
+		return (1);
+	ft_setpath(v);
+	ft_prompt(v);
+	ft_exitprocss(v, EXIT_SUCCESS);
+	return (0);
 }

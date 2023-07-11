@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/07/08 18:16:39 by TheTerror        ###   ########lyon.fr    #
+#    Updated: 2023/07/11 19:12:44 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,10 @@ LIBFT_LIB = $(LIBFT_PATH)/libft.a
 LIBFT_PATH = ./libft/
 OBJECTS_PATH = ./objects/
 MEMTOOLS_PATH = ./memtools/
-PARSING_PATH = ./memtools/
+UTILS_PATH = ./utils/
+PARSING_PATH = ./parsing/
+LAUNCHING_PATH = ./launching/
+PATHTOOLS_PATH = ./pathtools/
 
 INCLUDE = minishell.h preprocss.h
 
@@ -26,7 +29,12 @@ CFLAGS=				-Wall -Werror -Wextra
 RM =				rm -rf
 
 SRC_MEMTOOLS = $(addprefix $(MEMTOOLS_PATH), initmem.c freemem.c)
-SRC = minishell.c $(SRC_MEMTOOLS)
+SRC_UTILS = $(addprefix $(UTILS_PATH), checking.c)
+SRC_PARSING = $(addprefix $(PARSING_PATH), parsing1.c)
+SRC_LAUNCHING = $(addprefix $(LAUNCHING_PATH), launcher.c executable.c)
+SRC_PATHTOOLS = $(addprefix $(PATHTOOLS_PATH), setcmdpath.c getvalidpaths.c utils.c)
+SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_PARSING) $(SRC_UTILS) \
+		$(SRC_LAUNCHING) $(SRC_PATHTOOLS)
 
 OBJ := $(SRC:%.c=%.o)
 
