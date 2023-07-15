@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/07/11 19:12:44 by TheTerror        ###   ########lyon.fr    #
+#    Updated: 2023/07/13 21:58:53 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ CFLAGS=				-Wall -Werror -Wextra
 RM =				rm -rf
 
 SRC_MEMTOOLS = $(addprefix $(MEMTOOLS_PATH), initmem.c freemem.c)
-SRC_UTILS = $(addprefix $(UTILS_PATH), checking.c)
+SRC_UTILS = $(addprefix $(UTILS_PATH), checking.c ft_utils1.c)
 SRC_PARSING = $(addprefix $(PARSING_PATH), parsing1.c)
 SRC_LAUNCHING = $(addprefix $(LAUNCHING_PATH), launcher.c executable.c)
 SRC_PATHTOOLS = $(addprefix $(PATHTOOLS_PATH), setcmdpath.c getvalidpaths.c utils.c)

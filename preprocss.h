@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/11 20:20:23 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/13 21:59:04 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,13 @@ typedef struct s_vars
 	char	**argv;
 	char	**paths;
 	char	*cmdpath;
+	char	*str;
+	char	*set;
 	int		status;
 	int		exit_code;
 	int		p1[2];
 	int		p2[2];
+	int		jx;
 }				t_vars;
 
 #endif

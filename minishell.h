@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/11 19:54:58 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/14 13:59:00 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,8 @@ t_bool	ft_fwait(t_vars *var, int pid, int option);
 t_bool	ft_fclose(int *fd);
 int	ft_setcmdpath(t_vars *v);
 t_bool	ft_setpath(t_vars *v);
+t_bool	ft_isseperator(char c, char *suite);
+char	*ft_setofquote(t_vars *v, char c);
+void	ft_skip_partquoted(char *line, int *i);
 
 #endif

@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   freemem.c                                          :+:      :+:    :+:   */
+/*   unify.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/13 21:56:56 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/07/12 12:45:43 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/07/12 14:10:21 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-void	ft_freetvars(t_vars *v)
+t_bool	ft_reunify(t_vars *v)
 {
-	if (v->line)
-		free(v->line);
-	if (v->argv)
-		ft_freesplit(v->argv);
-	if (v->paths)
-		ft_freesplit(v->paths);
-	if (v->cmdpath)
-		free(v->cmdpath);
-	if (v->str)
-		free(v->str);
-	if (v->set)
-		free(v->set);
-	free(v);
-	v = NULL;
+	ft_singlequote(v);
 }
-
-void	ft_exitprocss(t_vars *v, int status)
+t_bool	ft_singlequote(t_vars *v)
 {
-	ft_freetvars(v);
-	exit(status);
+	if
 }

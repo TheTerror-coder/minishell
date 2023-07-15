@@ -1,0 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils1.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/07/14 13:59:57 by TheTerror        ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+
+t_bool	ft_isseperator(char c, char *suite)
+{
+	if (c == ' ')
+		return (__TRUE);
+	if (c == "'"[0])
+	{
+		if (ft_strchr(suite, "'"[0]))
+			return (__TRUE);
+		return (__FALSE);
+	}
+	if (c == '"') 
+	{
+		if (ft_strchr(suite, '"'))
+			return (__TRUE);
+		return (__FALSE);
+	}
+	return (__FALSE);
+}
+
+void	ft_skip_partquoted(char *line, int *i)
+{
+	char	c;
+
+	c = line[*i];
+	*i = *i + 1;
+	while (line[*i] != c)
+		*i = *i + 1;
+}
+
+char	*ft_setofquote(t_vars *v, char c)
+{
+	char	*set;
+
+	set = ft_calloc(2, sizeof(char));
+	if (!set)
+		return (NULL);
+	set[0] = c;
+	set[1] = 0;
+	if (v->set)
+		free(v->set);
+	v->set = set;
+	return (set);
+}
