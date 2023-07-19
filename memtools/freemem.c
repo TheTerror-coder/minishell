@@ -6,27 +6,38 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/13 21:56:56 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/16 15:22:39 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 
-void	ft_freetvars(t_vars *v)
+void	ft_freesecondaries(t_vars *v)
 {
 	if (v->line)
 		free(v->line);
-	if (v->argv)
-		ft_freesplit(v->argv);
+	v->line = NULL;
 	if (v->paths)
 		ft_freesplit(v->paths);
-	if (v->cmdpath)
-		free(v->cmdpath);
+	v->paths = NULL;
 	if (v->str)
 		free(v->str);
+	v->str = NULL;
 	if (v->set)
 		free(v->set);
+	v->set = NULL;
+}
+
+void	ft_freetvars(t_vars *v)
+{
+	ft_freesecondaries(v);
+	if (v->argv)
+		ft_freesplit(v->argv);
+	v->argv = NULL;
+	if (v->cmdpath)
+		free(v->cmdpath);
+	v->cmdpath = NULL;
 	free(v);
 	v = NULL;
 }

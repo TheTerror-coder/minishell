@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/14 13:59:00 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 13:07:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include<stdlib.h>
 #include<readline/readline.h>
 #include<readline/history.h>
-#include "libft/libft.h"
 #include <sys/wait.h>
 
 
@@ -44,5 +43,6 @@ t_bool	ft_setpath(t_vars *v);
 t_bool	ft_isseperator(char c, char *suite);
 char	*ft_setofquote(t_vars *v, char c);
 void	ft_skip_partquoted(char *line, int *i);
+void	ft_freesecondaries(t_vars *v);
 
 #endif

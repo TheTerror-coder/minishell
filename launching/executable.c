@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/11 20:25:11 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/16 15:23:05 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_bool	ft_lnch_executable(t_vars *v)
 		return (ft_goprompt("fork", __PERROR));
 	if (!pid)
 	{
+		ft_freesecondaries(v);
 		execve(v->cmdpath, v->argv, __environ);
 		perror("execve");
 		ft_exitprocss(v, __EXIT_REACHED);

@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   preprocss.h                                        :+:      :+:    :+:   */
+/*   ft_preprocss.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/19 13:10:03 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/04/12 12:45:29 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/05/12 02:15:44 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PREPROCSS_H
-# define PREPROCSS_H
+#ifndef FT_PREPROCSS_H
+# define FT_PREPROCSS_H
 
-#include "libft/libft.h"
+# include "include/libft/libft.h"
 
-# define __SKIP 2
-# define __WHANG 0
+# define __AFAULT "arguments fault"
+# define __MISSARG "missing arguments"
+# define __MOREARG "too many arguments"
 # define __PRINT PRINT_ERROR
 # define __PERROR PUT_ERROR
-# define __EXIT_REACHED 7
+# define __SKIP 2
+# define __WHANG 0
+# define __EXIT_NOCMD 7
+
+# define __MXPATH 128
+# define __LENBUF 5
 
 typedef enum e_typ
 {
@@ -29,21 +35,25 @@ typedef enum e_typ
 
 typedef struct s_vars
 {
-	char	*line;
-	char	**paths;
-	char	*str;
-	char	*set;
+	t_bool	heredoc_flg;
+	t_bool	infile_flg;
+	int		argc;
 	char	**argv;
+	char	*limiter;
+	char	**awhich;
+	char	***cmdlst;
 	char	*cmdpath;
+	char	**paths;
 	int		status;
-	int		exit_code;
-	int		p1[2];
-	int		p2[2];
-	int		jx;
-	t_bool	flg_infile;
-	t_bool	flg_outfile;
-	t_bool	flg_heredoc;
-	t_bool	flg_outappend;
+	int		i;
+	int		lcmd;
+	int		infile_fd;
+	int		outfile_fd;
+	int		sp[2];
+	int		**p;
+	int		ff;
+	int		*pid;
+	int		exit;
 }				t_vars;
 
 #endif
