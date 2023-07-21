@@ -6,13 +6,12 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:53:58 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/11 20:34:41 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/19 18:22:40 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	ft_ioset_op(int *infd, int *outfd);
 void	ft_spthson(t_vars *v, char *cmd);
 t_bool	ft_chck_cmd(t_vars *v, char *cmd, int i);
 t_bool	ft_exitson(t_vars *v);

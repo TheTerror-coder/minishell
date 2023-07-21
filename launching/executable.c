@@ -6,11 +6,24 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/16 15:23:05 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/21 16:15:16 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_bool	ft_set_io(t_vars *v)
+{
+	if (v->flg_infile)
+		ft_inredir(v);
+	if (v->flg_outfile)
+		ft_outredir(v);
+	if (v->flg_heredoc)
+		ft_heredocredir(v);
+	if (v->flg_outappend)
+		ft_outappendredir(v);
+	return (__TRUE);
+}
 
 t_bool	ft_lnch_executable(t_vars *v)
 {
@@ -24,6 +37,7 @@ t_bool	ft_lnch_executable(t_vars *v)
 		return (ft_goprompt("fork", __PERROR));
 	if (!pid)
 	{
+		ft_set_io(v);
 		ft_freesecondaries(v);
 		execve(v->cmdpath, v->argv, __environ);
 		perror("execve");

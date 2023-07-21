@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/19 13:10:03 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/21 20:22:59 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,16 @@ typedef struct s_vars
 	char	*set;
 	char	**argv;
 	char	*cmdpath;
+	char	*infile;
+	char	*outfile;
+	char	*limiter;
 	int		status;
 	int		exit_code;
 	int		p1[2];
 	int		p2[2];
 	int		jx;
+	int		infd;
+	int		outfd;
 	t_bool	flg_infile;
 	t_bool	flg_outfile;
 	t_bool	flg_heredoc;

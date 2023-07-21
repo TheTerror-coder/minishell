@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/07/19 13:06:53 by TheTerror        ###   ########lyon.fr    #
+#    Updated: 2023/07/21 14:58:07 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ UTILS_PATH = ./utils/
 PARSING_PATH = ./parsing/
 LAUNCHING_PATH = ./launching/
 PATHTOOLS_PATH = ./pathtools/
+REDIR_TOOLS_PATH = ./redir_tools/
 
 INCLUDE = minishell.h preprocss.h
 
@@ -29,12 +30,13 @@ CFLAGS=				-Wall -Werror -Wextra
 RM =				rm -rf
 
 SRC_MEMTOOLS = $(addprefix $(MEMTOOLS_PATH), initmem.c freemem.c)
-SRC_UTILS = $(addprefix $(UTILS_PATH), checking.c ft_utils1.c)
-SRC_PARSING = $(addprefix $(PARSING_PATH), parseline1.c parseline2.c)
+SRC_UTILS = $(addprefix $(UTILS_PATH), checking.c utils1.c)
+SRC_PARSING = $(addprefix $(PARSING_PATH), parseline1.c parseline2.c parseargv1.c)
 SRC_LAUNCHING = $(addprefix $(LAUNCHING_PATH), launcher.c executable.c)
 SRC_PATHTOOLS = $(addprefix $(PATHTOOLS_PATH), setcmdpath.c getvalidpaths.c utils.c)
+SRC_REDIR_TOOLS = $(addprefix $(REDIR_TOOLS_PATH), ioredir.c heredoc.c)
 SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_PARSING) $(SRC_UTILS) \
-		$(SRC_LAUNCHING) $(SRC_PATHTOOLS)
+		$(SRC_LAUNCHING) $(SRC_PATHTOOLS) $(SRC_REDIR_TOOLS)
 
 OBJ := $(SRC:%.c=%.o)
 

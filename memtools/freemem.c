@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/16 15:22:39 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/21 20:23:08 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ void	ft_freesecondaries(t_vars *v)
 	if (v->set)
 		free(v->set);
 	v->set = NULL;
+	if (v->infile)
+		free(v->infile);
+	v->infile = NULL;
+	if (v->outfile)
+		free(v->outfile);
+	v->outfile = NULL;
+	if (v->limiter)
+		free(v->limiter);
+	v->limiter = NULL;
 }
 
 void	ft_freetvars(t_vars *v)

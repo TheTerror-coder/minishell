@@ -6,19 +6,22 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/19 13:07:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/21 16:11:58 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "preprocss.h"
-#include<stdio.h>
-#include<stdlib.h>
-#include<readline/readline.h>
-#include<readline/history.h>
-#include <sys/wait.h>
+# include "preprocss.h"
+# include<stdio.h>
+# include<stdlib.h>
+# include<sys/types.h>
+# include<sys/stat.h>
+# include<fcntl.h>
+# include<readline/readline.h>
+# include<readline/history.h>
+# include <sys/wait.h>
 
 
 t_bool	ft_minishell(t_vars *v);
@@ -44,5 +47,13 @@ t_bool	ft_isseperator(char c, char *suite);
 char	*ft_setofquote(t_vars *v, char c);
 void	ft_skip_partquoted(char *line, int *i);
 void	ft_freesecondaries(t_vars *v);
+t_bool	ft_ioset_op(int *infd, int *outfd);
+t_bool	ft_fclose(int *fd);
+t_bool	ft_parseargv(t_vars *v);
+void	ft_razflags(t_vars *v);
+t_bool	ft_inredir(t_vars *v);
+t_bool	ft_outredir(t_vars *v);
+t_bool	ft_outappendredir(t_vars *v);
+t_bool	ft_heredocredir(t_vars *v);
 
 #endif

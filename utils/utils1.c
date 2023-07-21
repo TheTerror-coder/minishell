@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils1.c                                        :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/16 14:32:24 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/21 13:59:06 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ t_bool	ft_goprompt(char *msg, t_typ action)
 {
 	if (!msg)
 		return (__FALSE);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	if (action == PRINT_ERROR)
-		ft_putendl_fd(msg, 1);
+		ft_putendl_fd(msg, STDERR_FILENO);
 	else
 		perror(msg);
 	return (__FALSE);
@@ -65,4 +66,46 @@ char	*ft_setofquote(t_vars *v, char c)
 		free(v->set);
 	v->set = set;
 	return (set);
+}
+
+t_bool	ft_ioset_op(int *infd, int *outfd)
+{
+	if (*infd > -1)
+	{
+		if (close(STDIN_FILENO) == -1)
+			return (ft_goprompt("close STDIN_FILENO", __PERROR));
+		if (dup(*infd) == -1)
+			return (ft_goprompt("dup infd", __PERROR));
+		if (!ft_fclose(infd))
+			return (ft_goprompt("close infd", __PRINT));
+	}
+	if (*outfd > -1)
+	{
+		if (close(STDOUT_FILENO) == -1)
+			return (ft_goprompt("close STDOUT_FILENO", __PERROR));
+		if (dup(*outfd) == -1)
+			return (ft_goprompt("dup outfd", __PERROR));
+		if (!ft_fclose(outfd))
+			return (ft_goprompt("close outfd", __PRINT));
+	}
+	return (__TRUE);
+}
+
+t_bool	ft_fclose(int *fd)
+{
+	if (*fd >= 0)
+	{
+		if (close(*fd) == -1)
+			return (__FALSE);
+		*fd = -111;
+	}
+	return (__TRUE);
+}
+
+void	ft_razflags(t_vars *v)
+{
+	v->flg_infile = __FALSE;
+	v->flg_outfile = __FALSE;
+	v->flg_heredoc = __FALSE;
+	v->flg_outappend = __FALSE;
 }
