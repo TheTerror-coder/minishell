@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/21 16:11:58 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/22 03:22:41 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include<readline/readline.h>
 # include<readline/history.h>
 # include <sys/wait.h>
-
+# include "libft/ft_printf/ft_printf.h"
 
 t_bool	ft_minishell(t_vars *v);
 t_bool	ft_prompt(t_vars *v);
@@ -55,5 +55,7 @@ t_bool	ft_inredir(t_vars *v);
 t_bool	ft_outredir(t_vars *v);
 t_bool	ft_outappendredir(t_vars *v);
 t_bool	ft_heredocredir(t_vars *v);
+
+t_bool	ft_echo(t_vars *v, t_bool n_option);
 
 #endif

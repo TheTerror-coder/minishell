@@ -17,7 +17,7 @@ t_bool	ft_prompt(t_vars *v)
 {
 	v->line = readline("minishell$ ");
 // ft_putnbr_fd(ft_strlen(v->line), 1);
-	while(!ft_strlen(v->line) || ft_strncmp(v->line, "exit", ft_strlen(v->line)))
+	while(!ft_strlen(v->line) || ft_strncmp(v->line, "exit", 5))
 	{
 		ft_razflags(v);
 		add_history(v->line);
