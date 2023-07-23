@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/22 05:24:18 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/23 04:02:39 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ t_bool	ft_launcher(t_vars *v)
 	if (!strncmp("cd", v->argv[0], 3))
 	{
 		ft_cd(v->argv[1]);
+		return (__TRUE);
+	}
+	if (!strncmp("pwd", v->argv[0], 4))
+	{
+		ft_pwd(v);
 		return (__TRUE);
 	}
 	ft_lnch_executable(v);

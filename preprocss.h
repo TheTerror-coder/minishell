@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/21 20:22:59 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/23 03:53:15 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef enum e_typ
 
 typedef struct s_vars
 {
+	char	**envp;
 	char	*line;
 	char	**paths;
 	char	*str;
