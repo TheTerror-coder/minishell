@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/23 04:01:11 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/23 04:26:04 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ t_bool	ft_outappendredir(t_vars *v);
 t_bool	ft_heredocredir(t_vars *v);
 
 t_bool	ft_echo(t_vars *v, t_bool n_option);
-t_bool	ft_cd(char *s);
+t_bool	ft_cd(char *path, t_vars *v);
 t_bool	ft_pwd(t_vars *v);
 #endif
