@@ -6,44 +6,44 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/07/25 05:16:34 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/26 10:15:24 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *adding_equal(char *s)
+t_bool	get_var_name(char **var, char *str)
 {
 	int	i;
-	char	*cpy;
 
-	cpy = malloc(sizeof(char) * ft_strlen(s) + 2);
 	i = 0;
-	while (s[i])
-	{
-		cpy[i] = s[i];
+	while (str[i] != '=' && str[i])
 		i++;
-	}
-	cpy[i] = '=';
-	cpy[i + 1] = '\0';
-	return (cpy);
+	*var = ft_substr(str, 0, i + 1);
+	if (!(*var))
+		return (__FALSE);
+	return (__TRUE);
 }
 
-t_bool ft_export(t_vars *v, char *env_variable, char *new_txt)
+t_bool	find_var(t_vars *v, char *var, char *str)
 {
-	int	i;
-	char	*s;
+	t_env *tmp;
 
-	i = 0;
-	s = adding_equal(env_variable);
-
-	while (strncmp((v->envp)[i], s, ft_strlen(s)))
-		i++;
-	
-
-int main(void)
+	tmp = v->my_env;
+	while (tmp->next && strncmp(tmp->var, var, ft_strlen(var)))
+		tmp = tmp->next;
+	if (strncmp(tmp->var, var, ft_strlen(var)))
+		return (__FALSE);
+	free(tmp->var);
+	tmp->var = str;
+	return (__TRUE);
+}	
+t_bool	ft_export(t_vars *v, char *str)
 {
-	t_vars *v;
+	char	*var;
 
-	ft_export(v, "SALUT :)");
+	get_var_name(&var, str);
+	if (!find_var(v, var, str) && strchr(str, '='))
+		add_env_var(v, str);	
+	return (0);
 }

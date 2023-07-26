@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/26 06:49:47 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/26 10:06:50 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_bool	ft_setargv(t_vars *v);
 t_bool	ft_goprompt(char *msg, t_typ action);
 
 t_bool	ft_setenv(t_vars *v);
+t_bool	add_env_var(t_vars *v, char *var);
 
 t_bool	ft_checkessentials(t_vars *v);
 void	ft_freetvars(t_vars *v);
@@ -59,6 +60,7 @@ t_bool	ft_outredir(t_vars *v);
 t_bool	ft_outappendredir(t_vars *v);
 t_bool	ft_heredocredir(t_vars *v);
 
+t_bool	ft_export(t_vars *v, char *str);
 t_bool	ft_echo(t_vars *v, t_bool n_option);
 t_bool	ft_cd(char *path, t_vars *v);
 t_bool	ft_pwd(t_vars *v);

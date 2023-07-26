@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/26 05:42:34 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/26 10:00:07 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ t_bool	ft_launcher(t_vars *v)
 	if (!strncmp("env", v->argv[0], 4))
 	{
 		ft_env(v);
+		return (__TRUE);
+	}
+	if (!strncmp("export", v->argv[0], 7))
+	{
+		ft_export(v, v->argv[1]);
 		return (__TRUE);
 	}
 	ft_lnch_executable(v);
