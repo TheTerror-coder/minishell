@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/23 03:53:15 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/26 04:38:27 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,16 @@ typedef enum e_typ
 	PUT_ERROR = 777
 }				t_typ;
 
+typedef struct s_env
+{
+	char		*var;
+	struct	s_env 	*next;
+}			t_env;
+
 typedef struct s_vars
 {
+	t_env	*my_env;
+	char	*pwd;
 	char	**envp;
 	char	*line;
 	char	**paths;
@@ -51,5 +59,4 @@ typedef struct s_vars
 	t_bool	flg_heredoc;
 	t_bool	flg_outappend;
 }				t_vars;
-
 #endif
