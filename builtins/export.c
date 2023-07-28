@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/07/28 06:45:16 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/28 06:54:13 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_bool	print_export(t_vars *v)
 	i = 0;
 	while (s[i])
 	{
-		tmp = adding_quotes(s[i++]);
+		tmp = adding_quotes(s[i]);
 		if (!tmp)
 			return (1);
 		printf("declare -x %s\n", adding_quotes(s[i++]));
