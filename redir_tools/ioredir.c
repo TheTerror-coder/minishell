@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:54:11 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/21 14:57:10 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/24 16:05:02 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ t_bool	ft_inredir(t_vars *v)
 	int	nada;
 
 	nada = -111;
+// if (!v->infile)
+// {
+// ft_putendl_fd("HHHHHHHHHHHH", 2);
+
+// }
 	v->infd = open(v->infile, O_RDONLY);
 	if (v->infd == -1)
 		ft_exitprocss(v, !ft_goprompt(v->infile, __PERROR));

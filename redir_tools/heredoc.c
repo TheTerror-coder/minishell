@@ -6,13 +6,16 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/21 20:12:56 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/26 00:37:35 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	ft_heredoc_op(t_vars *v);
+t_bool	ft_heredoc_op1(t_vars *v);
+t_bool	ft_heredoc_op2(t_vars *v);
+t_bool	ft_openatemp(t_vars *v);
+t_bool	ft_heredocredir2(t_vars *v);
 
 t_bool	ft_heredocredir(t_vars *v)
 {
@@ -20,46 +23,85 @@ t_bool	ft_heredocredir(t_vars *v)
 
 	pid = 0;
 	v->exit_code = EXIT_SUCCESS;
-	if (pipe(v->p1) == -1)
-		ft_exitprocss(v, !ft_goprompt("pipe", PRINT_ERROR));
+	ft_openatemp(v);
 	pid = fork();
 	if (pid == -1)
 		ft_exitprocss(v, !ft_goprompt("fork", PRINT_ERROR));
 	if (pid == 0)
-		if (!ft_heredoc_op(v))
+		if (!ft_heredoc_op1(v))
 			ft_exitprocss(v, EXIT_FAILURE);
+	if (!ft_pwait(v, pid, 0))
+		ft_exitprocss(v, EXIT_FAILURE);
+	if (pipe(v->p1) == -1)
+		ft_exitprocss(v, !ft_goprompt("pipe", PRINT_ERROR));
+	ft_heredocredir2(v);
+	return (__TRUE);
+}
+
+t_bool	ft_heredocredir2(t_vars *v)
+{
+	int	pid;
+
+	pid = 0;
+	v->exit_code = EXIT_SUCCESS;
+	pid = fork();
+	if (pid == -1)
+		ft_exitprocss(v, !ft_goprompt("fork", PRINT_ERROR));
+	if (pid == 0)
+		if (!ft_heredoc_op2(v))
+			ft_exitprocss(v, EXIT_FAILURE);
+	ft_fclose(&v->outfd);
 	ft_fclose(&v->p1[1]);
 	if (!ft_ioset_op(&v->p1[0], &v->p1[1]))
 		ft_exitprocss(v, EXIT_FAILURE);
-	if (!ft_fwait(v, pid, WNOHANG))
+	if (!ft_pwait(v, pid, WNOHANG))
 		ft_exitprocss(v, EXIT_FAILURE);
 	return (__TRUE);
 }
 
-t_bool	ft_heredoc_op(t_vars *v)
+t_bool	ft_heredoc_op1(t_vars *v)
+{
+	char	*line;
+
+	line = NULL;
+	line = readline("> ");
+	while (ft_strncmp(line, v->limiter, ft_strlen(line) + ft_strlen(v->limiter)))
+	{
+		ft_putendl_fd(line, v->outfd);
+		ft_freestr(&line);
+		line = readline("> ");
+	}
+	ft_freestr(&line);
+	ft_fclose(&v->outfd);
+	ft_exitprocss(v, __SUCCEED);
+	return (__FALSE);
+}
+
+t_bool	ft_heredoc_op2(t_vars *v)
 {
 	char	*line;
 
 	line = NULL;
 	ft_fclose(&v->p1[0]);
 	ft_fclose(&v->infd);
-// ft_putendl_fd("ssssssssssssssssss", STDERR_FILENO);
-	line = readline("> ");
-	while (ft_strncmp(line, v->limiter, ft_strlen(line) + ft_strlen(v->limiter)))
+	ft_fclose(&v->outfd);
+	v->infd = open(v->ftemp1, O_RDONLY);
+	if (v->infd == -1)
+		ft_exitprocss(v, !ft_goprompt(v->ftemp1, __PERROR));
+	if (!ft_ioset_op(&v->infd, &v->outfd))
+		ft_exitprocss(v, EXIT_FAILURE);
+	line = get_next_line(STDIN_FILENO);
+	while (line)
 	{
-		ft_putendl_fd(line, v->p1[1]);
-		if (line)
-			free(line);
-		line = readline("> ");
+		ft_putstr_fd(line, v->p1[1]);
+		ft_freestr(&line);
+		line = get_next_line(STDIN_FILENO);
 	}
-	if (line)
-		free(line);
+	ft_freestr(&line);
 	ft_exitprocss(v, EXIT_SUCCESS);
 	return (__FALSE);
 }
 
-
-/*
 t_bool	ft_setftemp(t_vars *v, int n)
 {
 	char	*strnum;
@@ -100,73 +142,3 @@ t_bool	ft_openatemp(t_vars *v)
 		ft_exitprocss(v, !ft_goprompt(v->ftemp1, __PERROR));
 	return (__TRUE);
 }
-
-t_bool	ft_heredocredir(t_vars *v)
-{
-	int	pid;
-
-	pid = 0;
-	v->exit_code = EXIT_SUCCESS;
-	v->infd = ft_fclose(&v->infd);
-	if (pipe(v->p1) == -1)
-		ft_exitprocss(v, !ft_goprompt("pipe", __PERROR));
-	if (!ft_ioset_op(&v->infd, &v->p1[1]))
-		return (__FALSE);
-	pid = fork();
-	if (pid == -1)
-		ft_exitprocss(v, !ft_goprompt("fork", __PERROR));
-	if (pid == 0)
-		if (!ft_heredoc_op(v))
-			ft_exitprocss(EXIT_FAILURE, v);
-	ft_openatemp(v);
-	if (!ft_ioset_op(v, &v->sp[0], &v->p[0][1]))
-		return (__FALSE);
-	if (!ft_fwait(v, pid, WNOHANG))
-		return (__FALSE);
-	return (__TRUE);
-}
-
-t_bool	ft_heredoc_op(t_vars *v)
-{	
-	char	*line;
-
-	line = NULL;
-	ft_fclose(&v->p1[0]);
-	line = readline("> ");
-	while (ft_strncmp(line, v->limiter, ft_strlen(line)))
-	{
-		ft_putendl_fd(line, STDOUT_FILENO);
-		if (line)
-			free(line);
-		line = readline("> ");
-	}
-	if (line)
-		free(line);
-	ft_exitprocss(EXIT_SUCCESS, v);
-	return (__TRUE);
-}
-
-t_bool	ft_collect(t_vars *v)
-{	
-	char	*line;
-
-	line = NULL;
-	line = get_next_line(v->p1[0]);
-	while (line)
-	{
-		ft_putendl_fd(line, v->outfd);
-		if (line)
-			free(line);
-		line = get_next_line(v->p1[0]);
-	}
-	if (line)
-		free(line);
-	ft_fclose(&v->outfd);
-	v->infd = open(v->ftemp1, O_RDONLY);
-	if (v->infd == -1)
-		ft_exitprocss(v, !ft_goprompt(v->ftemp1, __PERROR));
-	if (!ft_ioset_op(&v->infd, &v->outfd))
-		ft_exitprocss(v, !ft_goprompt(NULL, __PERROR));
-	return (__TRUE);
-}
-*/

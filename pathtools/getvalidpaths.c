@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:02:30 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/11 19:58:12 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/26 17:34:57 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ t_bool	ft_rm_path(t_vars *v)
 	free(v->paths[0]);
 	v->paths[0] = str[1];
 	str[1] = NULL;
-	ft_freesplit(str);
+	ft_free2str(&str);
 	return (__TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:35:39 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/10 16:32:48 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/26 15:35:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,6 +296,23 @@ void			ft_putstr_fd(char *s, int fd);
 **		NULL if the allocation fails.
 */
 char			**ft_split(char const *s, char c);
+
+/*
+**ft_splitwset
+**
+**	PARAMETERS
+**		s: The string to be split.
+**		set: The set of delimiting characters.
+**	DESCRIPTION
+**		Allocates (with malloc(3)) and returns an array
+**		of strings obtained by splitting ’s’ using the set of
+**		characters in ’set’ as a delimiters. The array must be
+**		ended by a NULL pointer.
+**	RETURN VALUE
+**		The array of new strings resulting from the split.
+**		NULL if the allocation fails.
+*/
+char			**ft_splitwset(char const *s, char *set);
 
 /*
 **ft_strchr -- locate character in string
@@ -716,12 +733,37 @@ t_list			*ft_lstnew(void *content);
 int				ft_lstsize(t_list *lst);
 
 /*
-**ft_freesplit
+**ft_freestr
 **
+**	PARAMETERS
+**		str: address of the pointer to the memory to free.
 **	DESCRIPTION
-**		free a double pointer of type char so specificly
-**		the pointer returned by ft_split()
+**		free a string pointer (type char*) and reset it to NULL.
+*/
+void			ft_freestr(char **str);
+
+/*
+**ft_freesplit
+***Deprecated** - This function does not actually reset to NULL
+**				the pointer **str after freeing it.
+**				Please use ft_free2str().
+**	PARAMETERS
+**		str: the pointer to free.
+**	DESCRIPTION
+**		free a double pointer (type char**) so specificly
+**		the pointer returned by ft_split().
 */
 void			ft_freesplit(char **str);
+
+/*
+**ft_free2str
+**
+**	PARAMETERS
+**		str: address of the pointer to the memory to free.
+**	DESCRIPTION
+**		free a double pointer (type char**) so specificly
+**		the pointer returned by ft_split() and reset it to NULL.
+*/
+void			ft_free2str(char ***str);
 
 #endif

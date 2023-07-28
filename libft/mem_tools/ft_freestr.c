@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freesplit.c                                     :+:      :+:    :+:   */
+/*   ft_freestr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 17:23:29 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/09 16:36:12 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/07/26 14:35:54 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/07/26 14:36:19 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_freesplit(char **str)
+void	ft_freestr(char **str)
 {
-	int	i;
-
-	i = 0;
-	if (!str)
-		return ;
-	while (str[i])
-	{
-		free(str[i]);
-		str[i] = NULL;
-		i++;
-	}
-	free(str);
-	str = NULL;
+	if (*str)
+		free(*str);
+	*str = NULL;
 }

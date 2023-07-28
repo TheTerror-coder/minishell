@@ -1,0 +1,20 @@
+- ouvrir plusieurs redirections de stdin avec la ligne de commande et 
+comparer avec le comportement sur bash
+- ligne de commande: ''
+- ligne de commande: ""
+- ligne de commande: "  "
+- ligne de commande: '  '
+- ligne de commande: grep rm < 
+- ligne de commande: grep rm < ""
+- ligne de commande: grep rm < ''
+- ligne de commande: grep rm < '  '
+- ligne de commande: grep rm < "  "
+- ligne de commande: < Bible grep Luz > za < zb
+- ligne de commande: < Bible grep Luz >> za < zb
+- ligne de commande: < Bible grep Luz > za > zb
+- ligne de commande: 
+- ligne de commande: 
+- ligne de commande: 
+- ligne de commande: 
+- ligne de commande: 
+- ligne de commande: 

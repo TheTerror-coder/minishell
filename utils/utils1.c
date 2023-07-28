@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/21 13:59:06 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/26 19:19:07 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_bool	ft_goprompt(char *msg, t_typ action)
 {
 	if (!msg)
 		return (__FALSE);
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	// ft_putstr_fd("minishell: ", STDERR_FILENO);
 	if (action == PRINT_ERROR)
 		ft_putendl_fd(msg, STDERR_FILENO);
 	else
@@ -26,7 +26,7 @@ t_bool	ft_goprompt(char *msg, t_typ action)
 
 t_bool	ft_isseperator(char c, char *suite)
 {
-	if (c == ' ')
+	if (c == ' ' || c == '\t')
 		return (__TRUE);
 	if (c == "'"[0])
 	{

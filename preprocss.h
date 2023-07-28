@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/26 04:38:27 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/28 14:51:23 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define __PRINT PRINT_ERROR
 # define __PERROR PUT_ERROR
 # define __EXIT_REACHED 7
+# define __SUCCEED 9 //makes possible to know that the temporary file should not be deleted
+# define __RADICAL "/tmp/ueyjq7ZbZhs26jd"
 
 typedef enum e_typ
 {
@@ -47,6 +49,7 @@ typedef struct s_vars
 	char	*infile;
 	char	*outfile;
 	char	*limiter;
+	char	*ftemp1;
 	int		status;
 	int		exit_code;
 	int		p1[2];

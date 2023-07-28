@@ -1,31 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free2str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 18:15:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/28 14:50:58 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/04/20 17:23:29 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/07/26 16:41:47 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_freesplit(char **str)
 {
-	t_vars	*v;
+	int	i;
 
-	(void) argc;
-	(void) argv;
-	v = ft_initvars();
-	if (!v)
-		return (1);
-	v->envp = envp;
-	ft_set_pwd(v);
-	ft_setenv(v);
-	ft_setpath(v);
-	ft_prompt(v);
-	ft_exitprocss(v, EXIT_SUCCESS);
-	return (0);
+	i = 0;
+	if (!str)
+		return ;
+	while (str[i])
+	{
+		free(str[i]);
+		str[i] = NULL;
+		i++;
+	}
+	free(str);
+	str = NULL;
+}
+
+void	ft_free2str(char ***str)
+{
+	int	i;
+
+	i = 0;
+	if (!*str)
+		return ;
+	while (str[0][i])
+	{
+		free(str[0][i]);
+		str[0][i] = NULL;
+		i++;
+	}
+	free(*str);
+	*str = NULL;
 }

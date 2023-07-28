@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/28 05:51:13 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/28 14:52:17 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ t_bool	ft_checkessentials(t_vars *v);
 void	ft_freetvars(t_vars *v);
 t_bool	ft_lnch_executable(t_vars *v);
 t_bool	ft_launcher(t_vars *v);
-t_bool	ft_fwait(t_vars *var, int pid, int option);
+t_bool	ft_pwait(t_vars *var, int pid, int option);
 t_bool	ft_fclose(int *fd);
-int	ft_setcmdpath(t_vars *v);
+int		ft_set_cmdpath(t_vars *v);
 t_bool	ft_setpath(t_vars *v);
 t_bool	ft_isseperator(char c, char *suite);
 char	*ft_setofquote(t_vars *v, char c);
@@ -60,6 +60,7 @@ t_bool	ft_inredir(t_vars *v);
 t_bool	ft_outredir(t_vars *v);
 t_bool	ft_outappendredir(t_vars *v);
 t_bool	ft_heredocredir(t_vars *v);
+void	ft_freestr(char **str);
 
 t_bool	ft_export(t_vars *v, char *str);
 t_bool	ft_echo(t_vars *v, t_bool n_option);

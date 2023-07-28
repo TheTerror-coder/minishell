@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/26 10:00:07 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/28 14:54:54 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_bool	ft_launcher(t_vars *v)
 		ft_export(v, v->argv[1]);
 		return (__TRUE);
 	}
-	ft_lnch_executable(v);
+	if (!ft_lnch_executable(v))
+		return (__FALSE);
 	return (__TRUE);
 }

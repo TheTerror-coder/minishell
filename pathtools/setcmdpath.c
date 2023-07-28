@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:53:58 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/19 18:22:40 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/26 14:53:10 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,23 @@ t_bool	ft_exitson(t_vars *v);
 t_bool	ft_scp_op(t_vars *v, char *path);
 t_bool	ft_cmdnfnd(t_vars *v);
 
-int	ft_setcmdpath(t_vars *v)
+int	ft_set_cmdpath(t_vars *v)
 {
 	int	i;
 
 	i = 0;
 	v->exit_code = EXIT_SUCCESS;
-// if (!v->cmdlst[v->i])
-// {
-// 	ft_perror(v, EXIT_FAILURE, "command '' not found", __PRINT);
-// 	return (__SKIP);
-// }
+	if (!v->argv[0])
+		return (__TRUE);
+	if (!v->argv[0][0])
+		return (ft_goprompt("command '' not found", __PRINT), __SKIP);
 	if (!ft_chck_cmd(v, v->argv[0], i))
 		return (__FALSE);
 	if (v->exit_code != __EXIT_REACHED)
 		return (ft_scp_op(v, ""));
 	while (v->paths[i])
 	{
-		if (v->cmdpath)
-			free(v->cmdpath);
+		ft_freestr(&v->cmdpath);
 		v->cmdpath = ft_strjoin(v->paths[i], v->argv[0]);
 		if (!ft_chck_cmd(v, v->cmdpath, i))
 			return (__FALSE);
@@ -60,7 +58,7 @@ t_bool	ft_chck_cmd(t_vars *v, char *cmd, int i)
 		return (ft_goprompt("fork", __PERROR));
 	if (!pid)
 		ft_spthson(v, cmd);
-	if (!ft_fwait(v, pid, __WHANG))
+	if (!ft_pwait(v, pid, __WHANG))
 		return (__FALSE);
 	if (v->exit_code != __EXIT_REACHED)
 		return (ft_scp_op(v, v->paths[i]));
@@ -87,7 +85,7 @@ void	ft_spthson(t_vars *v, char *cmd)
 		ft_exitson(v);
 	arg = ft_split(cmd, ' ');
 	execve(cmd, arg, __environ);
-	ft_freesplit(arg);
+	ft_free2str(&arg);
 	ft_exitson(v);
 }
 
