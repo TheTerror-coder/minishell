@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/26 10:06:50 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/28 05:51:13 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_bool	ft_set_pwd(t_vars *v);
 t_bool	ft_setargv(t_vars *v);
 t_bool	ft_goprompt(char *msg, t_typ action);
 
+char	**env_list_to_tab(t_vars *v);
 t_bool	ft_setenv(t_vars *v);
 t_bool	add_env_var(t_vars *v, char *var);
 

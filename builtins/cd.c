@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/07/26 07:23:14 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/07/28 00:15:04 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,17 @@
 
 t_bool ft_cd(char *path, t_vars *v)
 {
-	chdir(path);
+	char	*new_pwd;
+
+	if (chdir(path) == -1)
+	{
+		perror("ft_cd->chdir");
+		return (1);
+	}
 	ft_set_pwd(v);
+	new_pwd = ft_strjoin("PWD=", v->pwd);
+	if (!new_pwd)
+		return (1);
+	ft_export(v, new_pwd);
 	return (0);
 }
