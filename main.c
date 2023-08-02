@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:15:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/28 14:50:58 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 17:07:22 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	v->envp = envp;
 	ft_set_pwd(v);
 	ft_setenv(v);
-	ft_setpath(v);
+	ft_setpath2(v);
 	ft_prompt(v);
 	ft_exitprocss(v, EXIT_SUCCESS);
 	return (0);

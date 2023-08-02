@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipetools.h                                     :+:      :+:    :+:   */
+/*   bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 17:04:18 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/08 15:18:58 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/05/05 20:07:04 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/08/02 17:02:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PIPETOOLS_H
-# define FT_PIPETOOLS_H
+#include "../pipex.h"
 
-# include "../ft_pipex.h"
-
-t_bool	ft_plumber(t_vars *var);
-t_bool	ft_setpath(t_vars *var);
-t_bool	ft_ioset(t_vars *var);
-int		ft_setcmdpath(t_vars *var);
-
-#endif
+t_bool	ft_checkargs(t_vars *v)
+{
+	if (v->var->argc < 2)
+		return (ft_perror(v, EXIT_FAILURE, __AFAULT, __PRINT));
+	return (__TRUE);
+}

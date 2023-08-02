@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:02:30 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/26 17:34:57 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/07/30 15:45:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_getlinepath(void);
 t_bool	ft_rm_path(t_vars *v);
 
-t_bool	ft_setpath(t_vars *v)
+t_bool	ft_setpath2(t_vars *v)
 {
 	char	*line;
 	int		i;

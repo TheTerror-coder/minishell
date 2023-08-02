@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils1.c                                        :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:07:19 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/07 15:13:38 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 17:02:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
+#include "../pipex.h"
 
-t_bool	ft_checkinfile(t_vars *var)
+t_bool	ft_perror(t_vars *v, int status, const char *msg, t_typ action)
 {
-	if (!var->heredoc_flg)
-		if (access(var->argv[1], R_OK) < 0)
-			return (ft_perror(var, EXIT_SUCCESS, var->argv[1], __PERROR));
-	return (__TRUE);
-}
-
-t_bool	ft_perror(t_vars *var, int status, const char *msg, t_typ action)
-{
-	var->exit = status;
+	v->var->exit = status;
 	if (!msg)
 		return (__FALSE);
 	if (action == __PERROR)
@@ -35,25 +27,25 @@ t_bool	ft_perror(t_vars *var, int status, const char *msg, t_typ action)
 	return (__FALSE);
 }
 
-t_bool	ft_waitingroom(t_vars *var)
+t_bool	ft_waitingroom(t_vars *v)
 {
 	int	i;
 	int	fdbk;
 
 	i = 0;
 	fdbk = 0;
-	while (i < var->lcmd)
+	while (i < v->var->lcmd)
 	{
-		if (var->pid[i] > 0)
+		if (v->var->pid[i] > 0)
 		{
-			fdbk = waitpid(var->pid[i], &var->status, __WHANG);
+			fdbk = waitpid(v->var->pid[i], &v->var->status, __WHANG);
 			if (fdbk == -1)
-				return (ft_perror(var, EXIT_FAILURE, "waitpid", __PERROR));
-			if (fdbk == var->pid[i])
+				return (ft_perror(v, EXIT_FAILURE, "waitpid", __PERROR));
+			if (fdbk == v->var->pid[i])
 			{
-				if (WIFEXITED(var->status))
-					var->exit = WEXITSTATUS(var->status);
-				var->pid[i] = -111;
+				if (WIFEXITED(v->var->status))
+					v->var->exit = WEXITSTATUS(v->var->status);
+				v->var->pid[i] = -111;
 			}
 		}
 		i++;
@@ -61,12 +53,12 @@ t_bool	ft_waitingroom(t_vars *var)
 	return (__TRUE);
 }
 
-void	ft_exitprocss(int status, t_vars *var)
+void	ft_exitpipe(int status, t_vars *v)
 {
-	if (var->pid)
-		if (!ft_waitingroom(var))
+	if (v->var->pid)
+		if (!ft_waitingroom(v))
 			status = EXIT_FAILURE;
-	status |= var->exit;
-	ft_free_tvars(var);
-	exit(status);
+	status |= v->var->exit;
+	ft_free_tvars(v->var);
+	ft_exitprocss(v, status);
 }

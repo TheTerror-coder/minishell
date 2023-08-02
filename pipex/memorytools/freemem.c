@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freemem.c                                       :+:      :+:    :+:   */
+/*   freemem.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:06:15 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/08 12:51:33 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 17:02:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memtools.h"
+#include "../pipex.h"
 
-void	ft_free_cmdlst(t_vars *var)
+void	ft_free_cmdlst(t_ppex *var)
 {
 	int	i;
 
@@ -21,9 +21,7 @@ void	ft_free_cmdlst(t_vars *var)
 	{
 		while (i < var->lcmd)
 		{
-			if (var->cmdlst[i])
-				ft_freesplit(var->cmdlst[i]);
-			var->cmdlst[i] = NULL;
+			ft_free2str(&var->cmdlst[i]);
 			i++;
 		}
 		free(var->cmdlst);
@@ -31,7 +29,7 @@ void	ft_free_cmdlst(t_vars *var)
 	}
 }
 
-void	ft_free_p(t_vars *var)
+void	ft_free_p(t_ppex *var)
 {
 	int	i;
 
@@ -46,23 +44,21 @@ void	ft_free_p(t_vars *var)
 	var->p = NULL;
 }
 
-void	ft_free_tvars(t_vars *var)
+void	ft_free_tvars(t_ppex *var)
 {
 	ft_close_tvars(var);
-	if (var->limiter)
-		free(var->limiter);
-	if (var->awhich)
-		ft_freesplit(var->awhich);
 	if (var->cmdlst)
 		ft_free_cmdlst(var);
-	if (var->cmdpath)
-		free(var->cmdpath);
-	if (var->paths)
-		ft_freesplit(var->paths);
+	ft_freestr(&var->pathcmd);
+	ft_free2str(&var->paths);
+	ft_freestr(&var->str);
+	ft_freestr(&var->set);
 	if (var->p)
 		ft_free_p(var);
 	if (var->pid)
 		free(var->pid);
+	var->p = NULL;
+	var->pid = NULL;
 	free(var);
 	var = NULL;
 }

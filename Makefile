@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/07/26 09:07:05 by lmohin           ###   ########.fr        #
+#    Updated: 2023/08/02 17:05:59 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,9 @@ PATHTOOLS_PATH = ./pathtools/
 REDIR_TOOLS_PATH = ./redir_tools/
 BUILTINS_PATH = ./builtins/
 ENVTOOLS_PATH = ./envtools/
+PIPEX_PATH = ./pipex/
 
-INCLUDE = minishell.h preprocss.h
+INCLUDE = minishell.h preminishell.h $(PIPEX_PATH)pipex.h $(PIPEX_PATH)prepipex.h
 
 
 CC = 				cc
@@ -39,8 +40,15 @@ SRC_LAUNCHING = $(addprefix $(LAUNCHING_PATH), launcher.c executable.c)
 SRC_PATHTOOLS = $(addprefix $(PATHTOOLS_PATH), setcmdpath.c getvalidpaths.c utils.c setpwd.c)
 SRC_ENVTOOLS = $(addprefix $(ENVTOOLS_PATH), setenv.c)
 SRC_REDIR_TOOLS = $(addprefix $(REDIR_TOOLS_PATH), ioredir.c heredoc.c)
+SRC_PIPEX = $(addprefix $(PIPEX_PATH), pipex.c) \
+			$(addprefix $(PIPEX_PATH)/utils/, utils1.c utils2.c) \
+			$(addprefix $(PIPEX_PATH)/fpipetools/, plumber.c pathutils1.c pathutils2.c iosetter.c) \
+			$(addprefix $(PIPEX_PATH)/memorytools/, initmem.c freemem.c closer.c) \
+			$(addprefix $(PIPEX_PATH)/parsing/, parsecmd1.c parsecmd2.c) \
+			$(addprefix $(PIPEX_PATH)/bonus/, bonus.c)
 SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_PARSING) $(SRC_UTILS) \
-		$(SRC_LAUNCHING) $(SRC_PATHTOOLS) $(SRC_REDIR_TOOLS) $(SRC_BUILTINS) $(SRC_ENVTOOLS)
+		$(SRC_LAUNCHING) $(SRC_PATHTOOLS) $(SRC_REDIR_TOOLS) $(SRC_BUILTINS) \
+		$(SRC_ENVTOOLS) $(SRC_PIPEX)
 
 OBJ := $(SRC:%.c=%.o)
 

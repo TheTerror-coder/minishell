@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/07/28 00:15:04 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/08/01 14:17:05 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <bsd/string.h>
 #include "../minishell.h"
 
 t_bool ft_cd(char *path, t_vars *v)

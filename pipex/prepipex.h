@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_preprocss.h                                     :+:      :+:    :+:   */
+/*   prepipex.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 12:45:29 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/12 02:15:44 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/08/02 17:00:47 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/08/02 17:00:54 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PREPROCSS_H
-# define FT_PREPROCSS_H
-
-# include "include/libft/libft.h"
+#ifndef PREPIPEX_H
+# define PREPIPEX_H
 
 # define __AFAULT "arguments fault"
 # define __MISSARG "missing arguments"
@@ -33,19 +31,19 @@ typedef enum e_typ
 	PUT_ERROR = 777
 }				t_typ;
 
-typedef struct s_vars
+typedef struct s_ppex
 {
-	t_bool	heredoc_flg;
-	t_bool	infile_flg;
 	int		argc;
 	char	**argv;
-	char	*limiter;
-	char	**awhich;
 	char	***cmdlst;
-	char	*cmdpath;
+	char	*pathcmd;
 	char	**paths;
+	char	*str;
+	char	*set;
 	int		status;
 	int		i;
+	int		d;
+	int		jx;
 	int		lcmd;
 	int		infile_fd;
 	int		outfile_fd;
@@ -54,6 +52,6 @@ typedef struct s_vars
 	int		ff;
 	int		*pid;
 	int		exit;
-}				t_vars;
+}				t_ppex;
 
 #endif

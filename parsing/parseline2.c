@@ -6,11 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 14:37:04 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/28 13:36:59 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 16:42:11 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_bool	ft_trimpipeline(t_vars *v, int i);
 
 t_bool	ft_pipecase(t_vars *v)
 {
@@ -24,13 +26,29 @@ t_bool	ft_pipecase(t_vars *v)
 		return (__FALSE);
 	while (v->argv[i])
 	{
-		v->str = ft_strtrim(v->argv[i], " \t");
+		if (!ft_trimpipeline(v, i))
+			return (__FALSE);
+		i++;
+	}
+	return (__TRUE);
+}
+
+t_bool	ft_trimpipeline(t_vars *v, int i)
+{
+	v->str = ft_strtrim(v->argv[i], " \t");
+	if (!v->str)
+		return (__FALSE);
+	ft_freestr(&v->argv[i]);
+	v->argv[i] = v->str;
+	v->str = NULL;
+	if (v->argv[i][0] == '"' || v->argv[i][0] == '\'')
+	{
+		v->str = ft_strtrim(v->argv[i], ft_setofquote(v, v->argv[i][0]));
 		if (!v->str)
 			return (__FALSE);
 		ft_freestr(&v->argv[i]);
 		v->argv[i] = v->str;
 		v->str = NULL;
-		i++;
 	}
 	return (__TRUE);
 }

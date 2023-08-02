@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   preprocss.h                                        :+:      :+:    :+:   */
+/*   preminishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PREPROCSS_H
-# define PREPROCSS_H
+#ifndef PREMINISHELL_H
+# define PREMINISHELL_H
 
 #include "libft/libft.h"
+#include "./pipex/prepipex.h"
 
 # define __SKIP 2
 # define __WHANG 0
@@ -22,12 +23,6 @@
 # define __EXIT_REACHED 7
 # define __SUCCEED 9 //makes possible to know that the temporary file should not be deleted
 # define __RADICAL "/tmp/ueyjq7ZbZhs26jd"
-
-typedef enum e_typ
-{
-	PRINT_ERROR = 666,
-	PUT_ERROR = 777
-}				t_typ;
 
 typedef struct s_env
 {
@@ -61,5 +56,6 @@ typedef struct s_vars
 	t_bool	flg_outfile;
 	t_bool	flg_heredoc;
 	t_bool	flg_outappend;
+	t_ppex	*var;
 }				t_vars;
 #endif

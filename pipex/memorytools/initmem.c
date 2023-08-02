@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_initmem.c                                       :+:      :+:    :+:   */
+/*   initmem.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:08:46 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/07 16:16:02 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 17:02:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memtools.h"
+#include "../pipex.h"
 
-void	ft_fdinit(t_vars *var)
+t_bool	ft_fdinit(t_ppex *var)
 {
-	var->infile_fd = -111;
-	var->outfile_fd = -111;
+	var->infile_fd = dup(STDIN_FILENO);
+	var->outfile_fd = dup(STDOUT_FILENO);
+	if (var->infile_fd == -1 || var->outfile_fd == -1)
+		return (perror("dup"), __FALSE);
 	var->sp[0] = -111;
 	var->sp[1] = -111;
 	var->ff = -111;
+	return (__TRUE);
 }
 
-t_bool	ft_init_p(t_vars *var)
+t_bool	ft_init_p(t_ppex *var)
 {
 	int	i;
 
@@ -49,7 +52,7 @@ t_bool	ft_init_p(t_vars *var)
 	return (__TRUE);
 }
 
-t_bool	ft_inittab_int(t_vars *var)
+t_bool	ft_inittab_int(t_ppex *var)
 {
 	int	i;
 
@@ -70,33 +73,17 @@ t_bool	ft_inittab_int(t_vars *var)
 	return (__TRUE);
 }
 
-t_vars	*ft_init_tvars(int argc, char **argv)
+t_ppex	*ft_init_tvars(int argc, char **argv)
 {
-	t_vars	*var;
+	t_ppex	*var;
 
 	var = NULL;
-	var = ft_calloc(1, sizeof(t_vars));
+	var = ft_calloc(1, sizeof(t_ppex));
 	if (!var)
-		return (NULL);
-	var->awhich = ft_calloc(3, sizeof(char *));
-	if (!var->awhich)
-		return (NULL);
-	var->heredoc_flg = __FALSE;
-	var->infile_flg = __TRUE;
-	var->limiter = NULL;
+		exit(EXIT_FAILURE);
 	var->argc = argc;
 	var->argv = argv;
-	ft_fdinit(var);
+	if (!ft_fdinit(var))
+		return (NULL);
 	return (var);
 }
-/*
-// t_bool	ft_initoutfl(t_vars *var)
-// {
-// 	var->outfile_fd = open(var->argv[var->argc - 1], \
-// 							O_CREAT | O_WRONLY, __S_OPERM);
-// 	if (var->outfile_fd == -1)
-// 		return (ft_perror(var, EXIT_FAILURE, \
-// 				var->argv[var->argc - 1], __PERROR));
-// 	return (ft_fclose(&var->outfile_fd));
-// }
-*/

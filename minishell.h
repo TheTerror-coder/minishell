@@ -6,16 +6,16 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/28 14:52:17 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 17:04:36 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "./preminishell.h"
 # include<errno.h>
 # include<string.h>
-# include "preprocss.h"
 # include<stdio.h>
 # include<stdlib.h>
 # include<sys/types.h>
@@ -23,8 +23,12 @@
 # include<fcntl.h>
 # include<readline/readline.h>
 # include<readline/history.h>
-# include <sys/wait.h>
-# include "libft/ft_printf/ft_printf.h"
+# include<sys/wait.h>
+# include<bsd/string.h>
+# include<unistd.h>
+
+# include "./libft/ft_printf/ft_printf.h"
+# include "./pipex/pipex.h"
 
 t_bool	ft_minishell(t_vars *v);
 t_bool	ft_prompt(t_vars *v);
@@ -47,7 +51,7 @@ t_bool	ft_launcher(t_vars *v);
 t_bool	ft_pwait(t_vars *var, int pid, int option);
 t_bool	ft_fclose(int *fd);
 int		ft_set_cmdpath(t_vars *v);
-t_bool	ft_setpath(t_vars *v);
+t_bool	ft_setpath2(t_vars *v);
 t_bool	ft_isseperator(char c, char *suite);
 char	*ft_setofquote(t_vars *v, char c);
 void	ft_skip_partquoted(char *line, int *i);
