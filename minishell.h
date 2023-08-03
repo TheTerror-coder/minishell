@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/02 17:04:36 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 03:08:26 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_bool	ft_lmanager(t_vars *v);
 t_vars	*ft_initvars(void);
 void	ft_exitprocss(t_vars *v, int status);
 
-t_bool	ft_set_pwd(t_vars *v);
 t_bool	ft_setargv(t_vars *v);
 t_bool	ft_goprompt(char *msg, t_typ action);
 
@@ -68,7 +67,7 @@ void	ft_freestr(char **str);
 
 t_bool	ft_export(t_vars *v, char *str);
 t_bool	ft_echo(t_vars *v, t_bool n_option);
-t_bool	ft_cd(char *path, t_vars *v);
-t_bool	ft_pwd(t_vars *v);
+t_bool	ft_cd(t_vars *v);
+t_bool	ft_pwd(void);
 t_bool	ft_env(t_vars *v);
 #endif

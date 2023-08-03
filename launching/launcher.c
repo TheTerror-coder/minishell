@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/28 14:54:54 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 03:08:59 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ t_bool	ft_launcher(t_vars *v)
 {
 	if (!strncmp("echo", v->argv[0], 5))
 	{
-		if (v->argv[1] != NULL && strncmp("-n", v->argv[1], 3) == 0)
-			ft_echo(v, 0);
-		else
+		if (v->argv[1] && strncmp("-n", v->argv[1], 3) == 0)
 			ft_echo(v, 1);
+		else
+			ft_echo(v, 0);
 		return (__TRUE);
 	}
 	if (!strncmp("cd", v->argv[0], 3))
 	{
-		ft_cd(v->argv[1], v);
+		ft_cd(v);
 		return (__TRUE);
 	}
 	if (!strncmp("pwd", v->argv[0], 4))
 	{
-		ft_pwd(v);
+		ft_pwd( );
 		return (__TRUE);
 	}
 	if (!strncmp("env", v->argv[0], 4))

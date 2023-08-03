@@ -16,8 +16,7 @@ t_bool	ft_echo(t_vars *v, t_bool n_option)
 {
 	int	i;
 
-	i = 1;
-
+	i = 1 + n_option;
 	while (v->argv[i] != NULL)
 	{
 		printf("%s", v->argv[i]);

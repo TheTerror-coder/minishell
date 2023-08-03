@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/07/28 06:54:13 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/08/03 05:10:52 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_bool	find_var(t_vars *v, char *var, char *str)
 	if (strncmp(tmp->var, var, ft_strlen(var)))
 		return (__FALSE);
 	free(tmp->var);
-	tmp->var = str;
+	tmp->var = ft_strdup(str);
 	return (__TRUE);
 }
 
