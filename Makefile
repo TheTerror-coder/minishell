@@ -6,13 +6,13 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/08/04 18:19:18 by lmohin           ###   ########.fr        #
+#    Updated: 2023/08/04 18:58:35 by lmohin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 LIBFT_LIB = $(LIBFT_PATH)/libft.a
-LIBFTPRINT_LIB = $(LIBFTPRINTF_PATH)/libftprintf.a
+LIBFTPRINTF_LIB = $(LIBFTPRINTF_PATH)/libftprintf.a
 
 LIBFT_PATH = ./libft/
 LIBFTPRINTF_PATH = ./libft/ft_printf/
@@ -40,7 +40,7 @@ SRC_UTILS = $(addprefix $(UTILS_PATH), checking.c utils1.c)
 SRC_PARSING = $(addprefix $(PARSING_PATH), parseline1.c parseline2.c parseargv1.c setpipeline.c)
 SRC_LAUNCHING = $(addprefix $(LAUNCHING_PATH), launcher.c executable.c)
 SRC_PATHTOOLS = $(addprefix $(PATHTOOLS_PATH), setcmdpath.c getvalidpaths.c utils.c)
-SRC_ENVTOOLS = $(addprefix $(ENVTOOLS_PATH), setenv.c)
+SRC_ENVTOOLS = $(addprefix $(ENVTOOLS_PATH), setenv.c env_utils.c)
 SRC_REDIR_TOOLS = $(addprefix $(REDIR_TOOLS_PATH), ioredir.c heredoc.c)
 SRC_PIPEX =	$(addprefix $(PIPEX_PATH), pipex.c) \
 			$(addprefix $(PIPEX_PATH)/utils/, utils1.c utils2.c) \
