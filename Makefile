@@ -6,14 +6,16 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/08/04 14:24:01 by TheTerror        ###   ########lyon.fr    #
+#    Updated: 2023/08/04 18:19:18 by lmohin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 LIBFT_LIB = $(LIBFT_PATH)/libft.a
+LIBFTPRINT_LIB = $(LIBFTPRINTF_PATH)/libftprintf.a
 
 LIBFT_PATH = ./libft/
+LIBFTPRINTF_PATH = ./libft/ft_printf/
 OBJECTS_PATH = ./objects/
 MEMTOOLS_PATH = ./memtools/
 UTILS_PATH = ./utils/
@@ -32,7 +34,7 @@ CC = 				cc
 CFLAGS=				-Wall -Werror -Wextra	
 RM =				rm -rf
 
-SRC_BUILTINS = $(addprefix $(BUILTINS_PATH), export.c echo.c cd.c pwd.c env.c)
+SRC_BUILTINS = $(addprefix $(BUILTINS_PATH), export.c echo.c cd.c cd_options.c pwd.c env.c)
 SRC_MEMTOOLS = $(addprefix $(MEMTOOLS_PATH), initmem.c freemem.c)
 SRC_UTILS = $(addprefix $(UTILS_PATH), checking.c utils1.c)
 SRC_PARSING = $(addprefix $(PARSING_PATH), parseline1.c parseline2.c parseargv1.c setpipeline.c)
@@ -51,14 +53,14 @@ SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_PARSING) $(SRC_UTILS) \
 
 OBJ := $(SRC:%.c=%.o)
 
-%.o : %.c $(INCLUDE) $(LIBFT_LIB)
+%.o : %.c $(INCLUDE) $(LIBFT_LIB) $(LIBFTPRINTF_LIB)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 
 all : make_libft $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) -lbsd $(CFLAGS) $(OBJ) $(LIBFT_LIB)  -I. -lreadline -o $@
+	$(CC) -lbsd $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(LIBFTPRINTF_LIB) -I. -lreadline -o $@
 
 make_libft :
 	make -C $(LIBFT_PATH)

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/04 14:24:16 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/04 18:27:37 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_bool	ft_setargv(t_vars *v);
 t_bool	ft_goprompt(char *msg, t_typ action);
 
 char	**env_list_to_tab(t_vars *v);
+char	*check_env_var_set(t_vars *v, char *var);
 t_bool	ft_setenv(t_vars *v);
 t_bool	add_env_var(t_vars *v, char *var);
 
@@ -70,6 +71,9 @@ t_bool	ft_setpipeline(t_vars *v);
 t_bool	ft_export(t_vars *v, char *str);
 t_bool	ft_echo(t_vars *v, t_bool n_option);
 t_bool	ft_cd(t_vars *v);
+t_bool	ft_cd_no_args(t_vars *v);
+t_bool	ft_cd_oldpwd_case(t_vars *v);
+t_bool	testing_split_cdpath(t_vars *v, char **split_cdpath);
 t_bool	ft_pwd(void);
 t_bool	ft_env(t_vars *v);
 #endif
