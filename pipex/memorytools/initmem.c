@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:08:46 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/02 17:02:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 22:03:28 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_bool	ft_init_p(t_ppex *var)
 	int	i;
 
 	i = 0;
-	while (i < var->lcmd)
+	while (i < var->nbcmd)
 	{
 		var->p[i] = ft_calloc(2, sizeof(int));
 		if (!var->p[i])
@@ -57,15 +57,15 @@ t_bool	ft_inittab_int(t_ppex *var)
 	int	i;
 
 	i = 0;
-	var->pid = ft_calloc(var->lcmd, sizeof(int));
+	var->pid = ft_calloc(var->nbcmd, sizeof(int));
 	if (!var->pid)
 		return (__FALSE);
-	while (i < var->lcmd)
+	while (i < var->nbcmd)
 	{
 		var->pid[i] = -111;
 		i++;
 	}
-	var->p = ft_calloc(var->lcmd, sizeof(int *));
+	var->p = ft_calloc(var->nbcmd, sizeof(int *));
 	if (!var->p)
 		return (__FALSE);
 	if (!ft_init_p(var))
@@ -73,7 +73,7 @@ t_bool	ft_inittab_int(t_ppex *var)
 	return (__TRUE);
 }
 
-t_ppex	*ft_init_tvars(int argc, char **argv)
+t_ppex	*ft_init_tvars(int nbcmd, char ***cmdlst)
 {
 	t_ppex	*var;
 
@@ -81,9 +81,11 @@ t_ppex	*ft_init_tvars(int argc, char **argv)
 	var = ft_calloc(1, sizeof(t_ppex));
 	if (!var)
 		exit(EXIT_FAILURE);
-	var->argc = argc;
-	var->argv = argv;
+	var->nbcmd = nbcmd;
+	var->cmdlst = cmdlst;
 	if (!ft_fdinit(var))
+		return (NULL);
+	if (!ft_inittab_int(var))
 		return (NULL);
 	return (var);
 }

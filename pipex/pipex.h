@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 12:44:15 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/02 16:59:53 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 22:47:27 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "../minishell.h"
 
-t_bool	ft_pipeline(t_vars *v, int argc, char **argv);
-t_ppex	*ft_init_tvars(int argc, char **argv);
+t_bool	ft_pipeline(t_vars *v, int nbcmd, char ***cmdlst);
+t_ppex	*ft_init_tvars(int nbcmd, char ***cmdlst);
 void	ft_free_tvars(t_ppex *var);
 t_bool	ft_fclose0(int *fd);
 t_bool	ft_close_tvars(t_ppex *var);
@@ -30,8 +30,6 @@ t_bool	ft_ioset(t_vars *v);
 t_bool	ft_fwait(t_vars *v, int pid, int option);
 t_bool	ft_plumber(t_vars *v);
 t_bool	ft_setpath(t_vars *v);
-t_bool	ft_ioset(t_vars *v);
 int		ft_setcmdpath(t_vars *v);
-t_bool	ft_checkargs(t_vars *v);
 
 #endif

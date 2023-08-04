@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/26 19:19:07 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 21:19:42 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,5 @@ void	ft_razflags(t_vars *v)
 	v->flg_outfile = __FALSE;
 	v->flg_heredoc = __FALSE;
 	v->flg_outappend = __FALSE;
+	v->flg_pipeline = __FALSE;
 }

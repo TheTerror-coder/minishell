@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 13:35:39 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/26 15:35:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/02 21:31:32 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -765,5 +765,17 @@ void			ft_freesplit(char **str);
 **		the pointer returned by ft_split() and reset it to NULL.
 */
 void			ft_free2str(char ***str);
+
+/*
+**ft_2strlen -- calculate the length of a NulTerminated array of strings
+**
+**	DESCRIPTION
+**		The ft_2strlen() function calculates the length of the array of strings
+**		pointed to by str, excluding the terminating null byte ('\0').
+**	RETURN VALUE
+**		The ft_strlen() function returns the number of bytes in the string
+**		pointed to by s.
+*/
+unsigned int	ft_2strlen(char **sstr);
 
 #endif

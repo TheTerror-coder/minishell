@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:06:15 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/02 17:02:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 22:47:10 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_free_cmdlst(t_ppex *var)
 	i = 0;
 	if (var->cmdlst)
 	{
-		while (i < var->lcmd)
+		while (i < var->nbcmd)
 		{
 			ft_free2str(&var->cmdlst[i]);
 			i++;
@@ -34,7 +34,7 @@ void	ft_free_p(t_ppex *var)
 	int	i;
 
 	i = 0;
-	while (i < var->lcmd)
+	while (i < var->nbcmd)
 	{
 		free(var->p[i]);
 		var->p[i] = NULL;

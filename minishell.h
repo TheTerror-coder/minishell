@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/03 03:08:26 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/08/04 14:24:16 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_bool	ft_isseperator(char c, char *suite);
 char	*ft_setofquote(t_vars *v, char c);
 void	ft_skip_partquoted(char *line, int *i);
 void	ft_freesecondaries(t_vars *v);
+void	ft_free_lst(t_vars *v);
+
 t_bool	ft_ioset_op(int *infd, int *outfd);
 t_bool	ft_fclose(int *fd);
 t_bool	ft_parseargv(t_vars *v);
@@ -63,7 +65,7 @@ t_bool	ft_inredir(t_vars *v);
 t_bool	ft_outredir(t_vars *v);
 t_bool	ft_outappendredir(t_vars *v);
 t_bool	ft_heredocredir(t_vars *v);
-void	ft_freestr(char **str);
+t_bool	ft_setpipeline(t_vars *v);
 
 t_bool	ft_export(t_vars *v, char *str);
 t_bool	ft_echo(t_vars *v, t_bool n_option);

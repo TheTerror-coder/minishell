@@ -14,19 +14,20 @@
 
 t_bool	ft_pipex(t_vars *v);
 
-t_bool	ft_pipeline(t_vars *v, int argc, char **argv)
+t_bool	ft_pipeline(t_vars *v, int nbcmd, char ***cmdlst)
 {
 	t_ppex	*var;
 
 	var = NULL;
-	var = ft_init_tvars(argc, argv);
+	var = ft_init_tvars(nbcmd, cmdlst);
 	v->var = var;
 	if (!var)
 		ft_exitpipe(EXIT_FAILURE, v);
 	if (!ft_checkargs(v))
 		ft_exitpipe(var->exit, v);
-	if (!ft_set_cmdlist(v))
-		ft_exitpipe(EXIT_FAILURE, v);
+// ft_set_cmdlist(v);
+// ft_putendl_fd("eheheeheh", 2);
+
 	if (!ft_setpath(v))
 		ft_exitpipe(EXIT_FAILURE, v);
 	if (!ft_pipex(v))
@@ -40,7 +41,7 @@ t_bool	ft_pipex(t_vars *v)
 	t_ppex	*var;
 
 	var = v->var;
-	while (var->i < var->lcmd)
+	while (var->i < var->nbcmd)
 	{
 		if (pipe(var->p[var->i]))
 			return (ft_perror(v, EXIT_FAILURE, "pipe", __PERROR));

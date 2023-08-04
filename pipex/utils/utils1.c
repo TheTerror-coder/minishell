@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:07:19 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/02 17:02:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 21:54:28 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_bool	ft_waitingroom(t_vars *v)
 
 	i = 0;
 	fdbk = 0;
-	while (i < v->var->lcmd)
+	while (i < v->var->nbcmd)
 	{
 		if (v->var->pid[i] > 0)
 		{
@@ -60,5 +60,7 @@ void	ft_exitpipe(int status, t_vars *v)
 			status = EXIT_FAILURE;
 	status |= v->var->exit;
 	ft_free_tvars(v->var);
+	v->lst = NULL;
+	v->var = NULL;
 	ft_exitprocss(v, status);
 }

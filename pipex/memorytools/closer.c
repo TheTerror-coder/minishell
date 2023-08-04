@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:49:42 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/02 17:02:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 21:04:19 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_bool	ft_close_tvars(t_ppex *var)
 	fdbk = ft_fclose0(&var->sp[1]) & fdbk;
 	if (var->p)
 	{
-		while (i < var->lcmd)
+		while (i < var->nbcmd)
 		{
 			fdbk = ft_fclose0(&var->p[i][0]) & fdbk;
 			fdbk = ft_fclose0(&var->p[i][1]) & fdbk;

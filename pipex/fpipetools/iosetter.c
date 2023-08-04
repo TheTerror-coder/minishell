@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 14:13:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/02 17:02:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 21:04:19 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_bool	ft_ioset(t_vars *v)
 		if (!ft_io_firstcmnd(v))
 			return (__FALSE);
 	}
-	else if (var->i < (var->lcmd - 1))
+	else if (var->i < (var->nbcmd - 1))
 	{
 		if (!ft_op_ioset(v, &var->ff, &var->p[var->i][1]))
 			return (__FALSE);

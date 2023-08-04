@@ -45,17 +45,20 @@ typedef struct s_vars
 	char	*outfile;
 	char	*limiter;
 	char	*ftemp1;
+	char	***lst;
 	int		status;
 	int		exit_code;
 	int		p1[2];
 	int		p2[2];
 	int		jx;
+	int		nb;
 	int		infd;
 	int		outfd;
 	t_bool	flg_infile;
 	t_bool	flg_outfile;
 	t_bool	flg_heredoc;
 	t_bool	flg_outappend;
+	t_bool	flg_pipeline;
 	t_ppex	*var;
 }				t_vars;
 #endif

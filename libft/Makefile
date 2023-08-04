@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/10 15:29:29 by TheTerror         #+#    #+#              #
-#    Updated: 2023/07/26 15:36:39 by TheTerror        ###   ########lyon.fr    #
+#    Updated: 2023/08/02 21:32:04 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ SRC_MEM_TOOLS =		$(addprefix $(MEM_TOOLS_PATH), ft_memset.c ft_bzero.c ft_memcpy
 SRC_PRINT_TOOLS = 	$(addprefix $(PRINT_TOOLS_PATH), ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c)
 SRC_STR_TOOLS =		$(addprefix $(STR_TOOLS_PATH), ft_strlen.c ft_strlcpy.c ft_strlcat.c  ft_strchr.c \
 					ft_strrchr.c ft_strncmp.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c \
-					ft_strnstr.c ft_striteri.c ft_strmapi.c ft_splitwset.c)
+					ft_strnstr.c ft_striteri.c ft_strmapi.c ft_splitwset.c ft_2strlen.c)
 SRC_VARIOUS =		$(addprefix $(VARIOUS_PATH), ft_atoi.c ft_itoa.c)
 SRC_LIST_TOOLS =	$(addprefix $(LIST_TOOLS_PATH), ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
 					ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c)

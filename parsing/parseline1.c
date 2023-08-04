@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:49:16 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/28 15:06:37 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 14:15:33 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ t_bool	ft_setargv(t_vars *v)
 	if (!v->argv || !v->argv[0])
 		return (ft_goprompt(NULL, PRINT_ERROR));
 	if (ft_strchr(v->line, '|'))
-		return (ft_pipecase(v));
-	else
-		if (!ft_parseline(v, 0))
-			return (__FALSE);
+		ft_pipecase(v);
+	if (!ft_parseline(v, 0))
+		return (__FALSE);
 // int	i;
 // i = 0;
 // while (v->argv[i])

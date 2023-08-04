@@ -6,36 +6,49 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/26 14:53:10 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 22:52:55 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	ft_free_lst(t_vars *v)
+{
+	int	i;
+
+	i = 0;
+	if (v->lst)
+	{
+		while (i < v->nb)
+		{
+			ft_free2str(&v->lst[i]);
+			i++;
+		}
+		free(v->lst);
+		v->lst = NULL;
+	}
+}
 
 void	ft_freesecondaries(t_vars *v)
 {
 	ft_freestr(&v->line);
-	if (v->paths)
-		ft_free2str(&v->paths);
-	v->paths = NULL;
+	ft_free2str(&v->paths);
 	ft_freestr(&v->str);
 	ft_freestr(&v->set);
 	ft_freestr(&v->infile);
 	ft_freestr(&v->outfile);
 	ft_freestr(&v->limiter);
 	ft_freestr(&v->ftemp1);
+	ft_free_lst(v);
 }
 
 void	ft_freetvars(t_vars *v)
 {
 	ft_freesecondaries(v);
-	if (v->argv)
-		ft_free2str(&v->argv);
-	v->argv = NULL;
-	if (v->cmdpath)
-		free(v->cmdpath);
-	v->cmdpath = NULL;
+	ft_free2str(&v->argv);
+	ft_freestr(&v->cmdpath);
+	if (v->var)
+		free(v->var);
 	free(v);
 	v = NULL;
 }

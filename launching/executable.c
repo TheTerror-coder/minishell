@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/24 17:39:35 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 23:15:25 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ t_bool	ft_execute(t_vars *v)
 
 	line = NULL;
 	ft_set_io(v);
-	ft_freesecondaries(v);
+	if (v->flg_pipeline)
+		ft_pipeline(v, v->nb, v->lst);
 	if (!v->argv[0])
 	{
 		line = get_next_line(STDIN_FILENO);
@@ -67,6 +68,7 @@ t_bool	ft_execute(t_vars *v)
 		ft_freestr(&line);
 		ft_exitprocss(v, EXIT_SUCCESS);
 	}
+	ft_freesecondaries(v);
 	execve(v->cmdpath, v->argv, __environ);
 	perror("execve");
 	ft_exitprocss(v, __EXIT_REACHED);

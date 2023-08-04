@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 17:00:47 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/02 17:00:54 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/03 21:55:47 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ typedef enum e_typ
 
 typedef struct s_ppex
 {
-	int		argc;
-	char	**argv;
 	char	***cmdlst;
 	char	*pathcmd;
 	char	**paths;
@@ -44,7 +42,7 @@ typedef struct s_ppex
 	int		i;
 	int		d;
 	int		jx;
-	int		lcmd;
+	int		nbcmd;
 	int		infile_fd;
 	int		outfile_fd;
 	int		sp[2];

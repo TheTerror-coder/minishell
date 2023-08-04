@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus.c                                            :+:      :+:    :+:   */
+/*   ft_2strlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 20:07:04 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/03 21:59:07 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/08/02 21:26:06 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/08/02 21:31:46 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../libft.h"
 
-t_bool	ft_checkargs(t_vars *v)
+unsigned int	ft_2strlen(char **sstr)
 {
-	if (v->var->nbcmd < 2)
-		return (ft_perror(v, EXIT_FAILURE, __AFAULT, __PRINT));
-	return (__TRUE);
+	int	i;
+
+	i = 0;
+	if (!sstr)
+		return (0);
+	while (sstr[i])
+		i++;
+	return (i);
 }
