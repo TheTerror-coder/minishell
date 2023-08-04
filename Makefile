@@ -6,16 +6,14 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/08/04 18:58:35 by lmohin           ###   ########.fr        #
+#    Updated: 2023/08/04 19:14:06 by lmohin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 LIBFT_LIB = $(LIBFT_PATH)/libft.a
-LIBFTPRINTF_LIB = $(LIBFTPRINTF_PATH)/libftprintf.a
 
 LIBFT_PATH = ./libft/
-LIBFTPRINTF_PATH = ./libft/ft_printf/
 OBJECTS_PATH = ./objects/
 MEMTOOLS_PATH = ./memtools/
 UTILS_PATH = ./utils/
@@ -53,14 +51,14 @@ SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_PARSING) $(SRC_UTILS) \
 
 OBJ := $(SRC:%.c=%.o)
 
-%.o : %.c $(INCLUDE) $(LIBFT_LIB) $(LIBFTPRINTF_LIB)
+%.o : %.c $(INCLUDE) $(LIBFT_LIB)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 
 all : make_libft $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) -lbsd $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(LIBFTPRINTF_LIB) -I. -lreadline -o $@
+	$(CC) -lbsd $(CFLAGS) $(OBJ) $(LIBFT_LIB) -I. -lreadline -o $@
 
 make_libft :
 	make -C $(LIBFT_PATH)

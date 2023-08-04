@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 03:58:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/08/04 09:31:07 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/08/04 19:15:00 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ t_bool	ft_pwd(void)
 	
 	pwd = getcwd(NULL, 0);
 	if (pwd)
-		ft_printf("%s\n", pwd);
+	{
+		ft_putstr_fd(pwd, 1);
+		ft_putchar_fd('\n', 1);
+	}
 	else
 		perror("minishell: ft_pwd:");
 	free(pwd);
