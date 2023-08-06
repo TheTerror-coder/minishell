@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/08/04 19:14:06 by lmohin           ###   ########.fr        #
+#    Updated: 2023/08/06 04:45:18 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ CC = 				cc
 CFLAGS=				-Wall -Werror -Wextra	
 RM =				rm -rf
 
-SRC_BUILTINS = $(addprefix $(BUILTINS_PATH), export.c echo.c cd.c cd_options.c pwd.c env.c)
+SRC_BUILTINS = $(addprefix $(BUILTINS_PATH), unset.c export.c echo.c cd.c cd_options.c pwd.c env.c)
 SRC_MEMTOOLS = $(addprefix $(MEMTOOLS_PATH), initmem.c freemem.c)
 SRC_UTILS = $(addprefix $(UTILS_PATH), checking.c utils1.c)
 SRC_PARSING = $(addprefix $(PARSING_PATH), parseline1.c parseline2.c parseargv1.c setpipeline.c)

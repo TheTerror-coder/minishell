@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:15:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/03 03:07:09 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/08/06 06:41:31 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	v->envp = envp;
 	ft_setenv(v);
+	if (!ft_setenv(v))
+	{
+		perror("minishell: ft_setenv");
+		return (0);
+	}
 	ft_setpath2(v);
 	ft_prompt(v);
 	ft_exitprocss(v, EXIT_SUCCESS);

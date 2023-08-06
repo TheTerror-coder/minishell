@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/03 22:52:55 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/06 05:38:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_freetvars(t_vars *v)
 	ft_freesecondaries(v);
 	ft_free2str(&v->argv);
 	ft_freestr(&v->cmdpath);
+	ft_freeenv(v);
 	if (v->var)
 		free(v->var);
 	free(v);

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/08/04 18:13:37 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/08/06 06:33:51 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,30 @@
 t_bool	set_pwd_and_oldpwd(t_vars *v, char *old_pwd)
 {
 	char	*new_pwd;
+	char	*tmp_pwd;
 
-	new_pwd = getcwd(NULL, 0);
-	if (!new_pwd)
+	tmp_pwd = getcwd(NULL, 0);
+	if (!tmp_pwd)
 	{
+		free(old_pwd);
 		perror("minishell: cd");
 		return (__FALSE);
 	}
-	new_pwd = ft_strjoin("PWD=", new_pwd);
-	old_pwd = ft_strjoin("OLDPWD=", old_pwd);
+	new_pwd = ft_strjoin("PWD=", tmp_pwd);
+	free(tmp_pwd);
+	tmp_pwd = ft_strjoin("OLDPWD=", old_pwd);
+	free(old_pwd);
 	if (!new_pwd || !old_pwd)
 	{
 		perror("minishell: cd");
 		return (__FALSE);
 	}
 	ft_export(v, new_pwd);
-	ft_export(v, old_pwd);
+	ft_export(v, tmp_pwd);
 	/*if (!ft_export(v, new_pwd) || !ft_export(v, old_pwd))
 		return (__FALSE);*/
 	free(new_pwd);
-	free(old_pwd);
+	free(tmp_pwd);
 	return (__TRUE);
 }
 
@@ -72,10 +76,12 @@ t_bool	ft_cd_special_cases(t_vars *v, char *old_pwd)
 	{
 		if (ft_cd_no_args(v))
 			return (set_pwd_and_oldpwd(v, old_pwd));
+		free(old_pwd);
 		return (__FALSE);
 	}
 	if (v->argv[2])
 	{
+		free(old_pwd);
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
 		return (__FALSE);
 	}
@@ -83,6 +89,7 @@ t_bool	ft_cd_special_cases(t_vars *v, char *old_pwd)
 	{
 		if (ft_cd_oldpwd_case(v))
 			return (set_pwd_and_oldpwd(v, old_pwd));
+		free(old_pwd);
 		return (__FALSE);
 	}
 	return (__TRUE);
@@ -106,6 +113,7 @@ t_bool	ft_cd(t_vars *v)
 		return (__FALSE);
 	if (chdir(v->argv[1]) == -1)
 	{
+		free(old_pwd);
 		perror("minishell: cd");
 		return (__FALSE);
 	}

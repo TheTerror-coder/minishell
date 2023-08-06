@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/03 03:08:59 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/08/06 04:44:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,14 @@ t_bool	ft_launcher(t_vars *v)
 		ft_export(v, v->argv[1]);
 		return (__TRUE);
 	}
+	if (!strncmp("unset", v->argv[0], 6))
+	{
+		ft_unset(v);
+		return (__TRUE);
+	}
 	if (!ft_lnch_executable(v))
+	{
 		return (__FALSE);
+	}
 	return (__TRUE);
 }
