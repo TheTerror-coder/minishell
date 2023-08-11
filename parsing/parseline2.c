@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 14:37:04 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/03 22:51:04 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/10 16:58:55 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_bool	ft_pipecase(t_vars *v)
 	v->lst = ft_calloc(v->nb + 1, sizeof(char **));
 	ft_free2str(&sstr);
 	if (!v->lst)
-		return(ft_goprompt("failed allocation", PRINT_ERROR));
+		return(ft_goprompt(__FALLOC, PRINT_ERROR));
 	return (__TRUE);
 }
 

@@ -6,13 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:23:00 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/12 01:59:40 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/07 23:20:19 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_lprintf.h"
+#include "ft_local.h"
 
-t_bool__	ft_swt_type(t_vars *v, va_list args)
+t_bool	ft_swt_type(t_vars *v, va_list args)
 {
 	if (v->fmt[v->i + 1] == 'c')
 		return (ft_op_char(v, (unsigned char) va_arg(args, int)));
@@ -32,16 +32,16 @@ t_bool__	ft_swt_type(t_vars *v, va_list args)
 	{
 		ft_putchar_fd('%', 1);
 		v->len++;
-		return (_TRUE_);
+		return (__TRUE);
 	}
-	return (_FALSE_);
+	return (__FALSE);
 }
 
-t_bool__	ft_op(t_vars *v, va_list args)
+t_bool	ft_op(t_vars *v, va_list args)
 {
-	t_bool__	fdbk;
+	t_bool	fdbk;
 
-	fdbk = _TRUE_;
+	fdbk = __TRUE;
 	if (v->fmt[v->i] == '%')
 	{
 		ft_raz_flags(v);
@@ -50,7 +50,7 @@ t_bool__	ft_op(t_vars *v, va_list args)
 		if (fdbk && ft_istype(v->fmt[v->i + 1]))
 			fdbk = ft_swt_type(v, args);
 		else
-			return (_FALSE_);
+			return (__FALSE);
 		v->i++;
 	}
 	else

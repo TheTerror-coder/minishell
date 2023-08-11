@@ -6,13 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 21:36:00 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/12 02:02:21 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 15:16:16 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_srcs.h"
 
-t_bool__	ft_print_str(t_vars *v, char *str)
+t_bool	ft_print_str(t_vars *v, char *str)
 {
 	int	i;
 
@@ -20,10 +20,10 @@ t_bool__	ft_print_str(t_vars *v, char *str)
 	if (!str)
 	{
 		if (v->_dot && v->precision < 6)
-			return (_TRUE_);
+			return (__TRUE);
 		ft_putstr_fd("(null)", 1);
 		v->len += 6;
-		return (_TRUE_);
+		return (__TRUE);
 	}
 	if (v->_dot)
 	{
@@ -32,19 +32,19 @@ t_bool__	ft_print_str(t_vars *v, char *str)
 			ft_print_char(v, str[i]);
 			i++;
 		}
-		return (_TRUE_);
+		return (__TRUE);
 	}
 	ft_putstr_fd(str, 1);
 	v->len += ft_strlen(str);
-	return (_TRUE_);
+	return (__TRUE);
 }
 
-t_bool__	ft_op_str(t_vars *v, char *str)
+t_bool	ft_op_str(t_vars *v, char *str)
 {
-	t_bool__	fdbk;
-	int			len;
+	t_bool	fdbk;
+	int		len;
 
-	fdbk = _TRUE_;
+	fdbk = __TRUE;
 	len = ft_strlen(str);
 	if (v->_dot && v->precision < len)
 		len = v->precision;
@@ -52,14 +52,14 @@ t_bool__	ft_op_str(t_vars *v, char *str)
 	if (!str && (!v->_dot || v->precision >= 6))
 		len -= 6;
 	if (v->_zero)
-		v->_zero = _FALSE_;
+		v->_zero = __FALSE;
 	if (len > 0 && !v->_dot)
 		fdbk = ft_print_first(v, len);
 	else if (len > 0 && v->_dot)
 	{
-		v->_dot = _FALSE_;
+		v->_dot = __FALSE;
 		fdbk = ft_print_first(v, len);
-		v->_dot = _TRUE_;
+		v->_dot = __TRUE;
 	}
 	if (fdbk)
 		fdbk = ft_print_str(v, str);

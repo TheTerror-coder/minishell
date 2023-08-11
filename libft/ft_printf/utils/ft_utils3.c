@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 18:29:44 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/12 01:59:40 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 15:16:34 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_checkprecision(t_vars *v)
 	if (v->fmt[i + 1] == '.')
 	{
 		i++;
-		v->_dot = _TRUE_;
+		v->_dot = __TRUE;
 		if (ft_isdigit(v->fmt[i + 1]))
 		{
 			v->precision = ft_atoi(&v->fmt[i + 1]);
@@ -39,17 +39,17 @@ void	ft_checkflags(t_vars *v)
 	i = v->i;
 	while (ft_isflag(v->fmt[i + 1]))
 	{
-		v->_noflag = _FALSE_;
+		v->_noflag = __FALSE;
 		if (v->fmt[i + 1] == '-')
-			v->_minus = _TRUE_;
+			v->_minus = __TRUE;
 		else if (v->fmt[i + 1] == '0')
-			v->_zero = _TRUE_;
+			v->_zero = __TRUE;
 		else if (v->fmt[i + 1] == '#')
-			v->_sharp = _TRUE_;
+			v->_sharp = __TRUE;
 		else if (v->fmt[i + 1] == ' ')
-			v->_space = _TRUE_;
+			v->_space = __TRUE;
 		else if (v->fmt[i + 1] == '+')
-			v->_plus = _TRUE_;
+			v->_plus = __TRUE;
 		i++;
 	}
 	v->i = i;
@@ -68,10 +68,10 @@ void	ft_checkwidth(t_vars *v)
 	v->i = i;
 }
 
-t_bool__	ft_checkoptionals(t_vars *v)
+t_bool	ft_checkoptionals(t_vars *v)
 {
 	ft_checkflags(v);
 	ft_checkwidth(v);
 	ft_checkprecision(v);
-	return (_TRUE_);
+	return (__TRUE);
 }

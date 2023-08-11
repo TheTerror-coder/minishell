@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 13:34:15 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/12 02:02:57 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 15:16:13 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@ int	ft_hex_op(unsigned int n, char *base, int printed_len)
 	return (printed_len);
 }
 
-t_bool__	ft_print_hex(t_vars *v, unsigned int n, char up_low)
+t_bool	ft_print_hex(t_vars *v, unsigned int n, char up_low)
 {
 	char	*base;
 
 	base = NULL;
 	base = ft_hexa_base(up_low);
 	if (!base)
-		return (_FALSE_);
+		return (__FALSE);
 	v->len += ft_hex_op(n, base, 0);
 	free(base);
-	return (_TRUE_);
+	return (__TRUE);
 }
 
-t_bool__	ft_sharpcase(t_vars *v, char up_low)
+t_bool	ft_sharpcase(t_vars *v, char up_low)
 {
 	if (v->_sharp)
 	{
@@ -49,15 +49,15 @@ t_bool__	ft_sharpcase(t_vars *v, char up_low)
 			ft_putstr_fd("0x", 1);
 		v->len += 2;
 	}
-	return (_TRUE_);
+	return (__TRUE);
 }
 
-t_bool__	ft_op_hex(t_vars *v, unsigned int n, char up_low)
+t_bool	ft_op_hex(t_vars *v, unsigned int n, char up_low)
 {
-	t_bool__	fdbk;
-	int			len;
+	t_bool	fdbk;
+	int		len;
 
-	fdbk = _TRUE_;
+	fdbk = __TRUE;
 	if (v->_dot)
 		len = v->precision - ft_hexlen((unsigned long long int) n);
 	else

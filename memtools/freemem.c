@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/06 05:38:39 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/11 12:59:57 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_free_lst(t_vars *v)
 	i = 0;
 	if (v->lst)
 	{
-		while (i < v->nb)
+		while (v->lst[i])
 		{
 			ft_free2str(&v->lst[i]);
 			i++;
@@ -62,6 +62,7 @@ void	ft_closetvars(t_vars *v)
 	ft_fclose(&v->p2[1]);
 	ft_fclose(&v->infd);
 	ft_fclose(&v->outfd);
+	ft_fclose(&v->hdoc_fd);
 }
 
 void	ft_exitprocss(t_vars *v, int status)

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/02 21:19:42 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/10 16:46:57 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 
 t_bool	ft_goprompt(char *msg, t_typ action)
 {
+	exitstatus = EXIT_FAILURE;
+	if (!msg)
+		return (__FALSE);
+	// ft_putstr_fd("minishell: ", STDERR_FILENO);
+	if (action == PRINT_ERROR)
+		ft_putendl_fd(msg, STDERR_FILENO);
+	else
+		perror(msg);
+	return (__FALSE);
+}
+
+t_bool	ft_leave(char *msg, t_typ action)
+{
+	exitstatus = EXIT_FAILURE;
 	if (!msg)
 		return (__FALSE);
 	// ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -109,4 +123,18 @@ void	ft_razflags(t_vars *v)
 	v->flg_heredoc = __FALSE;
 	v->flg_outappend = __FALSE;
 	v->flg_pipeline = __FALSE;
+}
+
+t_bool	ft_adjustargv(t_vars *v, int a, int b)
+{
+	free(v->argv[a]);
+	v->argv[a] = NULL;
+	while (v->argv[b])
+	{
+		v->argv[a] = v->argv[b];
+		v->argv[b] = NULL;
+		a++;
+		b++;
+	}
+	return (__TRUE);
 }

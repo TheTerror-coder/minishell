@@ -1,5 +1,12 @@
 - ouvrir plusieurs redirections de stdin avec la ligne de commande et 
 comparer avec le comportement sur bash
+Sur bash lorsqu'il y'a plusieurs entrees possibles sur la ligne de commandes, la derniere est celle qui sera 
+ouverte en entree standard  à condition que toute celles qui precedent soit ouvrables (droit sur le fichier)
+sinon la commande n'est pas executée.
+Alors que sur notre minishell, meme si les droits sur les autres fichiers sont restreints 
+(fichiers non ouvrables), et que la derniere entrée soit ouvrable, la commande est executée:
+seule la derniere entrée est prise en considération.
+Il en va exactement de même pour les sorties sur la ligne de commande.
 - ligne de commande: ''
 - ligne de commande: ""
 - ligne de commande: "  "

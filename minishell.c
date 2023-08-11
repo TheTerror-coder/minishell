@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:13 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/05 22:12:28 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/08/11 12:56:49 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_bool ft_minishell(t_vars *v)
 
 t_bool ft_lmanager(t_vars *v)
 {
-	ft_checkessentials(v);
 	if (!ft_setargv(v))
 		return (__FALSE);
 	if (!ft_parseargv(v))

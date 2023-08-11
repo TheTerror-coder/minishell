@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:53:58 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/26 14:53:10 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/10 15:51:18 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_bool	ft_chck_cmd(t_vars *v, char *cmd, int i)
 
 	pid = -1;
 // if (!cmd)
-// 	return (ft_perror(v, EXIT_FAILURE, "plausible failed malloc()", __PRINT));
+// 	return (ft_perror(EXIT_FAILURE, "plausible failed malloc()", __PRINT));
 	v->exit_code = EXIT_FAILURE;
 	pid = fork();
 	if (pid == -1)

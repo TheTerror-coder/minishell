@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:49:16 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/03 14:15:33 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/09 20:18:40 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ t_bool	ft_setargv(t_vars *v)
 	ft_free2str(&v->argv);
 	v->argv = ft_splitwset(v->line, " \t");
 	if (!v->argv || !v->argv[0])
-		return (ft_goprompt(NULL, PRINT_ERROR));
+		return (__FALSE);
 	if (ft_strchr(v->line, '|'))
-		ft_pipecase(v);
+		if (ft_pipecase(v))
+			return (__FALSE);
 	if (!ft_parseline(v, 0))
 		return (__FALSE);
 // int	i;
@@ -55,7 +56,6 @@ t_bool	ft_parseline(t_vars *v, int i)
 		}
 		while (v->line[i] && !ft_isseperator(v->line[i], &v->line[i + 1]))
 			i++;
-// ft_putendl_fd(&v->line[i], 1);
 		if (v->line[i] == ' ' || v->line[i] == '\t' || (!v->line[i] && i - x))
 		{
 			if (!ft_spacecase(v, &i, x))

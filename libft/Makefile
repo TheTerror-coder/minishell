@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/10 15:29:29 by TheTerror         #+#    #+#              #
-#    Updated: 2023/08/02 21:32:04 by TheTerror        ###   ########lyon.fr    #
+#    Updated: 2023/08/11 12:13:12 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,6 @@ PRINTF_LIB = $(PRINTF_PATH)libftprintf.a
 # FT_PRINTF PATHS
 
 PRINTF_PATH = 		./ft_printf/
-PRINTF_SRCS_PATH = 	$(PRINTF_PATH)srcs/
-PRINTF_UTILS_PATH = $(PRINTF_PATH)utils/
-PRINTF_BONUS_PATH = $(PRINTF_PATH)bonus/
 
 # LIBFT PATHS
 
@@ -31,23 +28,13 @@ STR_TOOLS_PATH = 	./str_tools/
 VARIOUS_PATH = 		./various/
 
 INCLUDE = 	libft.h $(GNL_PATH)get_next_line.h $(GNL_PATH)lget_next_line.h \
-			$(PRINTF_PATH)ft_printf.h $(PRINTF_PATH)ft_lprintf.h \
-			$(PRINTF_PATH)ft_preprcss.h $(PRINTF_SRCS_PATH)ft_srcs.h \
-			$(PRINTF_UTILS_PATH)ft_utils.h $(PRINTF_BONUS_PATH)ft_bonus.h
+			$(PRINTF_PATH)ft_printf.h \
 
 CFLAGS = 	-Wall -Werror -Wextra
 CC = 		cc
 AR = 		ar -rc
 RM =		rm -rf
 
-# FT_PRINTF'S SOURCES
-
-PRINTF_SRC =		$(PRINTF_PATH)ft_printf.c \
-					$(addprefix $(PRINTF_SRCS_PATH), ft_hexa_base.c ft_islowcase.c \
-					ft_print_char.c ft_isupcase.c ft_print_adr.c ft_print_hex.c \
-					ft_print_int.c ft_print_unsign.c ft_print_str.c) \
-					$(addprefix $(PRINTF_UTILS_PATH), ft_utils1.c ft_utils2.c ft_utils3.c) \
-					$(addprefix $(PRINTF_BONUS_PATH), ft_put_spaces.c ft_put_zeros.c ft_sw_optionals.c)
 
 # GET_NEXT_LINE'S SOURCES
 
@@ -74,30 +61,24 @@ SRC =		 		$(SRC_CHAR_TOOLS) $(SRC_MEM_TOOLS) $(SRC_PRINT_TOOLS) $(SRC_STR_TOOLS)
 
 OBJ		 	= 	$(SRC:.c=.o)
 
-# LIBFT'S OBJECTS
 
-PRINTF_OBJ 	= 	$(PRINTF_SRC:.c=.o)
-
-
-all : $(NAME) $(PRINTF_LIB)
-
-$(PRINTF_OBJ) : %.o : %.c $(INCLUDE) $(OBJ)
-	@$(CC) $(CFLAGS) -c -o $@ $<
+all : make_printf $(NAME)
 
 $(OBJ) : %.o : %.c $(INCLUDE)
 	@$(CC) -c $(CFLAGS) $< -o $@
 
-$(NAME) : $(OBJ) $(INCLUDE)
-	$(AR) $@ $^
+$(NAME) : $(OBJ) $(INCLUDE) $(PRINTF_LIB)
+	cp $(PRINTF_LIB) ./$(NAME)
+	$(AR) $@ $(OBJ)
 	@ranlib $(NAME)
 
-$(PRINTF_LIB) : $(PRINTF_OBJ) $(INCLUDE)
-	@$(AR) $@ $^
-	@$(AR) $(NAME) $@
-	@ranlib $(NAME)
+make_printf :
+	make -C $(PRINTF_PATH)
 
 clean :
+	@make clean -C $(PRINTF_PATH)
 	@$(RM) $(OBJ) $(PRINTF_OBJ)
 fclean : clean
+	@make fclean -C $(PRINTF_PATH)
 	@$(RM) $(NAME) $(PRINTF_LIB)
 re : fclean all

@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/08/06 04:45:18 by marvin           ###   ########.fr        #
+#    Updated: 2023/08/11 13:01:42 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,15 +34,15 @@ RM =				rm -rf
 
 SRC_BUILTINS = $(addprefix $(BUILTINS_PATH), unset.c export.c echo.c cd.c cd_options.c pwd.c env.c)
 SRC_MEMTOOLS = $(addprefix $(MEMTOOLS_PATH), initmem.c freemem.c)
-SRC_UTILS = $(addprefix $(UTILS_PATH), checking.c utils1.c)
+SRC_UTILS = $(addprefix $(UTILS_PATH), checking.c utils1.c tmpfile.c)
 SRC_PARSING = $(addprefix $(PARSING_PATH), parseline1.c parseline2.c parseargv1.c setpipeline.c)
 SRC_LAUNCHING = $(addprefix $(LAUNCHING_PATH), launcher.c executable.c)
 SRC_PATHTOOLS = $(addprefix $(PATHTOOLS_PATH), setcmdpath.c getvalidpaths.c utils.c)
 SRC_ENVTOOLS = $(addprefix $(ENVTOOLS_PATH), setenv.c env_utils.c)
-SRC_REDIR_TOOLS = $(addprefix $(REDIR_TOOLS_PATH), ioredir.c heredoc.c)
+SRC_REDIR_TOOLS = $(addprefix $(REDIR_TOOLS_PATH), redirections.c ioredir.c heredoc.c)
 SRC_PIPEX =	$(addprefix $(PIPEX_PATH), pipex.c) \
 			$(addprefix $(PIPEX_PATH)/utils/, utils1.c utils2.c) \
-			$(addprefix $(PIPEX_PATH)/fpipetools/, plumber.c pathutils1.c pathutils2.c iosetter.c) \
+			$(addprefix $(PIPEX_PATH)/fpipetools/, plumber.c pathutils.c pathutils2.c iosetter.c) \
 			$(addprefix $(PIPEX_PATH)/memorytools/, initmem.c freemem.c closer.c) \
 			$(addprefix $(PIPEX_PATH)/bonus/, bonus.c)
 SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_PARSING) $(SRC_UTILS) \

@@ -54,14 +54,16 @@ t_bool	ft_setlst(t_vars *v, int x, int i)
 	int	k;
 
 	k = 0;
+	if (v->jx >= v->nb)
+		return (ft_goprompt("list index error", PRINT_ERROR));
 	v->lst[v->jx] = ft_calloc((i - x) + 1, sizeof(char *));
 	if (!v->lst[v->jx])
-		return (ft_goprompt("failed allocation", PRINT_ERROR));
+		return (ft_goprompt(__FALLOC, PRINT_ERROR));
 	while (x < i && v->argv[x])
 	{
 		v->lst[v->jx][k] = ft_strdup(v->argv[x]);
 		if (!v->lst[v->jx][k])
-			return (ft_goprompt("failed allocation", PRINT_ERROR));
+			return (ft_goprompt(__FALLOC, PRINT_ERROR));
 		k++;
 		x++;
 	}

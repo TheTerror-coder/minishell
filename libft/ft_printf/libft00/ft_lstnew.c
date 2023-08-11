@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lprintf.h                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/12 01:43:54 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/12 01:46:52 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2022/12/05 17:35:04 by TheTerror         #+#    #+#             */
+/*   Updated: 2022/12/15 19:56:15 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LPRINTF_H
-# define FT_LPRINTF_H
+#include"libft.h"
 
-# include "ft_printf.h"
-# include "ft_preprcss.h"
-# include "./srcs/ft_srcs.h"
-# include "./utils/ft_utils.h"
-# include "./bonus/ft_bonus.h"
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*list;
 
-#endif
+	list = malloc(sizeof(t_list));
+	if (list)
+	{
+		list->content = content;
+		list->next = NULL;
+	}
+	return (list);
+}

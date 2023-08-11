@@ -6,15 +6,15 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:07:19 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/03 21:54:28 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/10 16:38:57 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-t_bool	ft_perror(t_vars *v, int status, const char *msg, t_typ action)
+t_bool	ft_perror(int status, const char *msg, t_typ action)
 {
-	v->var->exit = status;
+	exitstatus = status;
 	if (!msg)
 		return (__FALSE);
 	if (action == __PERROR)
@@ -40,11 +40,11 @@ t_bool	ft_waitingroom(t_vars *v)
 		{
 			fdbk = waitpid(v->var->pid[i], &v->var->status, __WHANG);
 			if (fdbk == -1)
-				return (ft_perror(v, EXIT_FAILURE, "waitpid", __PERROR));
+				return (ft_perror(EXIT_FAILURE, "waitpid", __PERROR));
 			if (fdbk == v->var->pid[i])
 			{
 				if (WIFEXITED(v->var->status))
-					v->var->exit = WEXITSTATUS(v->var->status);
+					exitstatus = WEXITSTATUS(v->var->status);
 				v->var->pid[i] = -111;
 			}
 		}
@@ -56,11 +56,10 @@ t_bool	ft_waitingroom(t_vars *v)
 void	ft_exitpipe(int status, t_vars *v)
 {
 	if (v->var->pid)
-		if (!ft_waitingroom(v))
-			status = EXIT_FAILURE;
-	status |= v->var->exit;
+		ft_waitingroom(v);
 	ft_free_tvars(v->var);
 	v->lst = NULL;
 	v->var = NULL;
-	ft_exitprocss(v, status);
+	exitstatus |= status;
+	ft_exitprocss(v, exitstatus);
 }

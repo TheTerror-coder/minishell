@@ -6,19 +6,19 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:58:16 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/12 02:02:09 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 15:16:15 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_srcs.h"
 
-t_bool__	ft_print_int(t_vars *v, int n)
+t_bool	ft_print_int(t_vars *v, int n)
 {
-	t_bool__			fdbk;
-	unsigned int		nb;
+	t_bool			fdbk;
+	unsigned int	nb;
 
 	nb = n;
-	fdbk = _TRUE_;
+	fdbk = __TRUE;
 	if (n < 0)
 		nb = n * -1;
 	if (n < 0 && !v->_dot && !v->_zero)
@@ -27,12 +27,12 @@ t_bool__	ft_print_int(t_vars *v, int n)
 	return (fdbk);
 }
 
-t_bool__	ft_handle_exc1(t_vars *v, int n)
+t_bool	ft_handle_exc1(t_vars *v, int n)
 {
-	int			len;
-	t_bool__	fdbk;
+	int		len;
+	t_bool	fdbk;
 
-	fdbk = _TRUE_;
+	fdbk = __TRUE;
 	if (v->width && v->_dot)
 	{
 		len = ft_nbrlen((long long int) n);
@@ -51,11 +51,11 @@ t_bool__	ft_handle_exc1(t_vars *v, int n)
 	return (fdbk);
 }
 
-t_bool__	ft_handle_exc2(t_vars *v, int n)
+t_bool	ft_handle_exc2(t_vars *v, int n)
 {
-	t_bool__	fdbk;
+	t_bool	fdbk;
 
-	fdbk = _TRUE_;
+	fdbk = __TRUE;
 	if (n >= 0 && v->_space)
 		fdbk = ft_print_char(v, ' ');
 	if (n >= 0 && v->_plus)
@@ -65,12 +65,12 @@ t_bool__	ft_handle_exc2(t_vars *v, int n)
 	return (fdbk);
 }
 
-t_bool__	ft_op_int(t_vars *v, int n)
+t_bool	ft_op_int(t_vars *v, int n)
 {
-	t_bool__			fdbk;
-	int					len;
+	t_bool			fdbk;
+	int				len;
 
-	fdbk = _TRUE_;
+	fdbk = __TRUE;
 	if (v->_dot)
 		len = v->precision - ft_nbrlen((long long int) n);
 	else

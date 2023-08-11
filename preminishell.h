@@ -23,6 +23,10 @@
 # define __EXIT_REACHED 7
 # define __SUCCEED 9 //makes possible to know that the temporary file should not be deleted
 # define __RADICAL "/tmp/ueyjq7ZbZhs26jd"
+# define __FALLOC "failed allocation"
+# define __SERROR "syntax error near unexpected token `newline'"
+
+extern int	exitstatus;
 
 typedef struct s_env
 {
@@ -54,6 +58,7 @@ typedef struct s_vars
 	int		nb;
 	int		infd;
 	int		outfd;
+	int		hdoc_fd;
 	t_bool	flg_infile;
 	t_bool	flg_outfile;
 	t_bool	flg_heredoc;

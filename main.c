@@ -6,11 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:15:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/06 06:41:31 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/08/11 12:59:09 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	exitstatus = EXIT_SUCCESS;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -20,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	v = ft_initvars();
 	if (!v)
-		return (1);
+		return (EXIT_FAILURE);
 	v->envp = envp;
 	ft_setenv(v);
 	if (!ft_setenv(v))
@@ -28,8 +30,9 @@ int	main(int argc, char **argv, char **envp)
 		perror("minishell: ft_setenv");
 		return (0);
 	}
-	ft_setpath2(v);
+	if (!ft_setpath2(v))
+		ft_exitprocss(v, exitstatus);
 	ft_prompt(v);
 	ft_exitprocss(v, EXIT_SUCCESS);
-	return (0);
+	return (EXIT_SUCCESS);
 }

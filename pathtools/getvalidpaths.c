@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:02:30 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/30 15:45:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/10 17:00:25 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ t_bool	ft_setpath2(t_vars *v)
 	i = 0;
 	line = ft_getlinepath();
 	if (!line)
-		return (__FALSE);
+		return (ft_leave("PATH unfound", PRINT_ERROR));
 	v->paths = ft_split(line, ':');
-	if (!v->paths)
-		return (__FALSE);
+	if (!v->paths | !v->paths[0])
+		return (ft_leave(__FALLOC, PRINT_ERROR));
 	if (!ft_rm_path(v))
 		return (__FALSE);
 	while (v->paths[i])
@@ -36,7 +36,7 @@ t_bool	ft_setpath2(t_vars *v)
 		if (!v->paths[i])
 		{
 			v->paths[i] = line;
-			return (__FALSE);
+			return (ft_leave(__FALLOC, PRINT_ERROR));
 		}
 		free(line);
 		i++;
@@ -67,7 +67,7 @@ t_bool	ft_rm_path(t_vars *v)
 
 	str = ft_split(v->paths[0], '=');
 	if (!str)
-		return (__FALSE);
+		return (ft_leave(__FALLOC, PRINT_ERROR));
 	free(v->paths[0]);
 	v->paths[0] = str[1];
 	str[1] = NULL;

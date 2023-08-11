@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:01:48 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/12 01:58:03 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/03/31 15:16:30 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void	ft_raz_flags(t_vars *var)
 {
 	var->width = 0;
 	var->precision = 0;
-	var->_noflag = _TRUE_;
-	var->_minus = _FALSE_;
-	var->_zero = _FALSE_;
-	var->_dot = _FALSE_;
-	var->_sharp = _FALSE_;
-	var->_space = _FALSE_;
-	var->_plus = _FALSE_;
+	var->_noflag = __TRUE;
+	var->_minus = __FALSE;
+	var->_zero = __FALSE;
+	var->_dot = __FALSE;
+	var->_sharp = __FALSE;
+	var->_space = __FALSE;
+	var->_plus = __FALSE;
 }
 
 t_vars	*ft_init_var(const char *format)

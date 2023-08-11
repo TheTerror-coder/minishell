@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/06 05:39:28 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/11 13:02:17 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include<errno.h>
 # include<string.h>
 # include<stdio.h>
-# include<stdlib.h>
 # include<sys/types.h>
 # include<sys/stat.h>
 # include<fcntl.h>
@@ -25,7 +24,6 @@
 # include<readline/history.h>
 # include<sys/wait.h>
 # include<bsd/string.h>
-# include<unistd.h>
 
 # include "./libft/ft_printf/ft_printf.h"
 # include "./pipex/pipex.h"
@@ -38,6 +36,7 @@ void	ft_exitprocss(t_vars *v, int status);
 
 t_bool	ft_setargv(t_vars *v);
 t_bool	ft_goprompt(char *msg, t_typ action);
+t_bool	ft_leave(char *msg, t_typ action);
 
 char	**env_list_to_tab(t_vars *v);
 char	*check_env_var_set(t_vars *v, char *var);
@@ -45,7 +44,7 @@ t_bool	ft_setenv(t_vars *v);
 t_bool	add_env_var(t_vars *v, char *var);
 t_bool	ft_freeenv(t_vars *v);
 
-t_bool	ft_checkessentials(t_vars *v);
+t_bool	ft_checkio(t_vars *v);
 void	ft_freetvars(t_vars *v);
 t_bool	ft_lnch_executable(t_vars *v);
 t_bool	ft_launcher(t_vars *v);
@@ -60,14 +59,17 @@ void	ft_freesecondaries(t_vars *v);
 void	ft_free_lst(t_vars *v);
 
 t_bool	ft_ioset_op(int *infd, int *outfd);
-t_bool	ft_fclose(int *fd);
 t_bool	ft_parseargv(t_vars *v);
 void	ft_razflags(t_vars *v);
-t_bool	ft_inredir(t_vars *v);
-t_bool	ft_outredir(t_vars *v);
-t_bool	ft_outappendredir(t_vars *v);
-t_bool	ft_heredocredir(t_vars *v);
+t_bool	ft_inredir(t_vars *v, int *outfd);
+t_bool	ft_outredir(t_vars *v, int *infd);
+t_bool	ft_outappendredir(t_vars *v, int *infd);
+t_bool	ft_heredocredir(t_vars *v, int *outfd);
 t_bool	ft_setpipeline(t_vars *v);
+t_bool	ft_heredoc(t_vars *v);
+t_bool	ft_adjustargv(t_vars *v, int a, int b);
+t_bool	ft_redirections(t_vars *v);
+t_bool	ft_openatemp(t_vars *v);
 
 t_bool	ft_export(t_vars *v, char *str);
 t_bool	ft_echo(t_vars *v, t_bool n_option);
@@ -77,5 +79,7 @@ t_bool	ft_cd_oldpwd_case(t_vars *v);
 t_bool	testing_split_cdpath(t_vars *v, char **split_cdpath);
 t_bool	ft_pwd(void);
 t_bool	ft_env(t_vars *v);
+
+
 t_bool	ft_unset(t_vars *v);
 #endif
