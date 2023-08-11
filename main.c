@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:15:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/11 12:59:09 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/08/11 13:20:46 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int argc, char **argv, char **envp)
 	if (!v)
 		return (EXIT_FAILURE);
 	v->envp = envp;
-	ft_setenv(v);
 	if (!ft_setenv(v))
 	{
 		perror("minishell: ft_setenv");
