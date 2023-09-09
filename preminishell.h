@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   preminishell.h                                        :+:      :+:    :+:   */
+/*   preminishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/28 14:51:23 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/09/08 23:35:16 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,21 @@ typedef struct s_env
 	char		*var;
 	struct	s_env 	*next;
 }			t_env;
+
+typedef struct s_token
+{
+	char		*content;
+	int		type;
+	struct s_token *next;
+}			t_token;
+
+typedef	struct s_commands
+{
+	struct s_token		*tokens;
+	struct s_commands	*next;
+	char			*infile;
+	char			*outfile;
+}			t_commands;
 
 typedef struct s_vars
 {
