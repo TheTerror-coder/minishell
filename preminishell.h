@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/09/08 23:35:16 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/09/11 06:34:38 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,12 @@ typedef	struct s_commands
 {
 	struct s_token		*tokens;
 	struct s_commands	*next;
-	char			*infile;
-	char			*outfile;
 }			t_commands;
 
 typedef struct s_vars
 {
 	t_env	*my_env;
+	t_commands *commands;
 	char	*pwd;
 	char	**envp;
 	char	*line;

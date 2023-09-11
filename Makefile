@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/08/11 13:01:42 by TheTerror        ###   ########lyon.fr    #
+#    Updated: 2023/09/11 06:34:01 by lmohin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ REDIR_TOOLS_PATH = ./redir_tools/
 BUILTINS_PATH = ./builtins/
 ENVTOOLS_PATH = ./envtools/
 PIPEX_PATH = ./pipex/
+COMMANDTOOLS_PATH = ./commandtools/
 
 INCLUDE = minishell.h preminishell.h $(PIPEX_PATH)pipex.h $(PIPEX_PATH)prepipex.h
 
@@ -45,9 +46,10 @@ SRC_PIPEX =	$(addprefix $(PIPEX_PATH), pipex.c) \
 			$(addprefix $(PIPEX_PATH)/fpipetools/, plumber.c pathutils.c pathutils2.c iosetter.c) \
 			$(addprefix $(PIPEX_PATH)/memorytools/, initmem.c freemem.c closer.c) \
 			$(addprefix $(PIPEX_PATH)/bonus/, bonus.c)
+SRC_COMMAND_TOOLS =	$(addprefix $(COMMANDTOOLS_PATH), commands.c tokens.c)
 SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_PARSING) $(SRC_UTILS) \
 		$(SRC_LAUNCHING) $(SRC_PATHTOOLS) $(SRC_REDIR_TOOLS) $(SRC_BUILTINS) \
-		$(SRC_ENVTOOLS) $(SRC_PIPEX)
+		$(SRC_ENVTOOLS) $(SRC_PIPEX) $(SRC_COMMAND_TOOLS)
 
 OBJ := $(SRC:%.c=%.o)
 

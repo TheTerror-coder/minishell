@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/11 13:02:17 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/09/11 06:50:36 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 
 # include "./libft/ft_printf/ft_printf.h"
 # include "./pipex/pipex.h"
+
+t_commands *get_commands(t_vars *v);
+void	ft_freecommands(t_vars *v);
+t_token	*break_input_into_token(t_vars *v);
 
 t_bool	ft_minishell(t_vars *v);
 t_bool	ft_prompt(t_vars *v);
