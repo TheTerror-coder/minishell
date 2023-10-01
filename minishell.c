@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:13 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/09/11 06:47:30 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/02 01:27:04 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ t_bool ft_prompt(t_vars *v)
 
 t_bool ft_minishell(t_vars *v)
 {
-	int	i;
-
-	i = 0;
 //
 // v->commands : liste chainee contenant les commandes a executer dans l'ordre
 // 

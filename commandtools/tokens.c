@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/09/11 06:36:59 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/02 01:28:50 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,11 +218,6 @@ char	*get_word(t_vars *v, size_t *i, int heredoc)
 
 char	*get_operator_or_word(size_t *i, int *type, t_vars *v, int heredoc)
 {
-	char	*ret;
-	size_t	j;
-
-	ret = NULL;
-	j = 0;
 	if ((v->line)[*i] == '|')
 		return (get_operator_pipe(i, v->line, type));
 	if ((v->line)[*i] == '<' || (v->line)[*i] == '>')
