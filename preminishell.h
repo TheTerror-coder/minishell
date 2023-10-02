@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/09/11 06:34:38 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/02 01:41:50 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_token
 
 typedef	struct s_commands
 {
+	char	*main_command;
+	char	**arguments;
 	struct s_token		*tokens;
 	struct s_commands	*next;
 }			t_commands;

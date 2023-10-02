@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/09/11 06:36:14 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/02 03:28:10 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,105 @@ void	ft_freecommands(t_vars *v)
 	}
 }
 
+int	get_main_command(t_commands *commands)
+{
+	t_token *tokens_cpy;
+	t_token	*previous_token;
+
+	previous_token = NULL;
+	tokens_cpy = commands->tokens;
+	commands->main_command = NULL;
+	while (tokens_cpy != NULL)
+	{
+		if (tokens_cpy->type == 1)
+		{
+			previous_token = tokens_cpy->next;
+			tokens_cpy = tokens_cpy->next->next;
+		}
+		else
+		{
+			commands->main_command = tokens_cpy->content;
+			if (!previous_token)
+				commands->tokens = tokens_cpy->next;
+			else
+				previous_token->next = tokens_cpy->next;
+			free(tokens_cpy);
+			return (0);
+		}
+	}
+	return (0);
+}
+
+int	fill_command_arguments(t_commands *commands)
+{
+	int	args_nbr;
+	t_token	*tokens_cpy;
+	t_token	*previous_token;
+
+	args_nbr = 0;
+	tokens_cpy = commands->tokens;
+	previous_token = NULL;
+	while (tokens_cpy != NULL)
+	{
+		if (tokens_cpy->type != 1)
+		{
+			(commands->arguments)[args_nbr] = tokens_cpy->content;
+			args_nbr++;
+			if (previous_token != NULL)
+				previous_token->next = tokens_cpy->next;
+			else
+				commands->tokens = tokens_cpy->next;
+			free(tokens_cpy);
+			if (previous_token != NULL)
+				tokens_cpy = previous_token->next;
+			else
+				tokens_cpy = commands->tokens;
+		}
+		else
+		{
+			previous_token = tokens_cpy->next;
+			tokens_cpy = tokens_cpy->next->next;
+		}
+	}
+	(commands->arguments)[args_nbr] = NULL;
+	return (0);
+}
+int	get_command_arguments(t_commands *commands)
+{
+	int	args_nbr;
+	t_token	*tokens_cpy;
+	
+	args_nbr = 0;
+	tokens_cpy = commands->tokens;
+	while (tokens_cpy != NULL)
+	{
+		if (tokens_cpy->type != 1)
+		{
+			args_nbr++;
+			tokens_cpy = tokens_cpy->next;
+		}
+		else
+			tokens_cpy = tokens_cpy->next->next;
+	}
+	commands->arguments = malloc(sizeof(char *) * (args_nbr + 1));
+	fill_command_arguments(commands);
+	return (0);
+}
+
+int	clear_commands(t_commands *commands)
+{
+	t_commands *commands_cpy;
+
+	commands_cpy = commands;
+	while (commands_cpy != NULL)
+	{
+		get_main_command(commands_cpy);
+		get_command_arguments(commands_cpy);
+		commands_cpy = commands_cpy->next;
+	}
+	return (0);
+}
+
 t_commands *get_commands(t_vars *v)
 {
 	t_commands *commands;
@@ -83,5 +182,6 @@ t_commands *get_commands(t_vars *v)
 	tokens = break_input_into_token(v);
 	commands = create_command(tokens);
 	check_redirections(commands);
+	clear_commands(commands);
 	return (commands);
 }
