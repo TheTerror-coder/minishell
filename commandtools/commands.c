@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/02 03:28:10 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/03 05:20:40 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,26 +77,16 @@ void	ft_freecommands(t_vars *v)
 int	get_main_command(t_commands *commands)
 {
 	t_token *tokens_cpy;
-	t_token	*previous_token;
 
-	previous_token = NULL;
 	tokens_cpy = commands->tokens;
 	commands->main_command = NULL;
 	while (tokens_cpy != NULL)
 	{
 		if (tokens_cpy->type == 1)
-		{
-			previous_token = tokens_cpy->next;
 			tokens_cpy = tokens_cpy->next->next;
-		}
 		else
 		{
 			commands->main_command = tokens_cpy->content;
-			if (!previous_token)
-				commands->tokens = tokens_cpy->next;
-			else
-				previous_token->next = tokens_cpy->next;
-			free(tokens_cpy);
 			return (0);
 		}
 	}
