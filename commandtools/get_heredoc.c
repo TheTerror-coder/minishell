@@ -1,56 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_pipe.c                                         :+:      :+:    :+:   */
+/*   get_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 05:18:18 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/04 21:08:51 by lmohin           ###   ########.fr       */
+/*   Created: 2023/10/04 20:47:10 by lmohin            #+#    #+#             */
+/*   Updated: 2023/10/04 21:09:55 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_operator_after_pipe(char next_char);
+int	check_operator_after_heredoc(char next_char);
 
-char	*get_pipe(char *line, size_t *l_index)
+char	*get_heredoc(char *line, size_t *l_index)
 {
 	size_t	j;
-	char	*pipe;
+	char	*heredoc;
 
-	if (check_operator_after_pipe(line[*l_index + 1]))
+	if (check_operator_after_heredoc(line[*l_index + 2]))
 		return (NULL);
-	j = 1;
+	j = 2;
 	while (line[*l_index + j] != '\0' && is_whitespace(line[*l_index + j]))
 		j++;
-	if (line[*l_index + j] == '\0')
+	if (line[*l_index + j] == '\0' || line[*l_index + j] == '|' \
+		|| line[*l_index + j] == '<' || line[*l_index + j] == '>')
 	{
-		printf("minishell: syntax error: unclosed pipe detected\n");
+		printf("minishell: syntax error: missing delimitator for heredoc\n");
 		return (NULL);
 	}
-	pipe = ft_strdup("|");
-	if (!pipe)
-		perror("minishell: get_pipe: ");
-	return (pipe);
+	(*l_index) += 2;
+	heredoc = ft_strdup("<<");
+	if (!heredoc)
+		perror("minishell: get_heredoc: ");
+	return (heredoc);
 }
 
-int	check_operator_after_pipe(char next_char)
+int	check_operator_after_heredoc(char next_char)
 {
 	if (next_char == '<')
 	{
-		printf("minishell: syntax error: |< detected\n");
+		printf("minishell: syntax error: <<< detected\n");
 		return (1);
 	}
 	if (next_char == '>')
 	{
-		printf("minishell: syntax error: |> detected\n");
+		printf("minishell: syntax error: <<> detected\n");
 		return (1);
 	}
 	if (next_char == '|')
 	{
-		printf("minishell: syntax error: || detected\n");
+		printf("minishell: syntax error: <<| detected\n");
 		return (1);
 	}
 	return (0);
 }
+

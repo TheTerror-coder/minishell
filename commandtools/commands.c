@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/04 02:44:42 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/04 19:29:08 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	check_redirections(t_commands *command)
 	{
 		if (token->type == 1 && (token->next == NULL || token->next->type == 1))
 		{
-			printf("parsing error");
 			return (0);
 		}
 		token = token->next;
