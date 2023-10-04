@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/04 05:02:42 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/04 06:04:38 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,63 +28,6 @@ char	*join_ret_with_subinput(char *ret, char *input, size_t start, size_t end)
 	free(cpy);
 	free(subinput);
 	return (ret);
-}
-
-char	*get_pipe(size_t *i, char *input)
-{
-	size_t	j;
-	
-	j = 1;
-	while (input[*i + j] != '\0' && is_whitespace(input[*i + j]))
-		j++;
-	if (input[*i + 1] == '<' || input[*i + 1] == '>' || input[*i + j] == '\0' || input[*i + j] == '|')
-	{
-		printf("parsing error");
-		exit(0);
-	}
-	(*i)++;
-	return (ft_strdup("|"));
-}
-
-char	*get_redirection(char *input, size_t *i)
-{
-	if (input[*i] == '<' && input[*i + 1] == '<')
-	{
-		if (input[*i + 2] == '<' || input[*i + 2] == '>' || input[*i + 2] == '|')
-		{
-			printf("parsing error");
-			exit(0);
-		}
-		(*i) += 2;
-		return (ft_strdup("<<"));
-	}
-	if (input[*i] == '<')
-	{
-		if (input[*i + 1] == '>' || input[*i + 1] == '|')
-		{
-			printf("parsing error");
-			exit(0);
-		}
-		(*i)++;
-		return (ft_strdup("<"));
-	}
-	if (input[*i] == '>' && input[*i + 1] == '>')
-	{
-		if (input[*i + 2] == '>' || input[*i + 2] == '<' || input[*i + 2] == '|')
-		{
-			printf("parsing error");
-			return (NULL);
-		}
-		(*i) += 2;
-		return (ft_strdup(">>"));
-	}
-	if (input[*i + 1] == '<' || input[*i + 1] == '|')
-	{
-		printf("parsing error");
-		return (NULL);
-	}
-	(*i)++;
-	return (ft_strdup(">"));
 }
 
 char	*expand_case(char *input, size_t *i, size_t *j, char *ret, t_vars *v)
@@ -186,12 +129,3 @@ char	*get_word(t_vars *v, size_t *i, int heredoc)
 	*i += j;
 	return (ret);
 }
-/*
-char	*get_operator_or_word(size_t *i, t_vars *v, int heredoc)
-{
-	if ((v->line)[*i] == '|')
-		return (get_operator_pipe(i, v->line));
-	if ((v->line)[*i] == '<' || (v->line)[*i] == '>')
-		return (get_operator_redirection(v->line, i));
-	return (get_word(v, i, heredoc));
-}*/

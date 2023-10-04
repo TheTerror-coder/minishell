@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/04 05:04:13 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/04 06:06:59 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ t_token	*get_first_token(t_vars *v, size_t *l_index, int *is_hdoc_deli)
 		return (NULL);
 	if ((init_token->type == 1) && !ft_strncmp(init_token->content, "<<", 3))
 		*is_hdoc_deli = 1;
+	if ((init_token->type == 1) && !ft_strncmp(init_token->content, "|", 1))
+	{
+		printf("minishell: syntax error near unexpected token `|'\n");
+		free(init_token->content);
+		free(init_token);
+		return (NULL);
+	}
 	return (init_token);
 }
 
@@ -94,8 +101,14 @@ t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli)
 
 char	*get_token_content(t_vars *v, size_t *l_index, int is_hdoc_deli)
 {
+	char	*content;
+
 	if ((v->line)[*l_index] == '|')
-		return (get_pipe(l_index, v->line));
+	{
+		content = get_pipe(v->line, l_index);
+		(*l_index)++;
+		return (content);
+	}
 	if ((v->line)[*l_index] == '<' || (v->line)[*l_index] == '>')
 		return (get_redirection(v->line, l_index));
 	return (get_word(v, l_index, is_hdoc_deli));
