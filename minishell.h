@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/04 01:41:32 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/04 05:02:34 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,11 @@ int is_operator(char c);
 
 t_commands *get_commands(t_vars *v);
 void	ft_freecommands(t_vars *v);
-t_token	*break_input_into_token(t_vars *v);
-char	*get_operator_or_word(size_t *i, int *type, t_vars *v, int heredoc);
+t_token	*break_input_into_tokens(t_vars *v);
+
+char	*get_word(t_vars *v, size_t *i, int heredoc);
+char	*get_redirection(char *input, size_t *i);
+char	*get_pipe(size_t *i, char *imput);
 
 t_bool	ft_minishell(t_vars *v);
 t_bool	ft_prompt(t_vars *v);

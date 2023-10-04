@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens_type.c                                      :+:      :+:    :+:   */
+/*   token_type_and_content.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/04 01:36:32 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/04 05:02:42 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*join_ret_with_subinput(char *ret, char *input, size_t start, size_t end)
 	return (ret);
 }
 
-char	*get_operator_pipe(size_t *i, char *input, int *type)
+char	*get_pipe(size_t *i, char *input)
 {
 	size_t	j;
 	
@@ -42,14 +42,12 @@ char	*get_operator_pipe(size_t *i, char *input, int *type)
 		printf("parsing error");
 		exit(0);
 	}
-	*type = 1;
 	(*i)++;
 	return (ft_strdup("|"));
 }
 
-char	*get_operator_redirection(char *input, size_t *i, int *type)
+char	*get_redirection(char *input, size_t *i)
 {
-	*type = 1;
 	if (input[*i] == '<' && input[*i + 1] == '<')
 	{
 		if (input[*i + 2] == '<' || input[*i + 2] == '>' || input[*i + 2] == '|')
@@ -188,12 +186,12 @@ char	*get_word(t_vars *v, size_t *i, int heredoc)
 	*i += j;
 	return (ret);
 }
-
-char	*get_operator_or_word(size_t *i, int *type, t_vars *v, int heredoc)
+/*
+char	*get_operator_or_word(size_t *i, t_vars *v, int heredoc)
 {
 	if ((v->line)[*i] == '|')
-		return (get_operator_pipe(i, v->line, type));
+		return (get_operator_pipe(i, v->line));
 	if ((v->line)[*i] == '<' || (v->line)[*i] == '>')
-		return (get_operator_redirection(v->line, i, type));
+		return (get_operator_redirection(v->line, i));
 	return (get_word(v, i, heredoc));
-}
+}*/

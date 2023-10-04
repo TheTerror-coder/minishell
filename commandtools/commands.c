@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/03 05:20:40 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/04 02:44:42 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ t_commands *get_commands(t_vars *v)
 	t_token *tokens;
 
 	commands = NULL;
-	tokens = break_input_into_token(v);
+	tokens = break_input_into_tokens(v);
 	commands = create_command(tokens);
 	check_redirections(commands);
 	clear_commands(commands);
