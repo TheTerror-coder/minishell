@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/04 21:05:29 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/05 00:01:55 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ char	*get_word(t_vars *v, size_t *i, int heredoc);
 char	*get_redirection(char *line, size_t *l_index);
 char	*get_pipe(char *line, size_t *l_index);
 char	*get_heredoc(char *line, size_t *l_index);
+char	*get_infile_redir(char *line, size_t *l_index);
+char	*get_outfile_redir(char *line, size_t *l_index);
+char	*get_outfile_append_redir(char *line, size_t *l_index);
 
 t_bool	ft_minishell(t_vars *v);
 t_bool	ft_prompt(t_vars *v);

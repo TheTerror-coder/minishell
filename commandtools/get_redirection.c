@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 05:58:39 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/04 21:07:42 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/05 00:02:58 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,10 @@ char	*get_redirection(char *line, size_t *l_index)
 	if (line[*l_index] == '<' && line[*l_index + 1] == '<')
 		return (get_heredoc(line, l_index));
 	if (line[*l_index] == '<')
-	{
-		/* next chara?*/
-
-		if (line[*l_index + 1] == '>' || line[*l_index + 1] == '|')
-		{
-			printf("parsing error");
-			exit(0);
-		}
-		(*l_index)++;
-		return (ft_strdup("<"));
-	}
+		return (get_infile_redir(line, l_index));
 	if (line[*l_index] == '>' && line[*l_index + 1] == '>')
-	{
-		/* next chara? */
-		if (line[*l_index + 2] == '>' || line[*l_index + 2] == '<' || line[*l_index + 2] == '|')
-		{
-			printf("parsing error");
-			return (NULL);
-		}
-		(*l_index) += 2;
-		return (ft_strdup(">>"));
-	}
-	/* next chara?*/
-	if (line[*l_index + 1] == '<' || line[*l_index + 1] == '|')
-	{
-		printf("parsing error");
-		return (NULL);
-	}
-	(*l_index)++;
-	return (ft_strdup(">"));
+		return (get_outfile_append_redir(line, l_index));
+	if (line[*l_index] == '>')
+		return (get_outfile_redir(line, l_index));
+	return (NULL);
 }
