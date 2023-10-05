@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/05 00:01:55 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/05 02:44:48 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@
 
 int	is_whitespace(char c);
 int is_operator(char c);
+char	*join_s1_with_sub_s2(char *s1, char *s2, size_t start, size_t end);
 
 t_commands *get_commands(t_vars *v);
 void	ft_freecommands(t_vars *v);
 t_token	*break_input_into_tokens(t_vars *v);
 
-char	*get_word(t_vars *v, size_t *i, int heredoc);
+char	*get_word(t_vars *v, size_t *i, int is_hdoc_deli, char **ret);
 char	*get_redirection(char *line, size_t *l_index);
 char	*get_pipe(char *line, size_t *l_index);
 char	*get_heredoc(char *line, size_t *l_index);

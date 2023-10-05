@@ -6,43 +6,27 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/04 06:04:38 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/05 02:46:41 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*join_ret_with_subinput(char *ret, char *input, size_t start, size_t end)
-{
-	char	*cpy;
-	char	*subinput;
-
-	subinput = ft_substr(input, start, end);
-	if (!subinput)
-	{
-		free(ret);
-		return (NULL);
-	}
-	cpy = ret;
-	ret = ft_strjoin(ret, subinput);
-	free(cpy);
-	free(subinput);
-	return (ret);
-}
 
 char	*expand_case(char *input, size_t *i, size_t *j, char *ret, t_vars *v)
 {
 	char	*expand_name;
 	char	*cpy;
 
-	ret = join_ret_with_subinput(ret, input, *i, *j);
+	ret = join_s1_with_sub_s2(ret, input, *i, *j);
 	if (!ret)
 		return (NULL);
 	*i += *j + 1;
 	*j = 0;
 	if (input[*i + *j] <= '9' && input[*i + *j] >= '0')
 		return (ret);
-	while ((input[*i + *j] <= 'z' && input[*i + *j] >= 'a') || (input[*i + *j] <= 'Z' && input[*i + *j] >= 'A') || (input[*i + *j] >= '0' && input[*i + *j] <= '9'))
+	while ((input[*i + *j] <= 'z' && input[*i + *j] >= 'a') \
+		|| (input[*i + *j] <= 'Z' && input[*i + *j] >= 'A') \
+		|| (input[*i + *j] >= '0' && input[*i + *j] <= '9'))
 		(*j)++;
 	expand_name = ft_substr(input, *i, *j);
 	*i += *j;
@@ -61,14 +45,16 @@ char	*expand_case(char *input, size_t *i, size_t *j, char *ret, t_vars *v)
 
 char	*double_quote_case(size_t *i, size_t *j, char *ret, t_vars *v, int heredoc)
 {
-	ret = join_ret_with_subinput(ret, v->line, *i, *j);
+	ret = join_s1_with_sub_s2(ret, v->line, *i, *j);
 	if (!ret)
 		return (NULL);
 	*i += *j + 1;
 	*j = 0;
 	while ((v->line)[*i + *j] != '"' && (v->line)[*i + *j] != '\0')
 	{
-		if (heredoc == 0 && (v->line)[*i + *j] == '$' && !is_whitespace((v->line)[*i + *j + 1]) && !is_operator((v->line)[*i + *j + 1]))
+		if (heredoc == 0 && (v->line)[*i + *j] == '$' \
+			&& !is_whitespace((v->line)[*i + *j + 1]) \
+			&& !is_operator((v->line)[*i + *j + 1]))
 			ret = expand_case(v->line, i, j, ret, v);
 		else
 			(*j)++;
@@ -78,7 +64,7 @@ char	*double_quote_case(size_t *i, size_t *j, char *ret, t_vars *v, int heredoc)
 		printf("UNCLOSED QUOTE");
 		exit(0);
 	}
-	ret = join_ret_with_subinput(ret, v->line, *i, *j);
+	ret = join_s1_with_sub_s2(ret, v->line, *i, *j);
 	*i += *j + 1;
 	*j = 0;
 	return (ret);
@@ -86,7 +72,7 @@ char	*double_quote_case(size_t *i, size_t *j, char *ret, t_vars *v, int heredoc)
 
 char	*single_quote_case(char *input, size_t *i, size_t *j, char *ret)
 {
-	ret = join_ret_with_subinput(ret, input, *i, *j);
+	ret = join_s1_with_sub_s2(ret, input, *i, *j);
 	*i += *j + 1;
 	*j = 0;
 	while (input[*i + *j] != '\'' && input[*i + *j] != '\0')
@@ -96,36 +82,42 @@ char	*single_quote_case(char *input, size_t *i, size_t *j, char *ret)
 		printf("UNCLOSED QUOTE");
 		exit(0);
 	}
-	ret = join_ret_with_subinput(ret, input, *i, *j);
+	ret = join_s1_with_sub_s2(ret, input, *i, *j);
 	*i += *j + 1;
 	*j = 0;
 	return (ret);
 }
 
-char	*get_word(t_vars *v, size_t *i, int heredoc)
+int	is_whitespace_or_operator_or_nul(char c)
 {
-	char	*ret;
+	return (is_whitespace(c) || is_operator(c) || (c == '\0'));
+}
+
+int	expand_conditions(char c, int is_hdoc_deli)
+{
+	return (!(is_whitespace(c) || is_operator(c) || is_hdoc_deli));
+}
+
+char	*get_word(t_vars *v, size_t *index_start, int is_hdoc_deli, char **ret)
+{
 	size_t	j;
 
-	ret = malloc(sizeof(char) * 1);
-	if (!ret)
-		return (NULL);
-	ret[0] = '\0';
 	j = 0;
-	while (!is_whitespace((v->line)[*i + j]) && !is_operator((v->line)[*i + j]) && (v->line)[*i + j] != '\0')
+	while (!is_whitespace_or_operator_or_nul((v->line)[*index_start + j]))
 	{
-		if ((v->line)[*i + j] == '$' && !is_whitespace((v->line)[*i + j + 1]) && !is_operator((v->line)[*i + j + 1]) && heredoc == 0)
-			ret = expand_case((v->line), i, &j, ret, v);
-		else if ((v->line)[*i + j] == '"')
-			ret = double_quote_case(i, &j, ret, v, heredoc);
-		else if ((v->line)[*i + j] == '\'')
-			ret = single_quote_case(v->line, i, &j, ret);
+		if ((v->line)[*index_start + j] == '$' \
+			&& expand_conditions((v->line)[*index_start + j + 1], is_hdoc_deli))
+				*ret = expand_case((v->line), index_start, &j, *ret, v);
+		else if ((v->line)[*index_start + j] == '"')
+			*ret = double_quote_case(index_start, &j, *ret, v, is_hdoc_deli);
+		else if ((v->line)[*index_start + j] == '\'')
+			*ret = single_quote_case(v->line, index_start, &j, *ret);
 		else
 			j++;
-		if (!ret)
+		if (!(*ret))
 			return (NULL);
 	}
-	ret = join_ret_with_subinput(ret, v->line, *i, j);
-	*i += j;
-	return (ret);
+	*ret = join_s1_with_sub_s2(*ret, v->line, *index_start, j);
+	*index_start += j;
+	return (*ret);
 }
