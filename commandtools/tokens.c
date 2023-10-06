@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/05 02:16:09 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/06 05:47:06 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,8 @@ char	*get_token_content(t_vars *v, size_t *l_index, int is_hdoc_deli)
 	}
 	if ((v->line)[*l_index] == '<' || (v->line)[*l_index] == '>')
 		return (get_redirection(v->line, l_index));
-	word = malloc(sizeof(char) * 1);
-	if (!word)
+	word = NULL;
+	if (get_word(v, l_index, is_hdoc_deli, &word))
 		return (NULL);
-	word[0] = '\0';
-	get_word(v, l_index, is_hdoc_deli, &word);
 	return (word);
 }
