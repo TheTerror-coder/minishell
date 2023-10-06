@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/04 19:29:08 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/06 05:55:57 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_redirections(t_commands *command)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = command->tokens;
 	while (token != NULL)
@@ -53,9 +53,9 @@ t_commands	*create_command(t_token *tokens)
 
 void	ft_freecommands(t_vars *v)
 {
-	t_commands *commands;
-	t_commands *commands_cpy;
-	t_token	*tokens;
+	t_commands	*commands;
+	t_commands	*commands_cpy;
+	t_token		*tokens;
 
 	commands = v->commands;
 	while (commands != NULL)
@@ -75,7 +75,7 @@ void	ft_freecommands(t_vars *v)
 
 int	get_main_command(t_commands *commands)
 {
-	t_token *tokens_cpy;
+	t_token	*tokens_cpy;
 
 	tokens_cpy = commands->tokens;
 	commands->main_command = NULL;
@@ -94,7 +94,7 @@ int	get_main_command(t_commands *commands)
 
 int	fill_command_arguments(t_commands *commands)
 {
-	int	args_nbr;
+	int		args_nbr;
 	t_token	*tokens_cpy;
 	t_token	*previous_token;
 
@@ -126,11 +126,12 @@ int	fill_command_arguments(t_commands *commands)
 	(commands->arguments)[args_nbr] = NULL;
 	return (0);
 }
+
 int	get_command_arguments(t_commands *commands)
 {
-	int	args_nbr;
+	int		args_nbr;
 	t_token	*tokens_cpy;
-	
+
 	args_nbr = 0;
 	tokens_cpy = commands->tokens;
 	while (tokens_cpy != NULL)
@@ -150,7 +151,7 @@ int	get_command_arguments(t_commands *commands)
 
 int	clear_commands(t_commands *commands)
 {
-	t_commands *commands_cpy;
+	t_commands	*commands_cpy;
 
 	commands_cpy = commands;
 	while (commands_cpy != NULL)
@@ -162,10 +163,10 @@ int	clear_commands(t_commands *commands)
 	return (0);
 }
 
-t_commands *get_commands(t_vars *v)
+t_commands	*get_commands(t_vars *v)
 {
-	t_commands *commands;
-	t_token *tokens;
+	t_commands	*commands;
+	t_token		*tokens;
 
 	commands = NULL;
 	tokens = break_input_into_tokens(v);
