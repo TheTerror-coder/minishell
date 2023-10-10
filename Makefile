@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/10/10 01:59:09 by lmohin           ###   ########.fr        #
+#    Updated: 2023/10/10 04:16:34 by lmohin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ SRC_PIPEX =	$(addprefix $(PIPEX_PATH), pipex.c) \
 			$(addprefix $(PIPEX_PATH)/fpipetools/, plumber.c pathutils.c pathutils2.c iosetter.c) \
 			$(addprefix $(PIPEX_PATH)/memorytools/, initmem.c freemem.c closer.c) \
 			$(addprefix $(PIPEX_PATH)/bonus/, bonus.c)
-SRC_COMMAND_TOOLS =	$(addprefix $(COMMANDTOOLS_PATH), command_args.c get_word.c get_redirection.c get_outfile_redir.c get_outfile_append_redir.c get_infile_redir.c get_heredoc.c get_pipe.c commands_utils.c commands.c tokens.c)
+SRC_COMMAND_TOOLS =	$(addprefix $(COMMANDTOOLS_PATH), create_commands.c command_args.c get_word.c get_redirection.c get_outfile_redir.c get_outfile_append_redir.c get_infile_redir.c get_heredoc.c get_pipe.c commands_utils.c commands.c tokens.c)
 SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_PARSING) $(SRC_UTILS) \
 		$(SRC_LAUNCHING) $(SRC_PATHTOOLS) $(SRC_REDIR_TOOLS) $(SRC_BUILTINS) \
 		$(SRC_ENVTOOLS) $(SRC_PIPEX) $(SRC_COMMAND_TOOLS)
