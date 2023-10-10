@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/06 05:46:21 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/10 01:58:51 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	expand_conditions(char c, int is_hdoc_deli);
 int is_operator(char c);
 char	*join_s1_with_sub_s2(char *s1, char *s2, size_t *start, size_t *end);
 
+int	get_command_arguments(t_commands *commands);
 t_commands *get_commands(t_vars *v);
 void	ft_freecommands(t_vars *v);
 t_token	*break_input_into_tokens(t_vars *v);

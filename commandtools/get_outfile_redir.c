@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 20:47:10 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/04 23:59:45 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/10 01:52:41 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_outfile_redir(char *line, size_t *l_index)
 	if (line[*l_index + j] == '\0' || line[*l_index + j] == '|' \
 		|| line[*l_index + j] == '<' || line[*l_index + j] == '>')
 	{
-		printf("minishell: syntax error: missing infile after \"<\"\n");
+		printf("minishell: syntax error: missing outfile after \">\"\n");
 		return (NULL);
 	}
 	(*l_index) += 1;

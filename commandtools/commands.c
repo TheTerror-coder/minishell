@@ -6,27 +6,11 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/06 05:55:57 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/10 02:00:19 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	check_redirections(t_commands *command)
-{
-	t_token	*token;
-
-	token = command->tokens;
-	while (token != NULL)
-	{
-		if (token->type == 1 && (token->next == NULL || token->next->type == 1))
-		{
-			return (0);
-		}
-		token = token->next;
-	}
-	return (1);
-}
 
 t_commands	*create_command(t_token *tokens)
 {
@@ -36,7 +20,8 @@ t_commands	*create_command(t_token *tokens)
 	command = malloc(sizeof(t_commands));
 	command->tokens = tokens;
 	command->next = NULL;
-	while (tokens != NULL && !(tokens->type == 1 && (tokens->content)[0] == '|'))
+	while (tokens != NULL \
+		&& !(tokens->type == 1 && (tokens->content)[0] == '|'))
 	{
 		tokens_previous = tokens;
 		tokens = tokens->next;
@@ -92,63 +77,6 @@ int	get_main_command(t_commands *commands)
 	return (0);
 }
 
-int	fill_command_arguments(t_commands *commands)
-{
-	int		args_nbr;
-	t_token	*tokens_cpy;
-	t_token	*previous_token;
-
-	args_nbr = 0;
-	tokens_cpy = commands->tokens;
-	previous_token = NULL;
-	while (tokens_cpy != NULL)
-	{
-		if (tokens_cpy->type != 1)
-		{
-			(commands->arguments)[args_nbr] = tokens_cpy->content;
-			args_nbr++;
-			if (previous_token != NULL)
-				previous_token->next = tokens_cpy->next;
-			else
-				commands->tokens = tokens_cpy->next;
-			free(tokens_cpy);
-			if (previous_token != NULL)
-				tokens_cpy = previous_token->next;
-			else
-				tokens_cpy = commands->tokens;
-		}
-		else
-		{
-			previous_token = tokens_cpy->next;
-			tokens_cpy = tokens_cpy->next->next;
-		}
-	}
-	(commands->arguments)[args_nbr] = NULL;
-	return (0);
-}
-
-int	get_command_arguments(t_commands *commands)
-{
-	int		args_nbr;
-	t_token	*tokens_cpy;
-
-	args_nbr = 0;
-	tokens_cpy = commands->tokens;
-	while (tokens_cpy != NULL)
-	{
-		if (tokens_cpy->type != 1)
-		{
-			args_nbr++;
-			tokens_cpy = tokens_cpy->next;
-		}
-		else
-			tokens_cpy = tokens_cpy->next->next;
-	}
-	commands->arguments = malloc(sizeof(char *) * (args_nbr + 1));
-	fill_command_arguments(commands);
-	return (0);
-}
-
 int	clear_commands(t_commands *commands)
 {
 	t_commands	*commands_cpy;
@@ -171,7 +99,6 @@ t_commands	*get_commands(t_vars *v)
 	commands = NULL;
 	tokens = break_input_into_tokens(v);
 	commands = create_command(tokens);
-	check_redirections(commands);
 	clear_commands(commands);
 	return (commands);
 }
