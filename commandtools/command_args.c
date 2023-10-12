@@ -19,10 +19,11 @@ void	add_arg(t_token **tokens, t_token *previous_token, t_commands *cmds)
 	else
 		cmds->tokens = (*tokens)->next;
 	free(*tokens);
-	if (previous_token != NULL)
+	*tokens = (*tokens)->next;
+	/*if (previous_token != NULL)
 		*tokens = previous_token->next;
 	else
-		*tokens = cmds->tokens;
+		*tokens = cmds->tokens;*/
 }
 
 int	fill_command_arguments(t_commands *commands)

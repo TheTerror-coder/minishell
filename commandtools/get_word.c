@@ -118,7 +118,7 @@ int	get_word(t_vars *v, size_t *index_start, int is_hdoc_deli, char **ret)
 		{
 			*ret = join_s1_with_sub_s2(*ret, v->line, index_start, &j);
 			if (!(*ret))
-				return (1);
+				return (__FALSE);
 			*index_start += 1;
 			*ret = double_quote_case(index_start, *ret, v, is_hdoc_deli);
 		}
@@ -127,8 +127,8 @@ int	get_word(t_vars *v, size_t *index_start, int is_hdoc_deli, char **ret)
 		else
 			j++;
 		if (!(*ret) && j == 0)
-			return (1);
+			return (__FALSE);
 	}
 	*ret = join_s1_with_sub_s2(*ret, v->line, index_start, &j);
-	return (0);
+	return (__TRUE);
 }

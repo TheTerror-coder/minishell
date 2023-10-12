@@ -24,9 +24,9 @@ char	*get_pipe(char *line, size_t *l_index)
 	j = 1;
 	while (line[*l_index + j] != '\0' && is_whitespace(line[*l_index + j]))
 		j++;
-	if (line[*l_index + j] == '\0')
+	if (line[*l_index + j] == '\0' || line[*l_index + j] == '|')
 	{
-		printf("minishell: syntax error: unclosed pipe detected\n");
+		printf("minishell: syntax error\n");
 		return (NULL);
 	}
 	pipe = ft_strdup("|");

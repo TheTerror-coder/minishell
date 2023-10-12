@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 04:14:54 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/10 04:19:24 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/11 14:01:59 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_commands	*create_commands(t_token *tokens)
 	t_commands	*command;
 	t_token		*token_previous;
 
+	if (tokens == NULL)
+		return (NULL);
 	command = malloc(sizeof(t_commands));
 	if (!command)
 	{

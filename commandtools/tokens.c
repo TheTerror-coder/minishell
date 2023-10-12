@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/06 05:47:06 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/10 02:44:27 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_token	*get_first_token(t_vars *v, size_t *l_index, int *is_hdoc_deli)
 	init_token = get_one_token(v, l_index, *is_hdoc_deli);
 	if (!init_token)
 		return (NULL);
-	if ((init_token->type == 1) && !ft_strncmp(init_token->content, "<<", 3))
+	if ((init_token->type == 1) && !ft_strncmp(init_token->content, "<<", 2))
 		*is_hdoc_deli = 1;
 	if ((init_token->type == 1) && !ft_strncmp(init_token->content, "|", 1))
 	{
@@ -113,7 +113,7 @@ char	*get_token_content(t_vars *v, size_t *l_index, int is_hdoc_deli)
 	if ((v->line)[*l_index] == '<' || (v->line)[*l_index] == '>')
 		return (get_redirection(v->line, l_index));
 	word = NULL;
-	if (get_word(v, l_index, is_hdoc_deli, &word))
+	if (!get_word(v, l_index, is_hdoc_deli, &word))
 		return (NULL);
 	return (word);
 }
