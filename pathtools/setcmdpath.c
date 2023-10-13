@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:53:58 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/13 15:13:37 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 17:30:25 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_spthson(t_vars *v, char *cmd);
 t_bool	ft_chck_cmd(t_vars *v, char **argv, char *cmd, int i);
 t_bool	ft_exitson(t_vars *v);
 t_bool	ft_scp_op(t_vars *v, char **argv, char *path);
-t_bool	ft_cmdnfnd(t_vars *v);
+t_bool	ft_cmdnfnd(t_vars *v, char *command);
 
 int	ft_set_cmdpath(t_vars *v, char **argv)
 {
@@ -42,7 +42,7 @@ int	ft_set_cmdpath(t_vars *v, char **argv)
 			return (__TRUE);
 		i++;
 	}
-	return (ft_cmdnfnd(v));
+	return (ft_cmdnfnd(v, argv[0]));
 }
 
 t_bool	ft_chck_cmd(t_vars *v, char **argv, char *cmd, int i)
@@ -69,10 +69,10 @@ void	ft_spthson(t_vars *v, char *cmd)
 {
 	char	**arg;
 
-	v->p1[0] = -111;
-	v->p1[1] = -111;
-	v->p2[0] = -111;
-	v->p2[1] = -111;
+	v->p1[0] = __CLOSED_FD;
+	v->p1[1] = __CLOSED_FD;
+	v->p2[0] = __CLOSED_FD;
+	v->p2[1] = __CLOSED_FD;
 	if (pipe(v->p1) == -1)
 		ft_exitson(v);
 	if (pipe(v->p2) == -1)

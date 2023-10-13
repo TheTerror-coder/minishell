@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_outfile_redir.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 20:47:10 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/10 01:52:41 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/13 18:06:44 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_outfile_redir(char *line, size_t *l_index)
 		return (NULL);
 	}
 	(*l_index) += 1;
-	outfile_redir = ft_strdup("<");
+	outfile_redir = ft_strdup(">");
 	if (!outfile_redir)
 		perror("minishell: get_outfile_redir: ");
 	return (outfile_redir);

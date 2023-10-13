@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:54:11 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/13 11:59:04 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 18:08:27 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 t_bool	ft_inredir(t_vars *v, char *infile)
 {
+// ft_putendl_fd("-----inredir------", 2);
 	int	nada;
 
 	nada = __CLOSED_FD;
-	v->flg_infile = __TRUE;
-	v->flg_heredoc = __FALSE;
 	if (!ft_fclose(&v->infd))
 		return (__FALSE);
 	v->infd = open(infile, O_RDONLY);
@@ -31,6 +30,7 @@ t_bool	ft_inredir(t_vars *v, char *infile)
 
 t_bool	ft_launch_heredoc(t_vars *v, char *limiter)
 {
+// ft_putendl_fd("-----launch heredoc------", 2);
 	ft_freestr(&v->limiter);
 	v->limiter = ft_strdup(limiter);
 	if (!v->limiter)
@@ -44,6 +44,7 @@ t_bool	ft_launch_heredoc(t_vars *v, char *limiter)
 
 t_bool	ft_heredocredir(t_vars *v)
 {
+// ft_putendl_fd("-----heredocredir------", 2);
 	int	hdoc_fd_dup;
 	int	nada;
 
@@ -59,6 +60,7 @@ t_bool	ft_heredocredir(t_vars *v)
 
 t_bool	ft_outredir(t_vars *v, char *outfile)
 {
+// ft_putendl_fd("-----outredir------", 2);
 	int	nada;
 
 	nada = __CLOSED_FD;
@@ -75,11 +77,10 @@ t_bool	ft_outredir(t_vars *v, char *outfile)
 
 t_bool	ft_outappendredir(t_vars *v, char *outfile)
 {
+// ft_putendl_fd("-----outappendredir------", 2);
 	int	nada;
 
 	nada = __CLOSED_FD;
-ft_putendl_fd("-----outappend------", 2);
-ft_putendl_fd(outfile, 2);
 	if (!ft_fclose(&v->outfd))
 		return (__FALSE);
 	v->outfd = open(outfile, O_CREAT | O_WRONLY | O_APPEND, \

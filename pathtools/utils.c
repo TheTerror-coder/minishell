@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 19:12:23 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/07/26 00:22:34 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 17:30:08 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ t_bool	ft_pwait(t_vars *v, int pid, int option)
 	return (__TRUE);
 }
 
-t_bool	ft_cmdnfnd(t_vars *v)
+t_bool	ft_cmdnfnd(t_vars *v, char *command)
 {
-	write (STDERR_FILENO, v->argv[0], ft_strlen(v->argv[0]));
-	if (!ft_strchr(v->argv[0], '/'))
+	write (STDERR_FILENO, command, ft_strlen(command));
+	if (!ft_strchr(command, '/'))
 		ft_goprompt(": command not found", __PRINT);
 	else
 		ft_goprompt(": No such file or directory", __PRINT);
-	free(v->cmdpath);
-	v->cmdpath = NULL;
+	ft_freestr(&v->cmdpath);
 	return (__SKIP);
 }

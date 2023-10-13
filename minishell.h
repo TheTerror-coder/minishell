@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/13 15:11:04 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 16:35:46 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ t_bool	ft_heredocredir(t_vars *v);
 t_bool	ft_setpipeline(t_vars *v);
 t_bool	ft_launch_heredoc(t_vars *v, char *limiter);
 t_bool	ft_heredoc(t_vars *v);
-t_bool	ft_adjustargv(t_vars *v, int a, int b);
-t_bool	ft_redirections(t_vars *v);
 t_bool	ft_openatemp(t_vars *v);
 t_bool	ft_clear_created_tempfiles(t_vars *v);
 

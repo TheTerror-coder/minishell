@@ -1,18 +1,9 @@
 1. Minishell	-	Parcourir les commandes :
-						  -Execution de chaque Heredoc
 						  -Gerer l'expand dans le heredoc quand delimitateur pas entre quote
-						  -Remplacer chaque << par <
-						  -Remplacer chaque delimatateur par le fichier cree
 			
 2. Minishell	-	Parcourir les commandes :
 						  -pipe
 						  -fork
-						  -Tester existance et droits de chaques infiles et outfiles dans la commande
-						  	-Si soucis : free toute commande et passer a la suivante
-						  -Effectuer la derniere redirection avec infile pour la commande
-						  -Effectuer la derniere redirection avec outfile pour la commande
-						  -Si main_command est builtin, executer le builtin
-						  -Sinon, chercher le nom de la commande avec chemin absolue ou PATH et l'execute
 
 3. Minishell	-	Repimper les builtins
 

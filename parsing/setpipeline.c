@@ -24,7 +24,7 @@ t_bool	ft_setpipeline(t_vars *v)
 	x = 0;
 	while (v->argv[i])
 	{
-		while (v->argv[i] && ft_strncmp(v->argv[i], "|", ft_strlen(v->argv[i]) + 1))
+		while (v->argv[i] && ft_strncmp(v->argv[i], "|", 2))
 			i++;
 		if (!ft_setlst(v, x, i))
 			return (__FALSE);
