@@ -6,12 +6,12 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:52:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/10 17:01:21 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 15:50:39 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+/*
 t_bool	ft_setinfile(t_vars *v);
 t_bool	ft_setoutfile(t_vars *v);
 t_bool	ft_setheredoc(t_vars *v);
@@ -19,13 +19,13 @@ t_bool	ft_setoutappend(t_vars *v);
 
 t_bool	ft_redirections(t_vars *v)
 {
-	if (!ft_strncmp(v->argv[v->jx], "<", ft_strlen(v->argv[v->jx]) + 1))
+	if (!ft_strncmp(v->argv[v->jx], "<", 2))
 		return (ft_setinfile(v));
-	if (!ft_strncmp(v->argv[v->jx], ">", ft_strlen(v->argv[v->jx]) + 1))
+	if (!ft_strncmp(v->argv[v->jx], ">", 2))
 		return (ft_setoutfile(v));
-	if (!ft_strncmp(v->argv[v->jx], "<<", ft_strlen(v->argv[v->jx]) + 2))
+	if (!ft_strncmp(v->argv[v->jx], "<<", 3))
 		return (ft_setheredoc(v));
-	if (!ft_strncmp(v->argv[v->jx], ">>", ft_strlen(v->argv[v->jx]) + 2))
+	if (!ft_strncmp(v->argv[v->jx], ">>", 3))
 		return (ft_setoutappend(v));
 	return (__EXIT_REACHED);
 }
@@ -95,3 +95,4 @@ t_bool	ft_setoutappend(t_vars *v)
 	ft_adjustargv(v, v->jx, v->jx + 2);
 	return (__TRUE);
 }
+*/

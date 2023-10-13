@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/10 02:44:27 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/13 15:47:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ t_token	*get_first_token(t_vars *v, size_t *l_index, int *is_hdoc_deli)
 	init_token = get_one_token(v, l_index, *is_hdoc_deli);
 	if (!init_token)
 		return (NULL);
-	if ((init_token->type == 1) && !ft_strncmp(init_token->content, "<<", 2))
+	if ((init_token->type == 1) && !ft_strncmp(init_token->content, "<<", 3))
 		*is_hdoc_deli = 1;
-	if ((init_token->type == 1) && !ft_strncmp(init_token->content, "|", 1))
+	if ((init_token->type == 1) && !ft_strncmp(init_token->content, "|", 2))
 	{
 		printf("minishell: syntax error near unexpected token `|'\n");
 		free(init_token->content);

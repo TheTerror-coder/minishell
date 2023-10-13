@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/12 00:19:41 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/13 15:17:41 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 # define __WHANG 0
 # define __PRINT PRINT_ERROR
 # define __PERROR PUT_ERROR
+# define __CLOSED_FD -111 // arbitrary number to initialize a file descriptor variable
+# define __FTEMP_LIMITS 9999999 // number of possible names of the temporary file
 # define __EXIT_REACHED 7
-# define __SUCCEED 9 //makes possible to know that the temporary file should not be deleted
 # define __RADICAL "/tmp/ueyjq7ZbZhs26jd"
 # define __FALLOC "failed allocation"
 # define __SERROR "syntax error near unexpected token `newline'"
@@ -61,8 +62,8 @@ typedef struct s_vars
 	char	*set;
 	char	**argv;
 	char	*cmdpath;
-	char	*infile;
-	char	*outfile;
+	// char	*infile;
+	// char	*outfile;
 	char	*limiter;
 	char	*ftemp1;
 	char	***lst;

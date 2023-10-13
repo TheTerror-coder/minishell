@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:56:42 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/06 16:58:22 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 15:10:22 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ t_bool	ft_openatemp(t_vars *v)
 {
 	int		n;
 	
-	n = 9999999;
+	n = __FTEMP_LIMITS;
+	// if (v->ftemp1)
+	// 	unlink(v->ftemp1);
 	ft_setftemp(v, n);
 	while (n > 0 && !access(v->ftemp1, F_OK))
 	{
@@ -50,5 +52,33 @@ t_bool	ft_setftemp(t_vars *v, int n)
 		ft_freestr(&strnum);
 		return (ft_goprompt("failed allocation", PRINT_ERROR));
 	}
+	return (__TRUE);
+}
+
+t_bool	ft_clear_created_tempfiles(t_vars *v)
+{
+	char	*name;
+	char	*strnum;
+	int		n;
+
+	ft_closetvars(v);
+	n = __FTEMP_LIMITS;
+	strnum = ft_itoa(n);
+	name = ft_strjoin(__RADICAL, strnum);
+	if (!name || !strnum)
+		return (ft_freestr(&strnum), ft_freestr(&name), __FALSE);
+	while (n > 0 && !access(name, F_OK))
+	{
+		unlink(name);
+		n--;
+		ft_freestr(&strnum);
+		ft_freestr(&name);
+		strnum = ft_itoa(n);
+		name = ft_strjoin(__RADICAL, strnum);
+		if (!name || !strnum)
+			return (ft_freestr(&strnum), ft_freestr(&name), __FALSE);
+	}
+	ft_freestr(&strnum);
+	ft_freestr(&name);
 	return (__TRUE);
 }

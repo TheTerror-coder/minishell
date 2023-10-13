@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/10/10 04:16:34 by lmohin           ###   ########.fr        #
+#    Updated: 2023/10/12 20:00:58 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ RM =				rm -rf
 
 SRC_BUILTINS = $(addprefix $(BUILTINS_PATH), unset.c export.c echo.c cd.c cd_options.c pwd.c env.c)
 SRC_MEMTOOLS = $(addprefix $(MEMTOOLS_PATH), initmem.c freemem.c)
-SRC_UTILS = $(addprefix $(UTILS_PATH), checking.c utils1.c tmpfile.c)
+SRC_UTILS = $(addprefix $(UTILS_PATH), utils1.c tmpfile.c)
 SRC_PARSING = $(addprefix $(PARSING_PATH), parseline1.c parseline2.c parseargv1.c setpipeline.c)
 SRC_LAUNCHING = $(addprefix $(LAUNCHING_PATH), launcher.c executable.c)
 SRC_PATHTOOLS = $(addprefix $(PATHTOOLS_PATH), setcmdpath.c getvalidpaths.c utils.c)
@@ -47,9 +47,9 @@ SRC_PIPEX =	$(addprefix $(PIPEX_PATH), pipex.c) \
 			$(addprefix $(PIPEX_PATH)/memorytools/, initmem.c freemem.c closer.c) \
 			$(addprefix $(PIPEX_PATH)/bonus/, bonus.c)
 SRC_COMMAND_TOOLS =	$(addprefix $(COMMANDTOOLS_PATH), create_commands.c command_args.c get_word.c get_redirection.c get_outfile_redir.c get_outfile_append_redir.c get_infile_redir.c get_heredoc.c get_pipe.c commands_utils.c commands.c tokens.c)
-SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_PARSING) $(SRC_UTILS) \
+SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_UTILS) \
 		$(SRC_LAUNCHING) $(SRC_PATHTOOLS) $(SRC_REDIR_TOOLS) $(SRC_BUILTINS) \
-		$(SRC_ENVTOOLS) $(SRC_PIPEX) $(SRC_COMMAND_TOOLS)
+		$(SRC_ENVTOOLS) $(SRC_COMMAND_TOOLS)
 
 OBJ := $(SRC:%.c=%.o)
 

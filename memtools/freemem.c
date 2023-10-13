@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/09/11 06:48:58 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/13 15:07:54 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	ft_freesecondaries(t_vars *v)
 	ft_free2str(&v->paths);
 	ft_freestr(&v->str);
 	ft_freestr(&v->set);
-	ft_freestr(&v->infile);
-	ft_freestr(&v->outfile);
+	// ft_freestr(&v->infile);
+	// ft_freestr(&v->outfile);
 	ft_freestr(&v->limiter);
 	ft_freestr(&v->ftemp1);
 	ft_free_lst(v);
@@ -66,10 +66,16 @@ void	ft_closetvars(t_vars *v)
 	ft_fclose(&v->hdoc_fd);
 }
 
-void	ft_exitprocss(t_vars *v, int status)
+void	ft_exitmainprocss(t_vars *v, int status)
 {
-	if (!access(v->ftemp1, F_OK) && status != __SUCCEED)
-		unlink(v->ftemp1);
+	ft_clear_created_tempfiles(v);
+	ft_closetvars(v);
+	ft_freetvars(v);
+	exit(status);
+}
+
+void	ft_exitbackprocss(t_vars *v, int status)
+{
 	ft_closetvars(v);
 	ft_freetvars(v);
 	exit(status);

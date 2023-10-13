@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/06 16:57:44 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/13 15:49:57 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ t_bool	ft_heredoc(t_vars *v)
 
 	pid = -1;
 	v->exit_code = EXIT_SUCCESS;
+	ft_fclose(&v->hdoc_fd);
 	ft_openatemp(v);
 	pid = fork();
 	if (pid < 0)
 		return (ft_goprompt("fork", PRINT_ERROR));
 	if (pid == 0)
 		if (!ft_heredoc_op1(v))
-			ft_exitprocss(v, EXIT_FAILURE);
+			ft_exitbackprocss(v, EXIT_FAILURE);
 	if (!ft_pwait(v, pid, __WHANG))
 		return (__FALSE);
 	if (pipe(v->p1) == -1)
@@ -48,7 +49,7 @@ t_bool	ft_heredoc2(t_vars *v)
 		return (ft_goprompt("fork", PRINT_ERROR));
 	if (pid == 0)
 		if (!ft_heredoc_op2(v))
-			ft_exitprocss(v, EXIT_FAILURE);
+			ft_exitbackprocss(v, EXIT_FAILURE);
 	ft_fclose(&v->outfd);
 	ft_fclose(&v->p1[1]);
 	ft_fclose(&v->hdoc_fd);
@@ -67,7 +68,7 @@ t_bool	ft_heredoc_op1(t_vars *v)
 
 	line = NULL;
 	line = readline("> ");
-	while (ft_strncmp(line, v->limiter, ft_strlen(line) + ft_strlen(v->limiter)))
+	while (ft_strncmp(line, v->limiter, ft_strlen(v->limiter) + 1))
 	{
 		ft_putendl_fd(line, v->outfd);
 		ft_freestr(&line);
@@ -75,7 +76,7 @@ t_bool	ft_heredoc_op1(t_vars *v)
 	}
 	ft_freestr(&line);
 	ft_fclose(&v->outfd);
-	ft_exitprocss(v, __SUCCEED);
+	ft_exitbackprocss(v, EXIT_SUCCESS);
 	return (__FALSE);
 }
 
@@ -89,15 +90,19 @@ t_bool	ft_heredoc_op2(t_vars *v)
 	ft_fclose(&v->outfd);
 	v->infd = open(v->ftemp1, O_RDONLY);
 	if (v->infd == -1)
-		ft_exitprocss(v, !ft_goprompt(v->ftemp1, __PERROR));
+		ft_exitbackprocss(v, !ft_goprompt(v->ftemp1, __PERROR));
 	line = get_next_line(v->infd);
 	while (line)
 	{
-		ft_putstr_fd(line, v->p1[1]);
+		if (write(v->p1[1], line, ft_strlen(line)) < 0)
+		{
+			ft_freestr(&line);
+			ft_exitbackprocss(v, EXIT_SUCCESS);
+		}
 		ft_freestr(&line);
 		line = get_next_line(v->infd);
 	}
 	ft_freestr(&line);
-	ft_exitprocss(v, EXIT_SUCCESS);
+	ft_exitbackprocss(v, EXIT_SUCCESS);
 	return (__FALSE);
 }

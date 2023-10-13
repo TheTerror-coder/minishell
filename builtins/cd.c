@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/08/06 06:33:51 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/13 15:44:53 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_bool	ft_cd_cdpath_set(t_vars *v)
 	t_bool	ret;
 
 	if ((v->argv[1])[0] == '/' || !ft_strncmp((v->argv[1]), "..", 3) \
-			|| !ft_strncmp((v->argv[1]), "./", 2))
+			|| !ft_strncmp((v->argv[1]), "./", 3))
 		return (__FALSE);
 	cdpath = check_env_var_set(v, "CDPATH");
 	if (!cdpath && errno == ENOMEM)
