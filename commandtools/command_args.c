@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 01:57:18 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/10 02:01:45 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/14 00:08:08 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@ void	add_arg(t_token **tokens, t_token *previous_token, t_commands *cmds)
 	else
 		cmds->tokens = (*tokens)->next;
 	free(*tokens);
-	*tokens = (*tokens)->next;
-	/*if (previous_token != NULL)
+	if (previous_token != NULL)
 		*tokens = previous_token->next;
 	else
-		*tokens = cmds->tokens;*/
+		*tokens = cmds->tokens;
 }
 
 int	fill_command_arguments(t_commands *commands)
