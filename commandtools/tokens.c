@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/13 15:47:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/14 00:13:50 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_token	*get_first_token(t_vars *v, size_t *l_index, int *is_hdoc_deli);
 t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli);
-t_token	*create_token(char *content, int type);
+t_token	*create_token(char *content, int type, int expand_in_hdoc);
 char	*get_token_content(t_vars *v, size_t *l_index, int is_hdoc_deli);
 
 t_token	*break_input_into_tokens(t_vars *v)
@@ -61,7 +61,7 @@ t_token	*get_first_token(t_vars *v, size_t *l_index, int *is_hdoc_deli)
 	return (init_token);
 }
 
-t_token	*create_token(char *content, int type)
+t_token	*create_token(char *content, int type, int expand_in_hdoc)
 {
 	t_token	*token;
 
@@ -73,6 +73,7 @@ t_token	*create_token(char *content, int type)
 	}
 	token->content = content;
 	token->type = type;
+	token->expand_in_hdoc = expand_in_hdoc;
 	token->next = NULL;
 	return (token);
 }
@@ -80,11 +81,14 @@ t_token	*create_token(char *content, int type)
 t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli)
 {
 	int		type;
+	int		expand_in_hdoc;
 	char	*content;
 	t_token	*token;
 
 	while (is_whitespace((v->line)[*l_index]))
 		(*l_index)++;
+	expand_in_hdoc = ((v->line)[*l_index] != '"' \
+			&& (v->line)[*l_index] != '\'' && is_hdoc_deli == __TRUE);
 	if ((v->line)[*l_index] == '\0')
 		return (NULL);
 	if ((v->line)[*l_index] == '|' || (v->line)[*l_index] == '<' \
@@ -95,7 +99,7 @@ t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli)
 	content = get_token_content(v, l_index, is_hdoc_deli);
 	if (!content)
 		return (NULL);
-	token = create_token(content, type);
+	token = create_token(content, type, expand_in_hdoc);
 	return (token);
 }
 

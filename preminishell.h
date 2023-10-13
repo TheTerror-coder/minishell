@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/13 15:17:41 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/14 00:02:29 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_token
 {
 	char		*content;
 	int		type;
+	int		expand_in_hdoc;
 	struct s_token *next;
 }			t_token;
 
