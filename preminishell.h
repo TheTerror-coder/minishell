@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/14 00:02:29 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/14 00:43:10 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_vars
 	int		infd;
 	int		outfd;
 	int		hdoc_fd;
+	t_bool	flg_expand_in_hdoc;
 	t_bool	flg_infile;
 	t_bool	flg_outfile;
 	t_bool	flg_heredoc;

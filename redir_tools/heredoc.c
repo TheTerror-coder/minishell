@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/13 15:49:57 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/14 02:36:57 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,94 @@ t_bool	ft_heredoc_op1(t_vars *v)
 	return (__FALSE);
 }
 
+char	*first_join(char *line, char *expand_content, size_t start_index)
+{
+	char	*ret;
+	char	*cpy;
+
+	ret = ft_substr(line, 0, start_index - 1);
+	if (!ret)
+	{
+		free(expand_content);
+		perror("minishell: expand_word_inside_line: ");
+		return (NULL);
+	}
+	if (!expand_content)
+		return (ret);
+	cpy = ret;
+	ret = ft_strjoin(ret, expand_content);
+	free(cpy);
+	free(expand_content);
+	if (!ret)
+		perror("minishell: expand_word_inside_line: ");
+	return (ret);
+}
+
+char	*second_join(char *line, char *ret, size_t end_index)
+{
+	char	*sub;
+	char	*cpy;
+
+	if (!ret)
+		return (NULL);
+	sub = ft_substr(line, end_index, ft_strlen(line));
+	free(line);
+	if (!sub)
+	{
+		perror("minishell: expand_word_inside_line: ");
+		return (NULL);
+	}
+	cpy = ret;
+	ret = ft_strjoin(ret, sub);
+	if (!ret)
+		perror("minishell: expand_word_inside_line: ");
+	free(cpy);
+	free(sub);
+	return (ret);
+}
+
+char	*expand_word_inside_line(t_vars *v, char *line, size_t start_index)
+{
+	char	*expand_name;
+	char	*expand_content;
+	char	*ret;
+	size_t	j;
+
+	if (line[start_index] <= '9' && line[start_index] >= '0')
+		return (line);
+	j = 0;
+	while (ft_isalnum(line[start_index + j]))
+		j++;
+	expand_name = ft_substr(line, start_index, j);
+	if (!expand_name)
+	{
+		free(line);
+		perror("minishell: expand_word_inside_line: ");
+		return (NULL);
+	}
+	expand_content = check_env_var_set(v, expand_name);
+	free(expand_name);
+	ret = first_join(line, expand_content, start_index);
+	ret = second_join(line, ret, start_index + j);
+	return (ret);
+}
+
+char	*expand_words_of_line(t_vars *v, char *line)
+{
+	size_t	l_index;
+
+	l_index = 0;
+	while (line[l_index] != '\0')
+	{
+		if (line[l_index] == '$' \
+				&& expand_conditions(line[l_index + 1], __FALSE))
+			line = expand_word_inside_line(v, line, l_index + 1);
+		//what do we do if malloc error here
+		l_index++;
+	}
+	return (line);
+}
+
 t_bool	ft_heredoc_op2(t_vars *v)
 {
 	char	*line;
@@ -94,6 +182,8 @@ t_bool	ft_heredoc_op2(t_vars *v)
 	line = get_next_line(v->infd);
 	while (line)
 	{
+		if (v->flg_expand_in_hdoc)
+			line = expand_words_of_line(v, line);
 		if (write(v->p1[1], line, ft_strlen(line)) < 0)
 		{
 			ft_freestr(&line);

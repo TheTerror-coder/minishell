@@ -1,16 +1,18 @@
 1. Minishell	-	Parcourir les commandes :
-						  -Gerer l'expand dans le heredoc quand delimitateur pas entre quote
-			
-2. Minishell	-	Parcourir les commandes :
 						  -pipe
 						  -fork
-
-3. Minishell	-	Repimper les builtins
-
-
-4. Minishell	-	Implementer les codes d'erreurs
+2. Minishell	-	Repimper les builtins
 
 
-5. Minishell	-	Ajouter signaux
+3. Minishell	-	Implementer les codes d'erreurs
+
+
+4. Minishell	-	Ajouter signaux
+
+
+Bug a fix : 
+
+- vim ne fonctionne pas dans minishell (lien avec setcommandpath, remplacer tout par un simple access fait remarcher vim)
+
 
 --------------------------------------------------------------------------------

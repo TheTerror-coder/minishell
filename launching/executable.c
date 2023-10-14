@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/13 18:08:49 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/14 00:44:46 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ t_bool	ft_set_io(t_vars *v)
 	while (iterator)
 	{
 		if (!ft_strncmp(iterator->content, "<<", 3))
+		{
+			v->flg_expand_in_hdoc = iterator->next->expand_in_hdoc;
 			ft_launch_heredoc(v, iterator->next->content);
+		}
 		iterator = iterator->next->next;
 	}
 	fdbk = __TRUE;
