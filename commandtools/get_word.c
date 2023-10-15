@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/06 05:50:36 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/15 01:09:03 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,28 @@ char	*get_expand_content(t_vars *v, char *expand_name, char *ret)
 	return (ret);
 }
 
+char	*expand_exit_status(size_t *i, size_t *j, char *ret)
+{
+	char	*expand_number;
+	char	*cpy;
+
+	*i += 2;
+	*j = 0;
+	expand_number = ft_itoa(exitstatus);
+	if (!expand_number)
+	{
+		perror("minishell: expand_case: ");
+		return (NULL);
+	}
+	cpy = ret;
+	ret = ft_strjoin(ret, expand_number);
+	free(expand_number);
+	free(cpy);
+	if (!ret)
+		perror("minishell: expand_case: ");
+	return (ret);
+}
+
 char	*expand_case(size_t *i, size_t *j, char *ret, t_vars *v)
 {
 	char	*expand_name;
@@ -40,6 +62,8 @@ char	*expand_case(size_t *i, size_t *j, char *ret, t_vars *v)
 	ret = join_s1_with_sub_s2(ret, v->line, i, j);
 	if (!ret)
 		return (NULL);
+	if ((v->line)[*i + *j + 1] == '?')
+		return (expand_exit_status(i, j, ret));
 	*i += 1;
 	if ((v->line)[*i + *j] <= '9' && (v->line)[*i + *j] >= '0')
 		return (ret);

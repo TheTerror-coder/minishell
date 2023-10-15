@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/14 02:36:57 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/15 01:51:21 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,9 @@ char	*first_join(char *line, char *expand_content, size_t start_index)
 	char	*ret;
 	char	*cpy;
 
-	ret = ft_substr(line, 0, start_index - 1);
+	ret = ft_substr(line, 0, start_index);
 	if (!ret)
 	{
-		free(expand_content);
 		perror("minishell: expand_word_inside_line: ");
 		return (NULL);
 	}
@@ -97,7 +96,6 @@ char	*first_join(char *line, char *expand_content, size_t start_index)
 	cpy = ret;
 	ret = ft_strjoin(ret, expand_content);
 	free(cpy);
-	free(expand_content);
 	if (!ret)
 		perror("minishell: expand_word_inside_line: ");
 	return (ret);
@@ -109,7 +107,10 @@ char	*second_join(char *line, char *ret, size_t end_index)
 	char	*cpy;
 
 	if (!ret)
+	{
+		free(line);
 		return (NULL);
+	}
 	sub = ft_substr(line, end_index, ft_strlen(line));
 	free(line);
 	if (!sub)
@@ -126,19 +127,36 @@ char	*second_join(char *line, char *ret, size_t end_index)
 	return (ret);
 }
 
-char	*expand_word_inside_line(t_vars *v, char *line, size_t start_index)
+char	*expand_exit_status_hdoc(char *line, size_t *start_index)
+{
+	char	*expand_number;
+	char	*ret;
+
+	expand_number = ft_itoa(exitstatus);
+	if (!expand_number)
+	{
+		perror("minishell: expand_word_inside_line: ");
+		return (NULL);
+	}
+	ret = first_join(line, expand_number, *start_index);
+	ret = second_join(line, ret, *start_index + 2);
+	free(expand_number);
+	return (ret);
+}
+
+char	*expand_word_inside_line(t_vars *v, char *line, size_t *start_index)
 {
 	char	*expand_name;
 	char	*expand_content;
 	char	*ret;
 	size_t	j;
 
-	if (line[start_index] <= '9' && line[start_index] >= '0')
+	if (line[*start_index + 1] <= '9' && line[*start_index + 1] >= '0')
 		return (line);
 	j = 0;
-	while (ft_isalnum(line[start_index + j]))
+	while (ft_isalnum(line[*start_index + 1 + j]))
 		j++;
-	expand_name = ft_substr(line, start_index, j);
+	expand_name = ft_substr(line, *start_index + 1, j);
 	if (!expand_name)
 	{
 		free(line);
@@ -146,9 +164,11 @@ char	*expand_word_inside_line(t_vars *v, char *line, size_t start_index)
 		return (NULL);
 	}
 	expand_content = check_env_var_set(v, expand_name);
-	free(expand_name);
-	ret = first_join(line, expand_content, start_index);
-	ret = second_join(line, ret, start_index + j);
+	ret = first_join(line, expand_content, *start_index);
+	ret = second_join(line, ret, *start_index + 1 + j);
+	if (expand_content)
+		*start_index += ft_strlen(expand_content);
+	free(expand_content);
 	return (ret);
 }
 
@@ -161,9 +181,15 @@ char	*expand_words_of_line(t_vars *v, char *line)
 	{
 		if (line[l_index] == '$' \
 				&& expand_conditions(line[l_index + 1], __FALSE))
-			line = expand_word_inside_line(v, line, l_index + 1);
+		{
+			if (line[l_index + 1] == '?')
+				line = expand_exit_status_hdoc(line, &l_index);
+			else
+				line = expand_word_inside_line(v, line, &l_index);
+		}
 		//what do we do if malloc error here
-		l_index++;
+		else
+			l_index++;
 	}
 	return (line);
 }
