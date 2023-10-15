@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/12 19:30:15 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/15 06:37:03 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_bool	ft_launcher(t_vars *v)
 	}
 	if (!strncmp("pwd", v->commands->main_command, 4))
 	{
-		ft_pwd( );
+		ft_pwd(v->commands->arguments[1]);
 		return (__TRUE);
 	}
 	if (!strncmp("env", v->commands->main_command, 4))
@@ -47,7 +47,7 @@ t_bool	ft_launcher(t_vars *v)
 		ft_unset(v);
 		return (__TRUE);
 	}
-// ft_putendl_fd("----------------hello---------------", STDERR_FILENO);
+// ft_putendl_fd("----------------hello---------------", STDERR_FILENO);*/
 	if (!ft_lnch_executable(v))
 	{
 		return (__FALSE);

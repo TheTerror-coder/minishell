@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/15 05:59:21 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/15 06:37:22 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_bool	ft_cd(t_vars *v);
 t_bool	ft_cd_no_args(t_vars *v);
 t_bool	ft_cd_oldpwd_case(t_vars *v);
 t_bool	testing_split_cdpath(char **split_cdpath, char *dir);
-t_bool	ft_pwd(void);
+t_bool	ft_pwd(char *first_arg);
 t_bool	ft_env(t_vars *v);
 
 

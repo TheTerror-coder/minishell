@@ -6,16 +6,22 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 03:58:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/08/06 02:08:40 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/15 06:43:00 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	ft_pwd(void)
+t_bool	ft_pwd(char *first_arg)
 {
 	char	*pwd;
-	
+
+	if (first_arg && first_arg[0] == '-' && first_arg[1] != '\0' \
+		&& (first_arg[1] != '-' || first_arg[2] != '\0'))
+	{
+		ft_putstr_fd("minishell: ft_pwd: no option available\n", 2);
+		return (0);
+	}
 	pwd = getcwd(NULL, 0);
 	if (pwd)
 	{
