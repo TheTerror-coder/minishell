@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/15 08:07:21 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/15 08:34:04 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_bool	get_var_name(char **var, char *str)
 
 t_bool	find_var(t_vars *v, char *var, char *str)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = v->my_env;
 	while (tmp->next && strncmp(tmp->var, var, ft_strlen(var)))
@@ -42,8 +42,8 @@ t_bool	find_var(t_vars *v, char *var, char *str)
 char	*adding_quotes(char *s)
 {
 	char	*ret;
-	int	i;
-	
+	int		i;
+
 	ret = malloc(sizeof(char) * ft_strlen(s) + 3);
 	if (!ret)
 		return (0);
@@ -65,7 +65,7 @@ char	*adding_quotes(char *s)
 		ret[i + 1] = s[i];
 		i++;
 	}
-	ret[i + 1] =  '"';
+	ret[i + 1] = '"';
 	ret[i + 2] = '\0';
 	return (ret);
 }
@@ -74,7 +74,7 @@ t_bool	print_export(t_vars *v)
 {
 	char	**s;
 	char	*tmp;
-	int	i;
+	int		i;
 
 	i = 0;
 	s = env_list_to_tab(v);
@@ -106,7 +106,7 @@ t_bool	export_one_arg(t_vars *v, char *str)
 	char	*var;
 
 	get_var_name(&var, str);
-	if (!find_var(v, var, str) && strchr(str, '='))
+	if (!find_var(v, var, str))
 		add_env_var(v, str);
 	return (0);
 }

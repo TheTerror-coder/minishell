@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/15 08:21:21 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/15 08:23:35 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ t_bool	find_and_unset_var(t_vars *v, char *var)
 	tmp = (v->my_env)->next;
 	if (!ft_strncmp(tmp->var, var_equal, length_var))
 	{
-		
 		free(v->my_env);
 		free(v->my_env);
 		v->my_env = tmp;
@@ -77,7 +76,7 @@ t_bool	find_and_unset_var(t_vars *v, char *var)
 
 t_bool	ft_unset(t_vars *v)
 {
-	int	i;
+	int		i;
 	char	**argv;
 
 	argv = v->commands->arguments;
