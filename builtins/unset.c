@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/08/06 05:33:29 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/15 08:21:21 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,14 @@ t_bool	find_and_unset_var(t_vars *v, char *var)
 t_bool	ft_unset(t_vars *v)
 {
 	int	i;
+	char	**argv;
 
+	argv = v->commands->arguments;
 	i = 1;
-	while ((v->argv)[i])
+	while (argv[i])
 	{
-		if (check_var_name((v->argv)[i]))
-			find_and_unset_var(v, (v->argv)[i]);
+		if (check_var_name(argv[i]))
+			find_and_unset_var(v, argv[i]);
 		i++;
 	}
 	return (__TRUE);
