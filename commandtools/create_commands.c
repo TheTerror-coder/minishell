@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 04:14:54 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/11 14:01:59 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/15 18:04:49 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_commands	*create_commands(t_token *tokens)
 		return (NULL);
 	}
 	command->tokens = tokens;
+	command->hdoc_fd = __CLOSED_FD;
 	command->next = NULL;
 	while (tokens != NULL \
 		&& !(tokens->type == 1 && (tokens->content)[0] == '|'))

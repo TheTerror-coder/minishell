@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:13 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/13 17:42:39 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/15 18:32:06 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 t_bool ft_prompt(t_vars *v)
 {
-	
 	v->line = readline("minishell$ ");
 	while (!ft_strlen(v->line) || ft_strncmp(v->line, "exit", 5))
 	{
-		ft_razflags(v);
+		// ft_razflags(v);
 		if ((v->line)[0])
 			add_history(v->line);
 		ft_minishell(v);
+		ft_clear_created_tempfiles(v);
 		ft_freestr(&v->line);
 		v->line = readline("minishell$ ");
 	}
@@ -63,6 +63,5 @@ t_bool ft_minishell(t_vars *v)
 // ft_exitmainprocss(v , EXIT_FAILURE);
 	if (!ft_launcher(v))
 		return (__FALSE);
-	ft_clear_created_tempfiles(v);
 	return (__TRUE);
 }

@@ -6,14 +6,16 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/14 00:44:46 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/16 16:11:24 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 t_bool	ft_execute(t_vars *v);
-t_bool	ft_set_io(t_vars *v);
+void	ft_run_simplecmnd(t_vars *v);
+t_bool	ft_set_io(t_vars *v, t_commands *command);
+t_bool	ft_run_heredocs(t_vars *v, t_commands *command);
 
 t_bool	ft_lnch_executable(t_vars *v)
 {
@@ -37,32 +39,53 @@ t_bool	ft_lnch_executable(t_vars *v)
 
 t_bool	ft_execute(t_vars *v)
 {
-	char	*line;
-
 	exitstatus = EXIT_SUCCESS;
-	line = NULL;
-	// if (v->flg_pipeline)
-	// 	ft_pipeline(v, v->nb, v->lst);
-	if (!ft_set_io(v))
+	ft_run_heredocs(v, v->commands);
+	if (v->commands && v->commands->next)
+		ft_run_pipeline(v, v->commands);
+	else
+		ft_run_simplecmnd(v);
+	return (__FALSE);
+}
+
+void	ft_run_simplecmnd(t_vars *v)
+{
+	if (!ft_set_io(v, v->commands))
 		ft_exitbackprocss(v, exitstatus);
-	if (v->flg_heredoc && !v->argv[0])
-	{
-		line = get_next_line(STDIN_FILENO);
-		while (line)
-		{
-			ft_freestr(&line);
-			line = get_next_line(STDIN_FILENO);
-		}
-		ft_freestr(&line);
-		ft_exitbackprocss(v, EXIT_SUCCESS);
-	}
-	if (ft_set_cmdpath(v, v->commands->arguments) != __TRUE)
+	ft_freestr(&v->cmdpath);
+	v->cmdpath = ft_set_cmdpath(v, v->commands->arguments);
+	if (!v->cmdpath)
 		ft_exitbackprocss(v, EXIT_FAILURE);
 	ft_freesecondaries(v);
 	execve(v->cmdpath, v->commands->arguments, __environ);
 	perror("execve");
 	ft_exitbackprocss(v, __EXIT_REACHED);
-	return (__FALSE);
+}
+
+t_bool	ft_run_heredocs(t_vars *v, t_commands *command)
+{
+	t_commands	*cmd_iterator;
+	t_token	*token_iterator;
+
+	cmd_iterator = command;
+	while (cmd_iterator)
+	{
+		token_iterator = cmd_iterator->tokens;
+		v->flg_expand_in_hdoc = token_iterator->next->expand_in_hdoc;
+		while (token_iterator)
+		{
+			if (!ft_strncmp(token_iterator->content, "<<", 3))
+			{
+				if (!ft_launch_heredoc(v, token_iterator->next->content))
+					ft_exitbackprocss(v, EXIT_FAILURE);
+			}
+			token_iterator = token_iterator->next->next;
+		}
+		cmd_iterator->hdoc_fd = v->hdoc_fd;
+		v->hdoc_fd = __CLOSED_FD;
+		cmd_iterator = cmd_iterator->next;
+	}
+	return (__TRUE);
 }
 
 /*
@@ -73,25 +96,15 @@ t_bool	ft_execute(t_vars *v)
 * command line becomes the standard input and so on for the standard output.
 *
 * At the end, Always close the heredoc file descriptor (v->hdoc_fd) otherwise 
-* a the rear heredoc process will remain waiting.
+* the rear heredoc process will remain waiting.
 */
-t_bool	ft_set_io(t_vars *v)
+t_bool	ft_set_io(t_vars *v, t_commands *command)
 {
 	t_token	*iterator;
 	t_bool	fdbk;
 
-	iterator = v->commands->tokens;
-	while (iterator)
-	{
-		if (!ft_strncmp(iterator->content, "<<", 3))
-		{
-			v->flg_expand_in_hdoc = iterator->next->expand_in_hdoc;
-			ft_launch_heredoc(v, iterator->next->content);
-		}
-		iterator = iterator->next->next;
-	}
 	fdbk = __TRUE;
-	iterator = v->commands->tokens;
+	iterator = command->tokens;
 	while (iterator)
 	{
 		if (!ft_strncmp(iterator->content, "<", 2))
@@ -99,13 +112,13 @@ t_bool	ft_set_io(t_vars *v)
 		else if (!ft_strncmp(iterator->content, ">", 2))
 			fdbk = fdbk && ft_outredir(v, iterator->next->content);
 		else if (!ft_strncmp(iterator->content, "<<", 3))
-			fdbk = fdbk && ft_heredocredir(v);
+			fdbk = fdbk && ft_heredocredir(command);
 		else if (!ft_strncmp(iterator->content, ">>", 3))
 			fdbk = fdbk && ft_outappendredir(v, iterator->next->content);
 		iterator = iterator->next->next;
 		if (!fdbk)
 			return (__FALSE);
 	}
-	ft_fclose(&v->hdoc_fd);
+	ft_fclose(&command->hdoc_fd);
 	return (__TRUE);
 }

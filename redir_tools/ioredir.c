@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:54:11 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/13 18:08:27 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/15 18:21:22 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_bool	ft_launch_heredoc(t_vars *v, char *limiter)
 	ft_freestr(&v->limiter);
 	v->limiter = ft_strdup(limiter);
 	if (!v->limiter)
-		return (ft_goprompt("ft_heredocredir(): ft_strdup() failed", __PRINT));
+		return (ft_goprompt("ft_launch_heredoc(): ft_strdup() failed", __PRINT));
 	if (!ft_heredoc(v))
 		return (__FALSE);
 	if (v->hdoc_fd < 0)
@@ -42,7 +42,13 @@ t_bool	ft_launch_heredoc(t_vars *v, char *limiter)
 	return (__TRUE);
 }
 
-t_bool	ft_heredocredir(t_vars *v)
+/*
+* the heredoc file descriptor is duplicated here because otherwise, when there are
+* several heredocs, this function is called as many times to ultimately save the last
+* as standard input. So if we close this hdoc_fd, we loose the connection with the 
+* here-document content at the first call.
+*/
+t_bool	ft_heredocredir(t_commands *command)
 {
 // ft_putendl_fd("-----heredocredir------", 2);
 	int	hdoc_fd_dup;
@@ -50,7 +56,7 @@ t_bool	ft_heredocredir(t_vars *v)
 
 	nada = __CLOSED_FD;
 	hdoc_fd_dup = __CLOSED_FD;
-	hdoc_fd_dup = dup(v->hdoc_fd);
+	hdoc_fd_dup = dup(command->hdoc_fd);
 	if (hdoc_fd_dup < 0)
 		return (ft_goprompt("ft_heredocredir(): dup() failed", __PRINT));
 	if (!ft_ioset_op(&hdoc_fd_dup, &nada))

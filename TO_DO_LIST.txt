@@ -16,3 +16,8 @@ Bug a fix :
 
 
 --------------------------------------------------------------------------------
+
+__SEGFAULT:		-	<< end "
+__SEGFAULT:		-	cd
+__SEGFAULT:		-	echo iwdkflhs
+__SEGFAULT:		-	env

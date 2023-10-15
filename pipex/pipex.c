@@ -14,24 +14,18 @@
 
 t_bool	ft_pipex(t_vars *v);
 
-t_bool	ft_pipeline(t_vars *v, int nbcmd, char ***cmdlst)
+void	ft_run_pipeline(t_vars *v, t_commands *commands)
 {
 	t_ppex	*var;
 
 	var = NULL;
-	var = ft_init_tvars(nbcmd, cmdlst);
+	var = ft_init_tvars(commands);
 	v->var = var;
 	if (!var)
 		ft_exitpipe(EXIT_FAILURE, v);
-	if (!ft_checkargs(v))
-		ft_exitpipe(var->exit, v);
-// ft_set_cmdlist(v);
-// ft_putendl_fd("eheheeheh", 2);
-
 	if (!ft_pipex(v))
 		ft_exitpipe(exitstatus, v);
 	ft_exitpipe(exitstatus, v);
-	return (__TRUE);
 }
 
 t_bool	ft_pipex(t_vars *v)
@@ -41,14 +35,17 @@ t_bool	ft_pipex(t_vars *v)
 
 	var = v->var;
 	fdbk = __TRUE;
-	while (var->i < var->nbcmd)
+	var->iterator = var->commands;
+	var->i = 0;
+	while (var->i < var->nbcmd && var->iterator)
 	{
 		if (pipe(var->p[var->i]))
 			return (ft_perror(EXIT_FAILURE, "pipe", __PERROR));
+		var->skip_command_flg = __FALSE;
 		fdbk = ft_ioset(v);
-		if (!fdbk)
+		if (!fdbk && !var->skip_command_flg)
 			return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
-		if (fdbk != __SKIP)
+		if (!var->skip_command_flg)
 		{
 			var->pid[var->i] = fork();
 			if (var->pid[var->i] == -1)
@@ -59,6 +56,7 @@ t_bool	ft_pipex(t_vars *v)
 		if (!ft_pcloser(v))
 			return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
 		var->i++;
+		var->iterator = var->iterator->next;
 	}
 	return (__TRUE);
 }

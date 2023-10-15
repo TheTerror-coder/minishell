@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/11 14:01:37 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/15 18:09:36 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_freecommands(t_vars *v)
 			commands->tokens = commands->tokens->next;
 			free(tokens);
 		}
+		ft_fclose(&commands->hdoc_fd);
 		commands_cpy = commands;
 		commands = commands->next;
 		free(commands_cpy);
