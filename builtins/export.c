@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/08/03 05:10:52 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/15 08:07:21 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,17 +101,33 @@ t_bool	print_export(t_vars *v)
 	return (0);
 }
 
-t_bool	ft_export(t_vars *v, char *str)
+t_bool	export_one_arg(t_vars *v, char *str)
 {
 	char	*var;
 
-	if (!str)
+	get_var_name(&var, str);
+	if (!find_var(v, var, str) && strchr(str, '='))
+		add_env_var(v, str);
+	return (0);
+}
+
+t_bool	ft_export(t_vars *v, char **arguments)
+{
+	int	index;
+
+	if (!arguments[1])
 	{
 		print_export(v);
 		return (0);
 	}
-	get_var_name(&var, str);
-	if (!find_var(v, var, str) && strchr(str, '='))
-		add_env_var(v, str);	
+	else
+	{
+		index = 1;
+		while (arguments[index])
+		{
+			export_one_arg(v, arguments[index]);
+			index++;
+		}
+	}
 	return (0);
 }

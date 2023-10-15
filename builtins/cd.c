@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/15 06:04:10 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/15 08:12:47 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_bool	set_pwd_and_oldpwd(t_vars *v, char *old_pwd)
 {
 	char	*new_pwd;
 	char	*tmp_pwd;
+	char	**pwd_list;
 
 	tmp_pwd = getcwd(NULL, 0);
 	if (!tmp_pwd)
@@ -33,10 +34,15 @@ t_bool	set_pwd_and_oldpwd(t_vars *v, char *old_pwd)
 		perror("minishell: cd");
 		return (__FALSE);
 	}
-	ft_export(v, new_pwd);
-	ft_export(v, tmp_pwd);
-	/*if (!ft_export(v, new_pwd) || !ft_export(v, old_pwd))
-		return (__FALSE);*/
+	pwd_list = malloc(sizeof(char *) * 4);
+	if (pwd_list)
+	{
+		pwd_list[1] = new_pwd;
+		pwd_list[2] = tmp_pwd;
+		pwd_list[3] = NULL;
+		ft_export(v, pwd_list);
+		free(pwd_list);
+	}
 	free(new_pwd);
 	free(tmp_pwd);
 	return (__TRUE);
