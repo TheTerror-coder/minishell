@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:51:38 by lmohin            #+#    #+#             */
-/*   Updated: 2023/08/04 18:01:27 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/15 05:58:52 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_bool	talking_chdir(char *path)
 	return (__FALSE);
 }
 
-t_bool	testing_split_cdpath(t_vars *v, char **split_cdpath)
+t_bool	testing_split_cdpath(char **split_cdpath, char *dir)
 {
 	int		i;
 	char	*cdpath;
@@ -102,7 +102,7 @@ t_bool	testing_split_cdpath(t_vars *v, char **split_cdpath)
 	i = 0;
 	while (split_cdpath[i++])
 	{
-		cdpath = ft_strjoin(split_cdpath[i - 1], v->argv[1]);
+		cdpath = ft_strjoin(split_cdpath[i - 1], dir);
 		if (!cdpath)
 			return (__FALSE);
 		if (talking_chdir(cdpath))
@@ -110,7 +110,7 @@ t_bool	testing_split_cdpath(t_vars *v, char **split_cdpath)
 		cdpath_slash = ft_strjoin(split_cdpath[i - 1], "/");
 		if (!cdpath_slash)
 			return (__FALSE);
-		cdpath = ft_strjoin(cdpath_slash, v->argv[1]);
+		cdpath = ft_strjoin(cdpath_slash, dir);
 		free(cdpath_slash);
 		if (!cdpath)
 			return (__FALSE);
