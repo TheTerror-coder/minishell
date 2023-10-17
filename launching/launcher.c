@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/17 21:16:39 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 22:49:19 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_bool	ft_launcher(t_vars *v)
 
 t_bool	ft_run_builtin(t_vars *v)
 {
+	if (!v->commands->main_command)
+		return (__TRUE);
 	if (!strncmp("echo", v->commands->main_command, 5))
 	{
 		if (v->commands->arguments[1] && strncmp("-n", v->commands->arguments[1], 3) == 0)
