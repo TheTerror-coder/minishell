@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/16 16:11:24 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 21:00:06 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ t_bool	ft_run_heredocs(t_vars *v, t_commands *command)
 	while (cmd_iterator)
 	{
 		token_iterator = cmd_iterator->tokens;
-		v->flg_expand_in_hdoc = token_iterator->next->expand_in_hdoc;
 		while (token_iterator)
 		{
 			if (!ft_strncmp(token_iterator->content, "<<", 3))
 			{
+				v->flg_expand_in_hdoc = token_iterator->next->expand_in_hdoc;
 				if (!ft_launch_heredoc(v, token_iterator->next->content))
 					ft_exitbackprocss(v, EXIT_FAILURE);
 			}

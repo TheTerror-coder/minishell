@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/15 21:34:27 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 21:16:39 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_bool	ft_launcher(t_vars *v)
 {
-	if (ft_run_builtin(v))
+	if (!ft_run_builtin(v))
 		return (__FALSE);
 	if (!ft_lnch_executable(v))
 		return (__FALSE);
