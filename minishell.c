@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:13 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/17 22:47:46 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/17 23:05:38 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_bool ft_prompt(t_vars *v)
 {
 	v->line = readline("minishell$ ");
-	while (!ft_strlen(v->line) || ft_strncmp(v->line, "exit", 5))
+	while (1)
 	{
 		// ft_razflags(v);
 		if ((v->line)[0])

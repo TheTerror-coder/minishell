@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/17 22:49:19 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/17 23:04:11 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,11 @@ t_bool	ft_run_builtin(t_vars *v)
 		return (ft_export(v, v->commands->arguments));
 	if (!strncmp("unset",v->commands->main_command, 6))
 		return (ft_unset(v));
+	if (!strncmp("exit", v->commands->main_command, 6))
+	{
+		return (ft_exit(v));
+		/* if ft_exit(v)
+			exitprocess */
+	}
 	return (__TRUE);
 }
