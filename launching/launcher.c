@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 15:12:18 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 18:00:59 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 t_bool	ft_launcher(t_vars *v)
 {
-	if (!v->commands->next && ft_run_builtin(v, v->commands) != __SKIP)
-		return (__TRUE);
+	if (!v->commands->next)
+		if (v->flg_exit_main_procss = __TRUE, ft_run_builtin(v, v->commands) != __SKIP)
+			return (__TRUE);
 	if (!ft_lnch_executable(v))
 		return (__FALSE);
 	return (__TRUE);
@@ -42,9 +43,6 @@ int	ft_run_builtin(t_vars *v, t_commands *command)
 	if (!strncmp("unset", command->main_command, 6))
 		return (ft_unset(v, command));
 	if (!strncmp("exit", command->main_command, 6))
-	{
-		ft_exit(v);
-		//exit
-	}
+		return (ft_exit(v, command, exitstatus));
 	return (__SKIP);
 }

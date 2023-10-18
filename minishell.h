@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 15:13:30 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 17:30:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,12 @@ t_bool	ft_lnch_executable(t_vars *v);
 t_bool	ft_launcher(t_vars *v);
 t_bool	ft_pwait(t_vars *var, int pid, int option);
 t_bool	ft_fclose(int *fd);
-char	*ft_set_cmdpath(t_vars *v, char **argv);
+char	*ft_set_cmdpath(t_vars *v, char *command);
 t_bool	ft_setpath2(t_vars *v);
 t_bool	ft_isseperator(char c, char *suite);
 char	*ft_setofquote(t_vars *v, char c);
 void	ft_skip_partquoted(char *line, int *i);
 void	ft_freesecondaries(t_vars *v);
-void	ft_free_lst(t_vars *v);
 void	ft_closetvars(t_vars *v);
 
 t_bool	ft_ioset_op(int *infd, int *outfd);
@@ -100,6 +99,6 @@ t_bool	ft_pwd(char *first_arg);
 t_bool	ft_env(t_vars *v, t_commands *command);
 int		ft_run_builtin(t_vars *v, t_commands *command);
 
-t_bool	ft_exit(t_vars *v);
+t_bool	ft_exit(t_vars *v, t_commands *command, int status);
 t_bool	ft_unset(t_vars *v, t_commands *command);
 #endif

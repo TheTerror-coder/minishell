@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:07:19 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/17 22:07:59 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 16:49:28 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_bool	ft_waitingroom(t_vars *v)
 	return (__TRUE);
 }
 
-void	ft_exitpipe(int status, t_vars *v)
+void	ft_exitpipe(t_vars *v, int status)
 {
 	if (v->var->pid)
 		ft_waitingroom(v);

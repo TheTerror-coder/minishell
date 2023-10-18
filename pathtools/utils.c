@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 19:12:23 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/13 17:30:08 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 15:48:48 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,4 @@ t_bool	ft_pwait(t_vars *v, int pid, int option)
 		if (WIFEXITED(v->status))
 			v->exit_code = WEXITSTATUS(v->status);
 	return (__TRUE);
-}
-
-t_bool	ft_cmdnfnd(t_vars *v, char *command)
-{
-	write (STDERR_FILENO, command, ft_strlen(command));
-	if (!ft_strchr(command, '/'))
-		ft_goprompt(": command not found", __PRINT);
-	else
-		ft_goprompt(": No such file or directory", __PRINT);
-	ft_freestr(&v->cmdpath);
-	return (__SKIP);
 }

@@ -22,10 +22,10 @@ void	ft_run_pipeline(t_vars *v, t_commands *commands)
 	var = ft_init_tvars(commands);
 	v->var = var;
 	if (!var)
-		ft_exitpipe(EXIT_FAILURE, v);
+		ft_exitpipe(v, EXIT_FAILURE);
 	if (!ft_pipex(v))
-		ft_exitpipe(exitstatus, v);
-	ft_exitpipe(exitstatus, v);
+		ft_exitpipe(v, exitstatus);
+	ft_exitpipe(v, exitstatus);
 }
 
 t_bool	ft_pipex(t_vars *v)

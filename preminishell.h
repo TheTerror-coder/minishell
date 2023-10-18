@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 14:26:07 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 17:18:53 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_vars
 	int		outfd;
 	int		hdoc_fd;
 	t_bool	flg_expand_in_hdoc;
+	t_bool	flg_exit_main_procss;
 	t_ppex	*var;
 }				t_vars;
 #endif
