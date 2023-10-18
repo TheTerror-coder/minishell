@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/15 01:51:21 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/18 18:43:46 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_bool	ft_heredoc_op1(t_vars *v);
 t_bool	ft_heredoc_op2(t_vars *v);
 t_bool	ft_heredoc2(t_vars *v);
-
+char	*expand_words_of_line(t_vars *v, char *line);
 t_bool	ft_heredoc(t_vars *v)
 {
 	int	pid;
@@ -70,6 +70,12 @@ t_bool	ft_heredoc_op1(t_vars *v)
 	line = readline("> ");
 	while (ft_strncmp(line, v->limiter, ft_strlen(v->limiter) + 1))
 	{
+		if (v->flg_expand_in_hdoc)
+		{
+			line = expand_words_of_line(v, line);
+			if (!line)
+				ft_exitbackprocss(v, EXIT_FAILURE);
+		}
 		ft_putendl_fd(line, v->outfd);
 		ft_freestr(&line);
 		line = readline("> ");
@@ -187,7 +193,6 @@ char	*expand_words_of_line(t_vars *v, char *line)
 			else
 				line = expand_word_inside_line(v, line, &l_index);
 		}
-		//what do we do if malloc error here
 		else
 			l_index++;
 	}
@@ -208,8 +213,6 @@ t_bool	ft_heredoc_op2(t_vars *v)
 	line = get_next_line(v->infd);
 	while (line)
 	{
-		if (v->flg_expand_in_hdoc)
-			line = expand_words_of_line(v, line);
 		if (write(v->p1[1], line, ft_strlen(line)) < 0)
 		{
 			ft_freestr(&line);
