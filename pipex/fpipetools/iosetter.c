@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 14:13:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/15 17:59:48 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 20:02:32 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_bool	ft_io_lastcmnd(t_vars *v)
 	int		prime_stdout;
 
 	var = v->var;
-	prime_stdout = dup(var->stdin);
+	prime_stdout = dup(v->stdin);
 	if (prime_stdout < 0)
 		return (ft_perror(EXIT_FAILURE, "prime_stdout: dup()", __PERROR));
 	if (!ft_ioset_op(&var->pipe_outfd, &prime_stdout))

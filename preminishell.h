@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 17:18:53 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 19:46:49 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ typedef struct	s_ppex
 	int			outfile_fd;
 	int			sp[2];
 	int			**p;
-	int			stdin;
-	int			stdout;
 	int			pipe_outfd;
 	int			*pid;
 	int			exit;
@@ -104,6 +102,8 @@ typedef struct s_vars
 	int		nb;
 	int		infd;
 	int		outfd;
+	int		stdin;
+	int		stdout;
 	int		hdoc_fd;
 	t_bool	flg_expand_in_hdoc;
 	t_bool	flg_exit_main_procss;

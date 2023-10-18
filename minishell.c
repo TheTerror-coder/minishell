@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:13 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 17:26:02 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 19:59:54 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_bool ft_prompt(t_vars *v)
 			add_history(v->line);
 		ft_minishell(v);
 		ft_clear_created_tempfiles(v);
+		ft_freecommands(v);
+		ft_raz(v);
 		ft_freestr(&v->line);
 		v->line = readline("minishell$ ");
 	}

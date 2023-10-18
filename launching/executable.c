@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 17:51:52 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 19:23:02 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 t_bool	ft_execute(t_vars *v);
 void	ft_run_simplecmnd(t_vars *v);
-t_bool	ft_set_io(t_vars *v, t_commands *command);
-t_bool	ft_run_heredocs(t_vars *v, t_commands *command);
 
 t_bool	ft_lnch_executable(t_vars *v)
 {
@@ -40,7 +38,6 @@ t_bool	ft_lnch_executable(t_vars *v)
 t_bool	ft_execute(t_vars *v)
 {
 	exitstatus = EXIT_SUCCESS;
-	ft_run_heredocs(v, v->commands);
 	if (v->commands && v->commands->next)
 		ft_run_pipeline(v, v->commands);
 	else

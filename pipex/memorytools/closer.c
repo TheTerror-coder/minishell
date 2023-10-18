@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:49:42 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/15 16:17:33 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 19:44:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ t_bool	ft_close_tvars(t_ppex *var)
 			i++;
 		}
 	}
-	fdbk = ft_fclose(&var->stdin) & fdbk;
-	fdbk = ft_fclose(&var->stdout) & fdbk;
 	fdbk = ft_fclose(&var->pipe_outfd) & fdbk;
-	// fdbk = ft_fclose(&var->stamp_fd) & fdbk;
 	return (fdbk);
 }
 

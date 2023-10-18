@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 18:00:59 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 19:48:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,17 @@
 
 t_bool	ft_launcher(t_vars *v)
 {
+	int	fdbk;
+
+	fdbk = __TRUE;
+	ft_run_heredocs(v, v->commands);
 	if (!v->commands->next)
-		if (v->flg_exit_main_procss = __TRUE, ft_run_builtin(v, v->commands) != __SKIP)
-			return (__TRUE);
+	{
+		v->flg_exit_main_procss = __TRUE;
+		fdbk = ft_run_builtin(v, v->commands);
+		if (fdbk != __SKIP)
+			return (fdbk && 1);
+	}
 	if (!ft_lnch_executable(v))
 		return (__FALSE);
 	return (__TRUE);
@@ -29,17 +37,17 @@ int	ft_run_builtin(t_vars *v, t_commands *command)
 	if (!strncmp("echo", command->main_command, 5))
 	{
 		if (command->arguments[1] && strncmp("-n", command->arguments[1], 3) == 0)
-			return (ft_echo(command, 1));
-		return (ft_echo(command, 0));
+			return (ft_echo(v, command, 1));
+		return (ft_echo(v, command, 0));
 	}
 	if (!strncmp("cd", command->main_command, 3))
 		return (ft_cd(v, command));
 	if (!strncmp("pwd", command->main_command, 4))
-		return (ft_pwd(command->arguments[1]));
+		return (ft_pwd(v, command, command->arguments[1]));
 	if (!strncmp("env", command->main_command, 4))
 		return (ft_env(v, command));
 	if (!strncmp("export", command->main_command, 7))
-		return (ft_export(v, command->arguments));
+		return (ft_export(v, command, command->arguments));
 	if (!strncmp("unset", command->main_command, 6))
 		return (ft_unset(v, command));
 	if (!strncmp("exit", command->main_command, 6))

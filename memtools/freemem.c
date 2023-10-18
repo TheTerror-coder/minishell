@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/17 22:10:27 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 22:38:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_closetvars(t_vars *v)
 	ft_fclose(&v->p2[1]);
 	ft_fclose(&v->infd);
 	ft_fclose(&v->outfd);
+
 	ft_fclose(&v->hdoc_fd);
 }
 
@@ -50,6 +51,8 @@ void	ft_exitmainprocss(t_vars *v, int status)
 {
 	ft_clear_created_tempfiles(v);
 	ft_closetvars(v);
+	ft_fclose(&v->stdin);
+	ft_fclose(&v->stdout);
 	ft_freetvars(v);
 	exit(status);
 }

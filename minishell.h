@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 17:30:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 20:01:58 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,25 +77,25 @@ void	ft_freesecondaries(t_vars *v);
 void	ft_closetvars(t_vars *v);
 
 t_bool	ft_ioset_op(int *infd, int *outfd);
-void	ft_razflags(t_vars *v);
+t_bool	ft_raz(t_vars *v);
 t_bool	ft_inredir(t_vars *v, char *infile);
 t_bool	ft_outredir(t_vars *v, char *outfile);
 t_bool	ft_outappendredir(t_vars *v, char *outfile);
 t_bool	ft_heredocredir(t_commands *command);
-t_bool	ft_setpipeline(t_vars *v);
 t_bool	ft_launch_heredoc(t_vars *v, char *limiter);
 t_bool	ft_heredoc(t_vars *v);
 t_bool	ft_openatemp(t_vars *v);
 t_bool	ft_clear_created_tempfiles(t_vars *v);
 t_bool	ft_set_io(t_vars *v, t_commands *command);
+t_bool	ft_run_heredocs(t_vars *v, t_commands *command);
 
-t_bool	ft_export(t_vars *v, char **arguments);
-t_bool	ft_echo(t_commands *command, t_bool n_option);
+t_bool	ft_export(t_vars *v, t_commands *command, char **arguments);
+t_bool	ft_echo(t_vars *v, t_commands *command, t_bool n_option);
 t_bool	ft_cd(t_vars *v, t_commands *command);
 t_bool	ft_cd_no_args(t_vars *v);
 t_bool	ft_cd_oldpwd_case(t_vars *v);
 t_bool	testing_split_cdpath(char **split_cdpath, char *dir);
-t_bool	ft_pwd(char *first_arg);
+t_bool	ft_pwd(t_vars *v, t_commands *command, char *first_arg);
 t_bool	ft_env(t_vars *v, t_commands *command);
 int		ft_run_builtin(t_vars *v, t_commands *command);
 

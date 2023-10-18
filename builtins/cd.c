@@ -6,13 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/17 22:00:40 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 19:25:30 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	set_pwd_and_oldpwd(t_vars *v, char *old_pwd)
+t_bool	set_pwd_and_oldpwd(t_vars *v, t_commands *command, char *old_pwd)
 {
 	char	*new_pwd;
 	char	*tmp_pwd;
@@ -40,7 +40,7 @@ t_bool	set_pwd_and_oldpwd(t_vars *v, char *old_pwd)
 		pwd_list[1] = new_pwd;
 		pwd_list[2] = tmp_pwd;
 		pwd_list[3] = NULL;
-		ft_export(v, pwd_list);
+		ft_export(v, command, pwd_list);
 		free(pwd_list);
 	}
 	free(new_pwd);
@@ -80,7 +80,7 @@ t_bool	ft_cd_special_cases(t_vars *v, t_commands *command, char *old_pwd)
 	if (!(command->arguments[1]))
 	{
 		if (ft_cd_no_args(v))
-			return (set_pwd_and_oldpwd(v, old_pwd));
+			return (set_pwd_and_oldpwd(v, command, old_pwd));
 		free(old_pwd);
 		return (__FALSE);
 	}
@@ -93,7 +93,7 @@ t_bool	ft_cd_special_cases(t_vars *v, t_commands *command, char *old_pwd)
 	if (!ft_strncmp(command->arguments[1], "-", 2))
 	{
 		if (ft_cd_oldpwd_case(v))
-			return (set_pwd_and_oldpwd(v, old_pwd));
+			return (set_pwd_and_oldpwd(v, command, old_pwd));
 		free(old_pwd);
 		return (__FALSE);
 	}
@@ -105,6 +105,8 @@ t_bool	ft_cd(t_vars *v, t_commands *command)
 	char	*old_pwd;
 
 	old_pwd = getcwd(NULL, 0);
+	if (!ft_set_io(v, command))
+		return (__FALSE);
 	if (!old_pwd)
 	{
 		perror("minishell: cd");
@@ -115,7 +117,7 @@ t_bool	ft_cd(t_vars *v, t_commands *command)
 		|| (!ft_strncmp(command->arguments[1], "-", 2)))
 		return (ft_cd_special_cases(v, command, old_pwd));
 	if (ft_cd_cdpath_set(v, command->arguments[1]))
-		return (set_pwd_and_oldpwd(v, old_pwd));
+		return (set_pwd_and_oldpwd(v, command, old_pwd));
 	if (errno == ENOMEM)
 		return (__FALSE);
 	if (chdir(command->arguments[1]) == -1)
@@ -127,5 +129,5 @@ t_bool	ft_cd(t_vars *v, t_commands *command)
 		perror(NULL);
 		return (__FALSE);
 	}
-	return (set_pwd_and_oldpwd(v, old_pwd));
+	return (set_pwd_and_oldpwd(v, command, old_pwd));
 }

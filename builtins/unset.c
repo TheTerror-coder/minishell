@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/17 22:04:29 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 19:11:53 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ t_bool	ft_unset(t_vars *v, t_commands *command)
 	int		i;
 	char	**argv;
 
+	if (!ft_set_io(v, command))
+		return (__FALSE);
 	argv = command->arguments;
 	i = 1;
 	while (argv[i])

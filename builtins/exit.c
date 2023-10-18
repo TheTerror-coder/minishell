@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 22:53:43 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/18 18:09:31 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 19:16:54 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_bool	ft_exit(t_vars *v, t_commands *command, int status)
 {
+	if (!ft_set_io(v, command))
+		return (__FALSE);
 	if (v->flg_exit_main_procss)
 		ft_putendl_fd("exit", STDERR_FILENO);
 	if ((command->arguments)[1])

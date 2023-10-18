@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/15 08:34:04 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/18 19:23:35 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,12 @@ t_bool	export_one_arg(t_vars *v, char *str)
 	return (0);
 }
 
-t_bool	ft_export(t_vars *v, char **arguments)
+t_bool	ft_export(t_vars *v, t_commands *command, char **arguments)
 {
 	int	index;
 
+	if (!ft_set_io(v, command))
+		return (__FALSE);
 	if (!arguments[1])
 	{
 		print_export(v);

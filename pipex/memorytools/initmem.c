@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:08:46 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/15 15:22:15 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 19:50:07 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@ t_bool	ft_fdinit(t_ppex *var)
 		return (perror("dup"), __FALSE);
 	var->sp[0] = -111;
 	var->sp[1] = -111;
-	var->stdin = -111;
-	var->stdout = -111;
-	var->stdin = dup(STDIN_FILENO);
-	var->stdout = dup(STDOUT_FILENO);
-	if (var->stdout < 0 || var->stdin < 0)
-		return (perror("dup"), __FALSE);
 	var->pipe_outfd = -111;
 	// var->stamp_fd = -111;
 	return (__TRUE);

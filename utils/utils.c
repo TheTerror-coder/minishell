@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/14 19:08:02 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 22:44:59 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,18 @@ t_bool	ft_fclose(int *fd)
 	return (__TRUE);
 }
 
-// void	ft_razflags(t_vars *v)
-// {
-// 	v->flg_infile = __FALSE;
-// 	v->flg_outfile = __FALSE;
-// 	v->flg_heredoc = __FALSE;
-// 	v->flg_outappend = __FALSE;
-// 	v->flg_pipeline = __FALSE;
-// }
+t_bool	ft_raz(t_vars *v)
+{
+	int	in;
+	int	out;
+
+	in = __CLOSED_FD;
+	out = __CLOSED_FD;
+	v->flg_exit_main_procss = __FALSE;
+	in = dup(v->stdin);
+	out = dup(v->stdout);
+	if (out < 0 || in < 0)
+		perror("dup");
+	ft_ioset_op(&in, &out);
+	return (__TRUE);
+}
