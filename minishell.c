@@ -31,7 +31,12 @@ t_bool ft_prompt(t_vars *v)
 
 t_bool ft_minishell(t_vars *v)
 {
-	if ((v->line)[0] == '\0')
+	size_t	i;
+
+	i = 0;
+	while (is_whitespace((v->line)[i]))
+		i++;
+	if ((v->line)[i] == '\0')
 		return (__FALSE);
 	v->commands = get_commands(v);
 // t_commands	*it = v->commands;
