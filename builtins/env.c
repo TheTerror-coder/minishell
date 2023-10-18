@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 05:39:12 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/15 08:32:48 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/17 22:02:25 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ t_bool	char_is_in_str(char *str, char c)
 	return (__FALSE);
 }
 
-t_bool	ft_env(t_vars *v)
+t_bool	ft_env(t_vars *v, t_commands *command)
 {
 	t_env	*tmp;
 
-	if ((v->commands->arguments)[1])
+	if ((command->arguments)[1])
 	{
 		ft_putstr_fd("minishell: ft_env: not handling parameters", 1);
 		return (__FALSE);

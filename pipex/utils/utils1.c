@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:07:19 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/13 15:19:32 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 22:07:59 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	ft_exitpipe(int status, t_vars *v)
 	if (v->var->pid)
 		ft_waitingroom(v);
 	ft_free_tvars(v->var);
-	v->lst = NULL;
 	v->var = NULL;
 	exitstatus |= status;
 	ft_exitbackprocss(v, exitstatus);

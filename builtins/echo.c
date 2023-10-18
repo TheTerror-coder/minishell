@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:22:53 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/15 06:07:38 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/17 22:09:01 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	ft_echo(t_vars *v, t_bool n_option)
+t_bool	ft_echo(t_commands *command, t_bool n_option)
 {
 	int	i;
 
 	i = 1 + n_option;
-	while (v->commands->arguments[i] != NULL)
+	while (command->arguments[i] != NULL)
 	{
-		ft_putstr_fd(v->commands->arguments[i], 1);
+		ft_putstr_fd(command->arguments[i], 1);
 		i++;
-		if (v->commands->arguments[i] != NULL)
+		if (command->arguments[i] != NULL)
 			ft_putchar_fd(' ', 1);
 	}
 	if (!n_option)

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/16 16:21:30 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 14:26:07 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef struct	s_ppex
 	int			stdin;
 	int			stdout;
 	int			pipe_outfd;
-	// int			stamp_fd;
 	int			*pid;
 	int			exit;
 	t_bool		skip_command_flg;
@@ -95,11 +94,8 @@ typedef struct s_vars
 	char	*set;
 	char	**argv;
 	char	*cmdpath;
-	// char	*infile;
-	// char	*outfile;
 	char	*limiter;
 	char	*ftemp1;
-	char	***lst;
 	int		status;
 	int		exit_code;
 	int		p1[2];

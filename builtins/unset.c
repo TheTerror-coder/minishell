@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/15 08:23:35 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/17 22:04:29 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ t_bool	find_and_unset_var(t_vars *v, char *var)
 	return (__TRUE);
 }
 
-t_bool	ft_unset(t_vars *v)
+t_bool	ft_unset(t_vars *v, t_commands *command)
 {
 	int		i;
 	char	**argv;
 
-	argv = v->commands->arguments;
+	argv = command->arguments;
 	i = 1;
 	while (argv[i])
 	{

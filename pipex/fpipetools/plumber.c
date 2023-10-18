@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:03:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/14 19:23:54 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 15:08:18 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,25 @@
 
 t_bool	ft_plumber(t_vars *v)
 {
+	int		fdbk;
 	t_ppex	*var;
 
+	fdbk = __TRUE;
 	var = v->var;
 	free(var->pid);
 	var->pid = NULL;
 	if (!ft_close_tvars(v->var))
 		ft_exitpipe(EXIT_FAILURE, v);
+	fdbk = ft_run_builtin(v, var->iterator);
+	if (fdbk == __TRUE)
+		ft_exitpipe(EXIT_SUCCESS, v);
+	if (fdbk == __FALSE)
+		ft_exitpipe(EXIT_FAILURE, v);
 	ft_freestr(&var->pathcmd);
 	var->pathcmd = ft_set_cmdpath(v, var->iterator->arguments);
-// ft_putendl_fd(var->pathcmd, 2);
 	if (!var->pathcmd)
 		ft_exitpipe(EXIT_FAILURE, v);
-	execve(var->pathcmd, var->iterator->arguments, __environ);
+	execve(var->pathcmd, var->iterator->arguments, v->envp);
 	perror("plumber execve");
 	ft_exitpipe(EXIT_FAILURE, v);
 	return (__FALSE);

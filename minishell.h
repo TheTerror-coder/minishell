@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/17 23:04:39 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/18 15:13:30 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,15 @@ t_bool	ft_clear_created_tempfiles(t_vars *v);
 t_bool	ft_set_io(t_vars *v, t_commands *command);
 
 t_bool	ft_export(t_vars *v, char **arguments);
-t_bool	ft_echo(t_vars *v, t_bool n_option);
-t_bool	ft_cd(t_vars *v);
+t_bool	ft_echo(t_commands *command, t_bool n_option);
+t_bool	ft_cd(t_vars *v, t_commands *command);
 t_bool	ft_cd_no_args(t_vars *v);
 t_bool	ft_cd_oldpwd_case(t_vars *v);
 t_bool	testing_split_cdpath(char **split_cdpath, char *dir);
 t_bool	ft_pwd(char *first_arg);
-t_bool	ft_env(t_vars *v);
-t_bool	ft_run_builtin(t_vars *v);
+t_bool	ft_env(t_vars *v, t_commands *command);
+int		ft_run_builtin(t_vars *v, t_commands *command);
 
 t_bool	ft_exit(t_vars *v);
-t_bool	ft_unset(t_vars *v);
+t_bool	ft_unset(t_vars *v, t_commands *command);
 #endif

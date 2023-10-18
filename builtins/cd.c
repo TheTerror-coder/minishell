@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/15 08:12:47 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/17 22:00:40 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,22 @@ t_bool	ft_cd_cdpath_set(t_vars *v, char *dir)
 	return (ret);
 }
 
-t_bool	ft_cd_special_cases(t_vars *v, char *old_pwd)
+t_bool	ft_cd_special_cases(t_vars *v, t_commands *command, char *old_pwd)
 {
-	if (!(v->commands->arguments[1]))
+	if (!(command->arguments[1]))
 	{
 		if (ft_cd_no_args(v))
 			return (set_pwd_and_oldpwd(v, old_pwd));
 		free(old_pwd);
 		return (__FALSE);
 	}
-	if (v->commands->arguments[2])
+	if (command->arguments[2])
 	{
 		free(old_pwd);
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
 		return (__FALSE);
 	}
-	if (!ft_strncmp(v->commands->arguments[1], "-", 2))
+	if (!ft_strncmp(command->arguments[1], "-", 2))
 	{
 		if (ft_cd_oldpwd_case(v))
 			return (set_pwd_and_oldpwd(v, old_pwd));
@@ -100,7 +100,7 @@ t_bool	ft_cd_special_cases(t_vars *v, char *old_pwd)
 	return (__TRUE);
 }
 
-t_bool	ft_cd(t_vars *v)
+t_bool	ft_cd(t_vars *v, t_commands *command)
 {
 	char	*old_pwd;
 
@@ -110,19 +110,19 @@ t_bool	ft_cd(t_vars *v)
 		perror("minishell: cd");
 		return (__FALSE);
 	}
-	if (!(v->commands->arguments[1]) \
-		|| (v->commands->arguments[2]) \
-		|| (!ft_strncmp(v->commands->arguments[1], "-", 2)))
-		return (ft_cd_special_cases(v, old_pwd));
-	if (ft_cd_cdpath_set(v, v->commands->arguments[1]))
+	if (!(command->arguments[1]) \
+		|| (command->arguments[2]) \
+		|| (!ft_strncmp(command->arguments[1], "-", 2)))
+		return (ft_cd_special_cases(v, command, old_pwd));
+	if (ft_cd_cdpath_set(v, command->arguments[1]))
 		return (set_pwd_and_oldpwd(v, old_pwd));
 	if (errno == ENOMEM)
 		return (__FALSE);
-	if (chdir(v->commands->arguments[1]) == -1)
+	if (chdir(command->arguments[1]) == -1)
 	{
 		free(old_pwd);
 		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(v->commands->arguments[1], 2);
+		ft_putstr_fd(command->arguments[1], 2);
 		ft_putstr_fd(": ", 2);
 		perror(NULL);
 		return (__FALSE);

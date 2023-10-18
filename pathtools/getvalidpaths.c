@@ -6,13 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:02:30 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/10 17:00:25 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 23:51:52 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_getlinepath(void);
+char	*ft_getlinepath(t_vars *v);
 t_bool	ft_rm_path(t_vars *v);
 
 t_bool	ft_setpath2(t_vars *v)
@@ -21,7 +21,7 @@ t_bool	ft_setpath2(t_vars *v)
 	int		i;
 
 	i = 0;
-	line = ft_getlinepath();
+	line = ft_getlinepath(v);
 	if (!line)
 		return (ft_leave("PATH unfound", PRINT_ERROR));
 	v->paths = ft_split(line, ':');
@@ -44,18 +44,18 @@ t_bool	ft_setpath2(t_vars *v)
 	return (__TRUE);
 }
 
-char	*ft_getlinepath(void)
+char	*ft_getlinepath(t_vars *v)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
 	line = NULL;
-	while (__environ[i])
+	while (v->envp[i])
 	{
-		line = ft_strnstr(__environ[i], "PATH=", 7);
+		line = ft_strnstr(v->envp[i], "PATH=", 7);
 		if (line)
-			return (__environ[i]);
+			return (v->envp[i]);
 		i++;
 	}
 	return (NULL);

@@ -6,28 +6,11 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/13 15:07:54 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 22:10:27 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_free_lst(t_vars *v)
-{
-	int	i;
-
-	i = 0;
-	if (v->lst)
-	{
-		while (v->lst[i])
-		{
-			ft_free2str(&v->lst[i]);
-			i++;
-		}
-		free(v->lst);
-		v->lst = NULL;
-	}
-}
 
 void	ft_freesecondaries(t_vars *v)
 {
@@ -35,11 +18,8 @@ void	ft_freesecondaries(t_vars *v)
 	ft_free2str(&v->paths);
 	ft_freestr(&v->str);
 	ft_freestr(&v->set);
-	// ft_freestr(&v->infile);
-	// ft_freestr(&v->outfile);
 	ft_freestr(&v->limiter);
 	ft_freestr(&v->ftemp1);
-	ft_free_lst(v);
 }
 
 void	ft_freetvars(t_vars *v)

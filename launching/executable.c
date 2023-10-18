@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/17 21:00:06 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 23:50:03 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_run_simplecmnd(t_vars *v)
 	if (!v->cmdpath)
 		ft_exitbackprocss(v, EXIT_FAILURE);
 	ft_freesecondaries(v);
-	execve(v->cmdpath, v->commands->arguments, __environ);
+	execve(v->cmdpath, v->commands->arguments, v->envp);
 	perror("execve");
 	ft_exitbackprocss(v, __EXIT_REACHED);
 }

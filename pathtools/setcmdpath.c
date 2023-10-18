@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:53:58 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/14 16:23:32 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/17 23:50:03 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_spthson(t_vars *v, char *cmd)
 	if (close(STDERR_FILENO) == -1)
 		ft_exitson(v);
 	arg = ft_split(cmd, ' ');
-	execve(cmd, arg, __environ);
+	execve(cmd, arg, v->envp);
 	ft_free2str(&arg);
 	ft_exitson(v);
 }
