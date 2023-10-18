@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:03:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 15:08:18 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 16:02:58 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_bool	ft_plumber(t_vars *v)
 	if (fdbk == __FALSE)
 		ft_exitpipe(EXIT_FAILURE, v);
 	ft_freestr(&var->pathcmd);
-	var->pathcmd = ft_set_cmdpath(v, var->iterator->arguments);
+	var->pathcmd = ft_set_cmdpath(v, var->iterator->main_command);
 	if (!var->pathcmd)
 		ft_exitpipe(EXIT_FAILURE, v);
 	execve(var->pathcmd, var->iterator->arguments, v->envp);

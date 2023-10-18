@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 15:13:30 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 16:02:08 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,12 @@ t_bool	ft_lnch_executable(t_vars *v);
 t_bool	ft_launcher(t_vars *v);
 t_bool	ft_pwait(t_vars *var, int pid, int option);
 t_bool	ft_fclose(int *fd);
-char	*ft_set_cmdpath(t_vars *v, char **argv);
+char	*ft_set_cmdpath(t_vars *v, char *command);
 t_bool	ft_setpath2(t_vars *v);
 t_bool	ft_isseperator(char c, char *suite);
 char	*ft_setofquote(t_vars *v, char c);
 void	ft_skip_partquoted(char *line, int *i);
 void	ft_freesecondaries(t_vars *v);
-void	ft_free_lst(t_vars *v);
 void	ft_closetvars(t_vars *v);
 
 t_bool	ft_ioset_op(int *infd, int *outfd);
