@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 16:02:08 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/18 17:30:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ t_bool	ft_pwd(char *first_arg);
 t_bool	ft_env(t_vars *v, t_commands *command);
 int		ft_run_builtin(t_vars *v, t_commands *command);
 
-t_bool	ft_exit(t_vars *v);
+t_bool	ft_exit(t_vars *v, t_commands *command, int status);
 t_bool	ft_unset(t_vars *v, t_commands *command);
 #endif
