@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/18 19:25:30 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/19 21:50:02 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,6 @@ t_bool	ft_cd(t_vars *v, t_commands *command)
 	char	*old_pwd;
 
 	old_pwd = getcwd(NULL, 0);
-	if (!ft_set_io(v, command))
-		return (__FALSE);
 	if (!old_pwd)
 	{
 		perror("minishell: cd");

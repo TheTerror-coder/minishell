@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 05:39:12 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/18 19:10:31 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/19 21:51:19 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ t_bool	ft_env(t_vars *v, t_commands *command)
 {
 	t_env	*tmp;
 
-	if (!ft_set_io(v, command))
-		return (__FALSE);
 	if ((command->arguments)[1])
 	{
 		ft_putstr_fd("minishell: ft_env: not handling parameters", 1);

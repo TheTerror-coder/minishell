@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 19:48:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/19 21:50:05 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ t_bool	ft_launcher(t_vars *v)
 	return (__TRUE);
 }
 
-int	ft_run_builtin(t_vars *v, t_commands *command)
+t_bool	launch_right_builtin(t_vars *v, t_commands *command)
 {
-	if (!v->commands->main_command)
-		return (__TRUE);
+	if (!ft_set_io(v, command))
+		return (__FALSE);
 	if (!strncmp("echo", command->main_command, 5))
 	{
 		if (command->arguments[1] && strncmp("-n", command->arguments[1], 3) == 0)
@@ -50,7 +50,27 @@ int	ft_run_builtin(t_vars *v, t_commands *command)
 		return (ft_export(v, command, command->arguments));
 	if (!strncmp("unset", command->main_command, 6))
 		return (ft_unset(v, command));
-	if (!strncmp("exit", command->main_command, 6))
+	else
 		return (ft_exit(v, command, exitstatus));
+}
+
+int	ft_run_builtin(t_vars *v, t_commands *command)
+{
+	if (!v->commands->main_command)
+		return (__TRUE);
+	if (!strncmp("echo", command->main_command, 5))
+		return (launch_right_builtin(v, command));
+	if (!strncmp("cd", command->main_command, 3))
+		return (launch_right_builtin(v, command));
+	if (!strncmp("pwd", command->main_command, 4))
+		return (launch_right_builtin(v, command));
+	if (!strncmp("env", command->main_command, 4))
+		return (launch_right_builtin(v, command));
+	if (!strncmp("export", command->main_command, 7))
+		return (launch_right_builtin(v, command));
+	if (!strncmp("unset", command->main_command, 6))
+		return (launch_right_builtin(v, command));
+	if (!strncmp("exit", command->main_command, 6))
+		return (launch_right_builtin(v, command));
 	return (__SKIP);
 }

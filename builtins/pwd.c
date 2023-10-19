@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 03:58:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/18 19:09:56 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/19 21:51:41 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ t_bool	ft_pwd(t_vars *v, t_commands *command, char *first_arg)
 {
 	char	*pwd;
 
-	if (!ft_set_io(v, command))
-	return (__FALSE);
 	if (first_arg && first_arg[0] == '-' && first_arg[1] != '\0' \
 		&& (first_arg[1] != '-' || first_arg[2] != '\0'))
 	{
