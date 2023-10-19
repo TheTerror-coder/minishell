@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/19 21:50:05 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/20 00:00:11 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ t_bool	launch_right_builtin(t_vars *v, t_commands *command)
 	if (!strncmp("echo", command->main_command, 5))
 	{
 		if (command->arguments[1] && strncmp("-n", command->arguments[1], 3) == 0)
-			return (ft_echo(v, command, 1));
-		return (ft_echo(v, command, 0));
+			return (ft_echo(command, 1));
+		return (ft_echo(command, 0));
 	}
 	if (!strncmp("cd", command->main_command, 3))
 		return (ft_cd(v, command));
 	if (!strncmp("pwd", command->main_command, 4))
-		return (ft_pwd(v, command, command->arguments[1]));
+		return (ft_pwd(command->arguments[1]));
 	if (!strncmp("env", command->main_command, 4))
 		return (ft_env(v, command));
 	if (!strncmp("export", command->main_command, 7))
