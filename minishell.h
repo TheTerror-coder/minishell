@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 20:01:58 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/19 23:29:49 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_bool	ft_set_io(t_vars *v, t_commands *command);
 t_bool	ft_run_heredocs(t_vars *v, t_commands *command);
 
 t_bool	ft_export(t_vars *v, t_commands *command, char **arguments);
-t_bool	ft_echo(t_vars *v, t_commands *command, t_bool n_option);
+t_bool	ft_echo(t_commands *command, t_bool n_option);
 t_bool	ft_cd(t_vars *v, t_commands *command);
 t_bool	ft_cd_no_args(t_vars *v);
 t_bool	ft_cd_oldpwd_case(t_vars *v);
