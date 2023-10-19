@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 22:53:43 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/20 00:17:06 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/20 00:43:45 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ t_bool	ft_exit(t_vars *v, t_commands *command, int status)
 		else
 			ft_exitpipe(v, status);
 	}
-	return (__TRUE);
+	return (__FALSE);
 }
