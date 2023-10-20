@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:49:42 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 19:44:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 15:46:28 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ t_bool	ft_pcloser(t_vars *v)
 	var = v->var;
 	if (!ft_fclose(&var->pipe_outfd))
 		return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
-	// if (!ft_fclose(&var->stamp_fd))
-	// 	return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
 	var->pipe_outfd = dup(var->p[var->i][0]);
 	if (var->pipe_outfd < 0)
 		return (ft_perror(EXIT_FAILURE, "dup", __PERROR));

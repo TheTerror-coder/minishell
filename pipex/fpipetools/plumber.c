@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:03:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 17:48:01 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 16:00:25 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_bool	ft_plumber(t_vars *v)
 	fdbk = ft_run_builtin(v, var->iterator);
 	if (fdbk == __TRUE)
 		ft_exitpipe(v, EXIT_SUCCESS);
+// ft_putnbr_fd(var->i, 2);
+// ft_putendl_fd("---------here------", 2);
 	if (fdbk == __FALSE)
 		ft_exitpipe(v, EXIT_FAILURE);
 	ft_freestr(&var->pathcmd);

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:13 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/20 16:46:27 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/20 17:05:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ t_bool ft_minishell(t_vars *v)
 // while (it)
 // {
 // 	ft_putendl_fd("---------------Main command-----------", STDERR_FILENO);
-// 	ft_putendl_fd(it->main_command, STDERR_FILENO);
+// 	if (!it->main_command)
+// 		ft_putendl_fd("null", STDERR_FILENO);
+// 	else
+// 		ft_putendl_fd(it->main_command, STDERR_FILENO);
 // 	int	i = 0;
 // 	ft_putendl_fd("---------------arguments-----------", STDERR_FILENO);
 // 	while (it->arguments[i])
