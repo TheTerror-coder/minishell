@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/20 16:38:33 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/20 17:01:12 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_token	*get_first_token(t_vars *v, size_t *l_index, int *is_hdoc_deli)
 		printf("minishell: syntax error near unexpected token `|'\n");
 		free(init_token->content);
 		free(init_token);
+		v->flg_parsing_is_ok = __FALSE;
 		return (NULL);
 	}
 	return (init_token);
