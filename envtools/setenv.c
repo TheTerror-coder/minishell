@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 04:26:44 by lmohin            #+#    #+#             */
-/*   Updated: 2023/08/06 06:39:08 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/20 06:36:42 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ t_bool	ft_setenv(t_vars *v)
 	if (!dup_env)
 		return (__FALSE);
 	dup_env->next = NULL;
+	if (!(v->envp)[0])
+	{
+		dup_env->var = ft_strdup("SHLVL=1");
+		v->my_env = dup_env;
+		return (__TRUE);
+	}
 	dup_env->var = ft_strdup((v->envp)[0]);
 	if (!(dup_env->var))
 	{

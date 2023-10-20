@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/20 03:14:25 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/20 06:54:32 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,28 @@ t_bool	check_var_name(char *var)
 
 t_bool	find_and_unset_arg(t_vars *v, char *arg_equal, size_t length_arg)
 {
-	t_env	*env_next;
-	t_env	*post_tmp;
+	t_env	*env_tmp;
+	t_env	*env_previous;
 
-	post_tmp = v->my_env;
-	env_next = (v->my_env)->next;
-	if (!ft_strncmp(env_next->var, arg_equal, length_arg))
+	env_tmp = (v->my_env)->next;
+	if (!ft_strncmp(v->my_env->var, arg_equal, length_arg))
 	{
+		free(v->my_env->var);
 		free(v->my_env);
 		free(arg_equal);
-		v->my_env = env_next;
+		v->my_env = env_tmp;
 		return (__TRUE);
 	}
-	while (env_next->next && ft_strncmp(env_next->var, arg_equal, length_arg))
+	while (env_tmp && ft_strncmp(env_tmp->var, arg_equal, length_arg))
 	{
-		post_tmp = env_next;
-		env_next = env_next->next;
+		env_previous = env_tmp;
+		env_tmp = env_tmp->next;
 	}
-	if (!ft_strncmp(env_next->var, arg_equal, length_arg))
+	if (env_tmp)
 	{
-		free(env_next->var);
-		post_tmp->next = env_next->next;
-		free(env_next);
+		free(env_tmp->var);
+		env_previous->next = env_tmp->next;
+		free(env_tmp);
 	}
 	free(arg_equal);
 	return (__TRUE);
@@ -76,6 +76,8 @@ t_bool	unset_one_arg(t_vars *v, char *arg)
 
 	if (check_var_name(arg))
 	{
+		if (v->my_env == NULL)
+			return (__TRUE);
 		arg_equal = ft_strjoin(arg, "=");
 		if (!arg_equal)
 		{
