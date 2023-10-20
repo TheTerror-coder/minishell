@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 05:18:18 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/04 21:08:51 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/20 16:52:23 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,15 @@ char	*get_pipe(char *line, size_t *l_index)
 	if (line[*l_index + j] == '\0' || line[*l_index + j] == '|')
 	{
 		printf("minishell: syntax error\n");
+		exitstatus = 1;
 		return (NULL);
 	}
 	pipe = ft_strdup("|");
 	if (!pipe)
+	{
+		exitstatus = 1;
 		perror("minishell: get_pipe: ");
+	}
 	return (pipe);
 }
 
@@ -40,17 +44,20 @@ int	check_operator_after_pipe(char next_char)
 	if (next_char == '<')
 	{
 		printf("minishell: syntax error: |< detected\n");
-		return (1);
+		exitstatus = 2;
+		return (__TRUE);
 	}
 	if (next_char == '>')
 	{
 		printf("minishell: syntax error: |> detected\n");
-		return (1);
+		exitstatus = 2;
+		return (__TRUE);
 	}
 	if (next_char == '|')
 	{
 		printf("minishell: syntax error: || detected\n");
-		return (1);
+		exitstatus = 2;
+		return (__TRUE);
 	}
-	return (0);
+	return (__FALSE);
 }

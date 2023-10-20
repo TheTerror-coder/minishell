@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/14 00:13:50 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/20 16:38:33 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,13 @@ t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli)
 		type = 0;
 	content = get_token_content(v, l_index, is_hdoc_deli);
 	if (!content)
+	{
+		v->flg_parsing_is_ok = __FALSE;
 		return (NULL);
+	}
 	token = create_token(content, type, expand_in_hdoc);
+	if (!token)
+		v->flg_parsing_is_ok = __FALSE;
 	return (token);
 }
 
