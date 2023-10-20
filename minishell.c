@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:13 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/20 17:05:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 17:36:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_bool ft_prompt(t_vars *v)
 	v->line = readline("minishell$ ");
 	while (v->line)
 	{
-		exitstatus = 0;
 		if ((v->line)[0])
 			add_history(v->line);
 		ft_minishell(v);

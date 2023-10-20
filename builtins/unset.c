@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/20 06:54:32 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/20 17:36:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_bool	check_var_name(char *var)
 			ft_putstr_fd("minishell: ft_unset: `", 2);
 			ft_putstr_fd(var, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
-			exitstatus = 2;
+			exitstatus = 1;
 			return (__FALSE);
 		}
 		i++;
@@ -96,11 +96,18 @@ t_bool	ft_unset(t_vars *v, t_commands *command)
 
 	exitstatus = 0;
 	i = 1;
+	if (command->arguments[1] && command->arguments[1][0] == '-' \
+		&& command->arguments[1][1] != '\0')
+	{
+		exitstatus = 2;
+		ft_putstr_fd("minishell: ft_unset: no option expected\n", 2);
+		return (__FALSE);
+	}
 	while (command->arguments[i])
 	{
 		if (!unset_one_arg(v, command->arguments[i]) && exitstatus == 1)
-			return (EXIT_FAILURE);
+			return (__FALSE);
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (__TRUE);
 }
