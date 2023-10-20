@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:27:13 by lmohin            #+#    #+#             */
-/*   Updated: 2023/08/06 06:19:20 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/20 07:18:27 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ char	*check_env_var_set(t_vars *v, char *var)
 	if (!var_equal)
 		return (NULL);
 	tmp = v->my_env;
+	if (!tmp)
+	{
+		free(var_equal);
+		return (NULL);
+	}
 	while (tmp->next && ft_strncmp(tmp->var, var_equal, length_var))
 		tmp = tmp->next;
 	if (ft_strncmp(tmp->var, var_equal, length_var))
