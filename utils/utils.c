@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/19 22:33:05 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/20 15:11:48 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_bool	ft_ioset_op(int *infd, int *outfd)
 	{
 		if (close(STDIN_FILENO) == -1)
 			return (ft_goprompt("close STDIN_FILENO", __PERROR));
-		if (dup2(*infd, 0) == -1)
+		if (dup(*infd) == -1)
 			return (ft_goprompt("dup infd", __PERROR));
 		if (!ft_fclose(infd))
 			return (ft_goprompt("close infd", __PRINT));
@@ -97,7 +97,7 @@ t_bool	ft_ioset_op(int *infd, int *outfd)
 	{
 		if (close(STDOUT_FILENO) == -1)
 			return (ft_goprompt("close STDOUT_FILENO", __PERROR));
-		if (dup2(*outfd, 1) == -1)
+		if (dup(*outfd) == -1)
 			return (ft_goprompt("dup outfd", __PERROR));
 		if (!ft_fclose(outfd))
 			return (ft_goprompt("close outfd", __PRINT));
