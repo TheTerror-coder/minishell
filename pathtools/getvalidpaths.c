@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:02:30 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/17 23:51:52 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 15:29:31 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ t_bool	ft_setpath2(t_vars *v)
 	i = 0;
 	line = ft_getlinepath(v);
 	if (!line)
-		return (ft_leave("PATH unfound", PRINT_ERROR));
+	{
+		v->paths = NULL;
+		return (__TRUE);
+	}
 	v->paths = ft_split(line, ':');
 	if (!v->paths | !v->paths[0])
 		return (ft_leave(__FALLOC, PRINT_ERROR));
