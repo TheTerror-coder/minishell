@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:15:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 13:52:43 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/22 18:48:39 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,10 @@ int	main(int argc, char **argv, char **envp)
 			"minishell takes no arguments or options", __PRINT), exitstatus);
 	v = ft_initvars();
 	if (!v)
-		return (EXIT_FAILURE);
+		return (exitstatus);
 	v->envp = envp;
 	if (!ft_setenv(v))
-	{
-		perror("minishell: ft_setenv");
-		return (0);
-	}
+		return (exitstatus);
 	ft_prompt(v);
 	ft_exitmainprocss(v, EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
