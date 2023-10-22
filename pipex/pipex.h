@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 12:44:15 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 16:46:48 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/20 18:23:30 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_bool	ft_close_tvars(t_ppex *var);
 t_bool	ft_inittab_int(t_ppex *var);
 t_bool	ft_pcloser(t_vars *v);
 t_bool	ft_perror(int status, const char *msg, t_typ action);
-void	ft_exitpipe(t_vars *v, int status);
+void	ft_exitpipe(t_vars *v);
 t_bool	ft_ioset(t_vars *v);
 t_bool	ft_fwait(t_vars *v, int pid, int option);
 t_bool	ft_plumber(t_vars *v);

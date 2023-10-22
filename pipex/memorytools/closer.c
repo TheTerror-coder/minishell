@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:49:42 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/20 15:46:28 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/22 15:44:06 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ t_bool	ft_close_tvars(t_ppex *var)
 
 	i = 0;
 	fdbk = __TRUE;
-	fdbk = ft_fclose(&var->infile_fd) & fdbk;
-	fdbk = ft_fclose(&var->outfile_fd) & fdbk;
-	fdbk = ft_fclose(&var->sp[0]) & fdbk;
-	fdbk = ft_fclose(&var->sp[1]) & fdbk;
 	if (var->p)
 	{
 		while (i < var->nbcmd)
@@ -44,11 +40,11 @@ t_bool	ft_pcloser(t_vars *v)
 	if (!ft_fclose(&var->pipe_outfd))
 		return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
 	var->pipe_outfd = dup(var->p[var->i][0]);
-	if (var->pipe_outfd < 0)
-		return (ft_perror(EXIT_FAILURE, "dup", __PERROR));
 	if (!ft_fclose(&var->p[var->i][0]))
 		return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
 	if (!ft_fclose(&var->p[var->i][1]))
 		return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
+	if (var->pipe_outfd < 0)
+		return (ft_perror(EXIT_FAILURE, "dup", __PERROR));
 	return (__TRUE);
 }

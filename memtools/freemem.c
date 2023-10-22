@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 22:38:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/21 16:30:43 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,21 @@ void	ft_freetvars(t_vars *v)
 	v = NULL;
 }
 
-void	ft_closetvars(t_vars *v)
+t_bool	ft_closetvars(t_vars *v)
 {
-	ft_fclose(&v->p1[0]);
-	ft_fclose(&v->p1[1]);
-	ft_fclose(&v->p2[0]);
-	ft_fclose(&v->p2[1]);
-	ft_fclose(&v->infd);
-	ft_fclose(&v->outfd);
+	int	fdbk;
 
-	ft_fclose(&v->hdoc_fd);
+	fdbk = __TRUE;
+	fdbk = fdbk && ft_fclose(&v->p1[0]);
+	fdbk = fdbk && ft_fclose(&v->p1[1]);
+	fdbk = fdbk && ft_fclose(&v->p2[0]);
+	fdbk = fdbk && ft_fclose(&v->p2[1]);
+	fdbk = fdbk && ft_fclose(&v->infd);
+	fdbk = fdbk && ft_fclose(&v->outfd);
+	fdbk = fdbk && ft_fclose(&v->hdoc_fd);
+	if (!fdbk)
+		exitstatus = EXIT_FAILURE;
+	return (fdbk);
 }
 
 void	ft_exitmainprocss(t_vars *v, int status)

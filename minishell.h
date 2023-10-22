@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/19 23:59:34 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/22 17:52:50 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,12 @@ char	*get_infile_redir(char *line, size_t *l_index);
 char	*get_outfile_redir(char *line, size_t *l_index);
 char	*get_outfile_append_redir(char *line, size_t *l_index);
 
-t_bool	ft_minishell(t_vars *v);
 t_bool	ft_prompt(t_vars *v);
 t_vars	*ft_initvars(void);
 void	ft_exitmainprocss(t_vars *v, int status);
 void	ft_exitbackprocss(t_vars *v, int status);
 
-t_bool	ft_goprompt(char *msg, t_typ action);
-t_bool	ft_leave(char *msg, t_typ action);
+t_bool	ft_leave(int status, char *msg, t_typ action);
 
 char	**env_list_to_tab(t_vars *v);
 char	*check_env_var_set(t_vars *v, char *var);
@@ -69,12 +67,9 @@ t_bool	ft_launcher(t_vars *v);
 t_bool	ft_pwait(t_vars *var, int pid, int option);
 t_bool	ft_fclose(int *fd);
 char	*ft_set_cmdpath(t_vars *v, char *command);
-t_bool	ft_setpath2(t_vars *v);
-t_bool	ft_isseperator(char c, char *suite);
-char	*ft_setofquote(t_vars *v, char c);
-void	ft_skip_partquoted(char *line, int *i);
+t_bool	ft_set_path_variable(t_vars *v);
 void	ft_freesecondaries(t_vars *v);
-void	ft_closetvars(t_vars *v);
+t_bool	ft_closetvars(t_vars *v);
 
 t_bool	ft_ioset_op(int *infd, int *outfd);
 t_bool	ft_raz(t_vars *v);
@@ -88,6 +83,7 @@ t_bool	ft_openatemp(t_vars *v);
 t_bool	ft_clear_created_tempfiles(t_vars *v);
 t_bool	ft_set_io(t_vars *v, t_commands *command);
 t_bool	ft_run_heredocs(t_vars *v, t_commands *command);
+char	*expand_words_of_line(t_vars *v, char *line);
 
 t_bool	ft_export(t_vars *v, t_commands *command, char **arguments);
 t_bool	ft_echo(t_commands *command, t_bool n_option);
@@ -99,6 +95,7 @@ t_bool	ft_pwd(char *first_arg);
 t_bool	ft_env(t_vars *v, t_commands *command);
 int		ft_run_builtin(t_vars *v, t_commands *command);
 
-t_bool	ft_exit(t_vars *v, t_commands *command, int status);
+t_bool	ft_exit(t_vars *v, t_commands *command);
 t_bool	ft_unset(t_vars *v, t_commands *command);
+
 #endif

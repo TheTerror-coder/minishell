@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/10/18 16:52:58 by TheTerror        ###   ########lyon.fr    #
+#    Updated: 2023/10/21 18:43:47 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRC_PARSING = $(addprefix $(PARSING_PATH), parseline1.c parseline2.c parseargv1.
 SRC_LAUNCHING = $(addprefix $(LAUNCHING_PATH), launcher.c executable.c)
 SRC_PATHTOOLS = $(addprefix $(PATHTOOLS_PATH), setcmdpath.c getvalidpaths.c utils.c)
 SRC_ENVTOOLS = $(addprefix $(ENVTOOLS_PATH), setenv.c env_utils.c)
-SRC_REDIR_TOOLS = $(addprefix $(REDIR_TOOLS_PATH), ioredir.c heredoc.c)
+SRC_REDIR_TOOLS = $(addprefix $(REDIR_TOOLS_PATH), ioredir.c heredoc.c expand_in_hdoc.c)
 SRC_PIPEX =	$(addprefix $(PIPEX_PATH), pipex.c) \
 			$(addprefix $(PIPEX_PATH)/utils/, utils1.c utils2.c) \
 			$(addprefix $(PIPEX_PATH)/fpipetools/, plumber.c iosetter.c) \

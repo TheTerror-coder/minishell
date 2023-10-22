@@ -6,11 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:13 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/20 17:36:12 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/22 16:02:06 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_bool ft_minishell(t_vars *v);
 
 t_bool ft_prompt(t_vars *v)
 {
@@ -44,31 +46,6 @@ t_bool ft_minishell(t_vars *v)
 	v->commands = get_commands(v);
 	if (v->flg_parsing_is_ok == __FALSE)
 		return (__FALSE);
-// t_commands	*it = v->commands;
-// while (it)
-// {
-// 	ft_putendl_fd("---------------Main command-----------", STDERR_FILENO);
-// 	if (!it->main_command)
-// 		ft_putendl_fd("null", STDERR_FILENO);
-// 	else
-// 		ft_putendl_fd(it->main_command, STDERR_FILENO);
-// 	int	i = 0;
-// 	ft_putendl_fd("---------------arguments-----------", STDERR_FILENO);
-// 	while (it->arguments[i])
-// 	{
-// 		ft_putendl_fd(it->arguments[i], STDERR_FILENO);
-// 		i++;
-// 	}
-// 	ft_putendl_fd("---------------remaining tokens-----------", STDERR_FILENO);
-// t_token	*it1 = it->tokens;
-// while (it1)
-// {
-// 	ft_putendl_fd(it1->content, STDERR_FILENO);
-// 	it1 = it1->next;
-// }
-// it = it->next;
-// }
-// ft_exitmainprocss(v , EXIT_FAILURE);
 	if (!ft_launcher(v))
 		return (__FALSE);
 	return (__TRUE);

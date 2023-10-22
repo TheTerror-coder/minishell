@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/20 15:41:57 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/22 18:34:37 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ t_bool	ft_lnch_executable(t_vars *v)
 	pid = -1;
 	pid = fork();
 	if (pid < 0)
-		return (ft_goprompt("fork", __PERROR));
+		return (ft_leave(EXIT_FAILURE, "fork", __PERROR));
 	if (!pid)
 		ft_execute(v);
+	v->status = EXIT_SUCCESS;
 	waitpid(pid, &v->status, __WHANG);
 	if (WIFEXITED(v->status))
 	{
 		exitstatus = WEXITSTATUS(v->status);
-		if (exitstatus != EXIT_SUCCESS && exitstatus != __EXIT_REACHED)
+		if (exitstatus != EXIT_SUCCESS && exitstatus != __CMD_NOT_EXEC)
 			return (__FALSE);
 	}
 	return (__TRUE);
@@ -37,7 +38,7 @@ t_bool	ft_lnch_executable(t_vars *v)
 
 t_bool	ft_execute(t_vars *v)
 {
-	exitstatus = EXIT_SUCCESS;
+	// exitstatus = EXIT_SUCCESS;
 	if (v->commands && v->commands->next)
 		ft_run_pipeline(v, v->commands);
 	else
@@ -52,13 +53,18 @@ void	ft_run_simplecmnd(t_vars *v)
 	ft_freestr(&v->cmdpath);
 	v->cmdpath = ft_set_cmdpath(v, v->commands->main_command);
 	if (!v->cmdpath)
-		ft_exitbackprocss(v, EXIT_FAILURE);
+		ft_exitbackprocss(v, exitstatus);
+	ft_closetvars(v);
 	ft_freesecondaries(v);
 	execve(v->cmdpath, v->commands->arguments, v->envp);
 	perror("execve");
-	ft_exitbackprocss(v, __EXIT_REACHED);
+	ft_exitbackprocss(v, __CMD_NOT_EXEC);
 }
 
+/*
+* This function runs all HEREDOCS we have on the command line and then ensures
+* that the last remains opened so it can be read by the command.
+*/
 t_bool	ft_run_heredocs(t_vars *v, t_commands *command)
 {
 	t_commands	*cmd_iterator;
@@ -74,7 +80,7 @@ t_bool	ft_run_heredocs(t_vars *v, t_commands *command)
 			{
 				v->flg_expand_in_hdoc = token_iterator->next->expand_in_hdoc;
 				if (!ft_launch_heredoc(v, token_iterator->next->content))
-					ft_exitbackprocss(v, EXIT_FAILURE);
+					return (__FALSE);
 			}
 			token_iterator = token_iterator->next->next;
 		}
@@ -86,12 +92,11 @@ t_bool	ft_run_heredocs(t_vars *v, t_commands *command)
 }
 
 /*
-* This function first runs all HEREDOCS we have on a simple command line.
-* Then it defines the standard input and standard output of the command
+* ft_set_io() defines the standard input and standard output of the command
 * to be executed by opening and closing the input/output specified on the 
 * command line in order. So the last entry (file or HEREDOC) indicated on the
 * command line becomes the standard input and so on for the standard output.
-*
+
 * At the end, Always close the heredoc file descriptor (v->hdoc_fd) otherwise 
 * the rear heredoc process will remain waiting.
 */

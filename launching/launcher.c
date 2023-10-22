@@ -6,18 +6,21 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/20 15:59:38 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/22 17:53:11 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_bool	launch_right_builtin(t_vars *v, t_commands *command);
 
 t_bool	ft_launcher(t_vars *v)
 {
 	int	fdbk;
 
 	fdbk = __TRUE;
-	ft_run_heredocs(v, v->commands);
+	if (!ft_run_heredocs(v, v->commands))
+		return (__TRUE);
 	if (!v->commands->next)
 	{
 		v->flg_exit_main_procss = __TRUE;
@@ -28,6 +31,22 @@ t_bool	ft_launcher(t_vars *v)
 	if (!ft_lnch_executable(v))
 		return (__FALSE);
 	return (__TRUE);
+}
+
+
+int	ft_run_builtin(t_vars *v, t_commands *command)
+{
+	if (!command->main_command)
+		return (__SKIP);
+	if (!ft_strncmp("echo", command->main_command, 5) || \
+		!ft_strncmp("cd", command->main_command, 3) || \
+		!ft_strncmp("pwd", command->main_command, 4) || \
+		!ft_strncmp("env", command->main_command, 4) || \
+		!ft_strncmp("export", command->main_command, 7) || \
+		!ft_strncmp("unset", command->main_command, 6) || \
+		!ft_strncmp("exit", command->main_command, 6))
+		return (launch_right_builtin(v, command));
+	return (__SKIP);
 }
 
 t_bool	launch_right_builtin(t_vars *v, t_commands *command)
@@ -51,26 +70,5 @@ t_bool	launch_right_builtin(t_vars *v, t_commands *command)
 	if (!ft_strncmp("unset", command->main_command, 6))
 		return (ft_unset(v, command));
 	else
-		return (ft_exit(v, command, exitstatus));
-}
-
-int	ft_run_builtin(t_vars *v, t_commands *command)
-{
-	if (!v->commands->main_command)
-		return (__SKIP);
-	if (!ft_strncmp("echo", command->main_command, 5))
-		return (launch_right_builtin(v, command));
-	if (!ft_strncmp("cd", command->main_command, 3))
-		return (launch_right_builtin(v, command));
-	if (!ft_strncmp("pwd", command->main_command, 4))
-		return (launch_right_builtin(v, command));
-	if (!ft_strncmp("env", command->main_command, 4))
-		return (launch_right_builtin(v, command));
-	if (!ft_strncmp("export", command->main_command, 7))
-		return (launch_right_builtin(v, command));
-	if (!ft_strncmp("unset", command->main_command, 6))
-		return (launch_right_builtin(v, command));
-	if (!ft_strncmp("exit", command->main_command, 6))
-		return (launch_right_builtin(v, command));
-	return (__SKIP);
+		return (ft_exit(v, command));
 }

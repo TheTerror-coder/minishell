@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:08:46 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/18 19:50:07 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/22 15:10:58 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,7 @@
 
 t_bool	ft_fdinit(t_ppex *var)
 {
-	var->infile_fd = dup(STDIN_FILENO);
-	var->outfile_fd = dup(STDOUT_FILENO);
-	if (var->infile_fd == -1 || var->outfile_fd == -1)
-		return (perror("dup"), __FALSE);
-	var->sp[0] = -111;
-	var->sp[1] = -111;
 	var->pipe_outfd = -111;
-	// var->stamp_fd = -111;
 	return (__TRUE);
 }
 
@@ -68,9 +61,9 @@ t_bool	ft_inittab_int(t_ppex *var)
 	}
 	var->p = ft_calloc(var->nbcmd, sizeof(int *));
 	if (!var->p)
-		return (__FALSE);
+		return (free(var->pid), __FALSE);
 	if (!ft_init_p(var))
-		return (__FALSE);
+		return (free(var->pid), __FALSE);
 	return (__TRUE);
 }
 
@@ -94,12 +87,16 @@ t_ppex	*ft_init_tvars(t_commands *commands)
 	var = NULL;
 	var = ft_calloc(1, sizeof(t_ppex));
 	if (!var)
+	{
+		ft_leave(EXIT_FAILURE, \
+		"in pipe part: ft_init_tvars(): ft_calloc() failed", __PRINT);
 		exit(EXIT_FAILURE);
+	}
 	var->commands = commands;
 	ft_set_nbcmd(var);
 	if (!ft_fdinit(var))
-		return (NULL);
+		return (free(var), NULL);
 	if (!ft_inittab_int(var))
-		return (NULL);
+		return (free(var), NULL);
 	return (var);
 }

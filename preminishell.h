@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/20 17:17:54 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/22 18:32:08 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@
 # define __PRINT PRINT_ERROR
 # define __PERROR PUT_ERROR
 # define __CLOSED_FD -111 // arbitrary negative number to initialize a file descriptor variable
-# define __FTEMP_LIMITS 9999999 // number of possible names of the temporary file
+# define __MAX_ATTEMPTS 9999999 // number of possible names of the temporary file
 # define __EXIT_REACHED 7
-# define __RADICAL "/tmp/ueyjq7ZbZhs26jd"
+# define __CMD_NOT_FOUND 127
+# define __CMD_NOT_EXEC 126
+# define __BUILTIN_ERROR 2
+# define __RADICAL "/tmp/ueyjq7ZbZhs26jd56276HJZ"
 # define __FALLOC "failed allocation"
-# define __SERROR "syntax error near unexpected token `newline'"
 
 extern int	exitstatus;
 
@@ -68,9 +70,6 @@ typedef struct	s_ppex
 	int			d;
 	int			jx;
 	int			nbcmd;
-	int			infile_fd;
-	int			outfile_fd;
-	int			sp[2];
 	int			**p;
 	int			pipe_outfd;
 	int			*pid;
