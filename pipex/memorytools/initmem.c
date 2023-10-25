@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:08:46 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 15:10:58 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/25 18:12:50 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ t_bool	ft_init_p(t_ppex *var)
 			var->p = NULL;
 			return (__FALSE);
 		}
-		var->p[i][0] = -111;
-		var->p[i][1] = -111;
+		var->p[i][0] = __CLOSED_FD;
+		var->p[i][1] = __CLOSED_FD;
 		i++;
 	}
 	return (__TRUE);

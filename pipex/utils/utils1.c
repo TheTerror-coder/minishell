@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:07:19 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 13:33:25 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/25 18:13:27 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,4 @@ t_bool	ft_waitingroom(t_vars *v)
 		i++;
 	}
 	return (__TRUE);
-}
-
-void	ft_exitpipe(t_vars *v)
-{
-	if (v->var->pid)
-		ft_waitingroom(v);
-	ft_free_tvars(v->var);
-	v->var = NULL;
-	ft_exitbackprocss(v, exitstatus);
 }

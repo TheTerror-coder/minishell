@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/21 16:30:43 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/25 17:59:43 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_freesecondaries(t_vars *v)
 {
+	ft_freestr(&v->pwd);
 	ft_freestr(&v->line);
 	ft_free2str(&v->paths);
 	ft_freestr(&v->str);
-	ft_freestr(&v->set);
 	ft_freestr(&v->limiter);
 	ft_freestr(&v->ftemp1);
 }
