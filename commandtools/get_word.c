@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/15 01:09:03 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/25 11:49:30 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*double_quote_case(size_t *i, char *ret, t_vars *v, int heredoc)
 	while ((v->line)[*i + j] != '"' && (v->line)[*i + j] != '\0')
 	{
 		if ((v->line)[*i + j] == '$' \
-			&& expand_conditions((v->line)[*i + j], heredoc))
+			&& expand_conditions((v->line)[*i + j + 1], heredoc))
 		{
 			ret = expand_case(i, &j, ret, v);
 			if (!ret)
