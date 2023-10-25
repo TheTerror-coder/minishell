@@ -6,11 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:49:42 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 15:44:06 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/25 19:25:28 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
+
+t_bool	ft_reset_std(t_vars *v);
 
 t_bool	ft_close_tvars(t_ppex *var)
 {
@@ -19,6 +21,7 @@ t_bool	ft_close_tvars(t_ppex *var)
 
 	i = 0;
 	fdbk = __TRUE;
+	fdbk = ft_fclose(&var->pipe_outfd) & fdbk;
 	if (var->p)
 	{
 		while (i < var->nbcmd)
@@ -28,7 +31,6 @@ t_bool	ft_close_tvars(t_ppex *var)
 			i++;
 		}
 	}
-	fdbk = ft_fclose(&var->pipe_outfd) & fdbk;
 	return (fdbk);
 }
 
@@ -39,12 +41,36 @@ t_bool	ft_pcloser(t_vars *v)
 	var = v->var;
 	if (!ft_fclose(&var->pipe_outfd))
 		return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
-	var->pipe_outfd = dup(var->p[var->i][0]);
+	if (var->i < (var->nbcmd - 1))
+	{
+		var->pipe_outfd = dup(var->p[var->i][0]);
+		if (var->pipe_outfd < 0)
+			return (ft_perror(EXIT_FAILURE, "dup", __PERROR));
+	}
 	if (!ft_fclose(&var->p[var->i][0]))
 		return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
 	if (!ft_fclose(&var->p[var->i][1]))
 		return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
-	if (var->pipe_outfd < 0)
-		return (ft_perror(EXIT_FAILURE, "dup", __PERROR));
+	if (!ft_reset_std(v))
+		return (__FALSE);
+	return (__TRUE);
+}
+
+t_bool	ft_reset_std(t_vars *v)
+{
+	int		prime_stdin;
+	int		prime_stdout;
+
+	prime_stdin = -111;
+	prime_stdout = -111;
+	prime_stdin = dup(v->stdin);
+	if (prime_stdin < 0)
+		return (ft_perror(EXIT_FAILURE, "ft_reset_std(): prime_stdin: dup()", __PERROR));
+	prime_stdout = dup(v->stdout);
+	if (prime_stdout < 0)
+		return (ft_fclose(&prime_stdin), \
+			ft_perror(EXIT_FAILURE, "ft_reset_std(): prime_stdout: dup()", __PERROR));
+	if (!ft_ioset_op(&prime_stdin, &prime_stdout))
+		return (__FALSE);
 	return (__TRUE);
 }

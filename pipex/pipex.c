@@ -51,8 +51,11 @@ t_bool	ft_manage_pipeline(t_vars *v)
 
 	var = v->var;
 	fdbk = __TRUE;
-	if (pipe(var->p[var->i]))
-		return (ft_perror(EXIT_FAILURE, "pipe", __PERROR));
+	if (var->i < (var->nbcmd - 1))
+	{
+		if (pipe(var->p[var->i]))
+			return (ft_perror(EXIT_FAILURE, "pipe", __PERROR));
+	}
 	var->skip_command_flg = __FALSE;
 	fdbk = ft_ioset(v);
 	if (!fdbk && !var->skip_command_flg)

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:54:11 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 13:35:27 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/25 19:31:53 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 t_bool	ft_inredir(t_vars *v, char *infile)
 {
 	int	nada;
-
+// ft_putendl_fd("ft_inredir()--------", STDERR_FILENO);
 	nada = __CLOSED_FD;
 	if (!ft_fclose(&v->infd))
 		return (__FALSE);
@@ -39,6 +39,7 @@ t_bool	ft_inredir(t_vars *v, char *infile)
 */
 t_bool	ft_launch_heredoc(t_vars *v, char *limiter)
 {
+// ft_putendl_fd("ft_launch_heredoc()--------", STDERR_FILENO);
 	ft_freestr(&v->limiter);
 	v->limiter = ft_strdup(limiter);
 	if (!v->limiter)
@@ -61,6 +62,7 @@ t_bool	ft_heredocredir(t_commands *command)
 	int	hdoc_fd_dup;
 	int	nada;
 
+// ft_putendl_fd("ft_heredocredir()--------", STDERR_FILENO);
 	nada = __CLOSED_FD;
 	hdoc_fd_dup = __CLOSED_FD;
 	hdoc_fd_dup = dup(command->hdoc_fd);
@@ -79,6 +81,7 @@ t_bool	ft_outredir(t_vars *v, char *outfile)
 {
 	int	nada;
 
+// ft_putendl_fd("ft_outredir()--------", STDERR_FILENO);
 	nada = __CLOSED_FD;
 	if (!ft_fclose(&v->outfd))
 		return (__FALSE);
@@ -99,6 +102,7 @@ t_bool	ft_outappendredir(t_vars *v, char *outfile)
 {
 	int	nada;
 
+// ft_putendl_fd("ft_outappendredir()--------", STDERR_FILENO);
 	nada = __CLOSED_FD;
 	if (!ft_fclose(&v->outfd))
 		return (__FALSE);

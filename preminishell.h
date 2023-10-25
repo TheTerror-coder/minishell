@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 18:32:08 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/25 18:20:30 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "libft/libft.h"
 
 # define __SKIP 2
+# define __CONTINUE 5
 # define __WHANG 0
 # define __PRINT PRINT_ERROR
 # define __PERROR PUT_ERROR
@@ -61,44 +62,38 @@ typedef	struct s_commands
 
 typedef struct	s_ppex
 {
-	char		*pathcmd;
-	char		**paths;
-	char		*str;
-	char		*set;
-	int			status;
-	int			i;
-	int			d;
-	int			jx;
-	int			nbcmd;
-	int			**p;
-	int			pipe_outfd;
-	int			*pid;
-	int			exit;
-	t_bool		skip_command_flg;
 	t_commands	*commands;
 	t_commands	*iterator;
+	char		*pathcmd;
+	char		**paths;
+	int			pipe_outfd;
+	int			*pid;
+	int			**p;
+	int			status;
+	int			i;
+	int			nbcmd;
+	t_bool		skip_command_flg;
 }				t_ppex;
 
 typedef struct s_vars
 {
 	t_env	*my_env;
 	t_commands *commands;
-	char	*pwd;
+	char	**argv;
 	char	**envp;
+	char	*cmdpath;
+	char	*pwd;
 	char	*line;
 	char	**paths;
 	char	*str;
-	char	*set;
-	char	**argv;
-	char	*cmdpath;
 	char	*limiter;
 	char	*ftemp1;
 	int		status;
 	int		exit_code;
-	int		p1[2];
-	int		p2[2];
 	int		jx;
 	int		nb;
+	int		p1[2];
+	int		p2[2];
 	int		infd;
 	int		outfd;
 	int		stdin;

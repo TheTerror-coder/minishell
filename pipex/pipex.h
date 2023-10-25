@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 12:44:15 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/20 18:23:30 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/25 18:21:43 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	ft_exitpipe(t_vars *v);
 t_bool	ft_ioset(t_vars *v);
 t_bool	ft_fwait(t_vars *v, int pid, int option);
 t_bool	ft_plumber(t_vars *v);
+t_bool	ft_waitingroom(t_vars *v);
 
 #endif
