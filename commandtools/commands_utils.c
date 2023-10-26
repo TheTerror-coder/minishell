@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:57:36 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/15 03:01:09 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/26 23:29:32 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*join_s1_with_sub_s2(char *s1, char *s2, size_t *start, size_t *end)
 	if (!subinput)
 	{
 		perror("minishell: join_s1_with_sub_s2: ");
+		exitstatus = 1;
 		free(s1);
 		return (NULL);
 	}
@@ -58,7 +59,10 @@ char	*join_s1_with_sub_s2(char *s1, char *s2, size_t *start, size_t *end)
 		return (subinput);
 	s1 = ft_strjoin(s1, subinput);
 	if (!s1)
+	{
+		exitstatus = 1;
 		perror("minishell: join_s1_with_sub_s2: ");
+	}
 	free(cpy);
 	free(subinput);
 	return (s1);

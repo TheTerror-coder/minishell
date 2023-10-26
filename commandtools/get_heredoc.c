@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 20:47:10 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/26 22:49:40 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/26 23:38:57 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,19 @@ int	check_operator_after_heredoc(char next_char)
 	if (next_char == '<')
 	{
 		printf("minishell: syntax error: <<< detected\n");
+		exitstatus = 2;
 		return (1);
 	}
 	if (next_char == '>')
 	{
 		printf("minishell: syntax error: <<> detected\n");
+		exitstatus = 2;
 		return (1);
 	}
 	if (next_char == '|')
 	{
 		printf("minishell: syntax error: <<| detected\n");
+		exitstatus = 2;
 		return (1);
 	}
 	return (0);

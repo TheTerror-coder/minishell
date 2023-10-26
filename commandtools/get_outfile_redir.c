@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 20:47:10 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/13 18:06:44 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/26 23:32:06 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@ char	*get_outfile_redir(char *line, size_t *l_index)
 		|| line[*l_index + j] == '<' || line[*l_index + j] == '>')
 	{
 		printf("minishell: syntax error: missing outfile after \">\"\n");
+		exitstatus = 2;
 		return (NULL);
 	}
 	(*l_index) += 1;
 	outfile_redir = ft_strdup(">");
 	if (!outfile_redir)
+	{
+		exitstatus = 1;
 		perror("minishell: get_outfile_redir: ");
+	}
 	return (outfile_redir);
 }
 
@@ -42,11 +46,13 @@ int	check_operator_after_outfile_redir(char next_char)
 	if (next_char == '<')
 	{
 		printf("minishell: syntax error: >< detected\n");
+		exitstatus = 2;
 		return (1);
 	}
 	if (next_char == '|')
 	{
 		printf("minishell: syntax error: >| detected\n");
+		exitstatus = 2;
 		return (1);
 	}
 	return (0);

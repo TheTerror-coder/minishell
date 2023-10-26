@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/25 11:49:30 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/26 23:29:04 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ char	*get_expand_content(t_vars *v, char *expand_name, char *ret)
 	cpy = ret;
 	ret = ft_strjoin(ret, expand_content);
 	if (!ret)
+	{
+		exitstatus = 1;
 		perror("minishell: expand_case: ");
+	}
 	free(cpy);
 	free(expand_content);
 	free(expand_name);
@@ -43,6 +46,7 @@ char	*expand_exit_status(size_t *i, size_t *j, char *ret)
 	expand_number = ft_itoa(exitstatus);
 	if (!expand_number)
 	{
+		exitstatus = 1;
 		perror("minishell: expand_case: ");
 		return (NULL);
 	}
@@ -51,7 +55,10 @@ char	*expand_exit_status(size_t *i, size_t *j, char *ret)
 	free(expand_number);
 	free(cpy);
 	if (!ret)
+	{
+		exitstatus = 1;
 		perror("minishell: expand_case: ");
+	}
 	return (ret);
 }
 
@@ -73,6 +80,7 @@ char	*expand_case(size_t *i, size_t *j, char *ret, t_vars *v)
 	if (!expand_name)
 	{
 		perror("minishell: expand_case: ");
+		exitstatus = 1;
 		free(ret);
 		return (NULL);
 	}
@@ -101,6 +109,7 @@ char	*double_quote_case(size_t *i, char *ret, t_vars *v, int heredoc)
 	if ((v->line)[*i + j] != '"')
 	{
 		printf("minishell: syntax error: unclosed quote\n");
+		exitstatus = 1;
 		free(ret);
 		return (NULL);
 	}
@@ -121,6 +130,7 @@ char	*single_quote_case(char *input, size_t *i, size_t *j, char *ret)
 	{
 		printf("minishell: syntax error: unclosed quote\n");
 		free(ret);
+		exitstatus = 1;
 		return (NULL);
 	}
 	ret = join_s1_with_sub_s2(ret, input, i, j);
