@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 20:47:10 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/04 23:41:52 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/26 22:49:40 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ char	*get_heredoc(char *line, size_t *l_index)
 	char	*heredoc;
 
 	if (check_operator_after_heredoc(line[*l_index + 2]))
+	{
+		exitstatus = 2;
 		return (NULL);
+	}
 	j = 2;
 	while (line[*l_index + j] != '\0' && is_whitespace(line[*l_index + j]))
 		j++;
@@ -28,12 +31,16 @@ char	*get_heredoc(char *line, size_t *l_index)
 		|| line[*l_index + j] == '<' || line[*l_index + j] == '>')
 	{
 		printf("minishell: syntax error: missing delimitator for heredoc\n");
+		exitstatus = 2;
 		return (NULL);
 	}
 	(*l_index) += 2;
 	heredoc = ft_strdup("<<");
 	if (!heredoc)
+	{
+		exitstatus = 1;
 		perror("minishell: get_heredoc: ");
+	}
 	return (heredoc);
 }
 
