@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/20 17:36:53 by marvin           ###   ########.fr       */
+/*   Updated: 2023/10/27 00:40:23 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ t_bool	check_var_name(char *var)
 	size_t	i;
 
 	i = 0;
-	if (var[0] != '\0' && !ft_isalpha(var[0]) && var[0] != '_')
+	if (!ft_isalpha(var[0]) && var[0] != '_')
 	{
-		ft_putstr_fd("minishell: ft_unset: `", 2);
+		ft_putstr_fd("minishell: unset: `", 2);
 		ft_putstr_fd(var, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
 		exitstatus = 1;
@@ -30,7 +30,7 @@ t_bool	check_var_name(char *var)
 	{
 		if (!ft_isalpha(var[i]) && !isalnum(var[i]) && var[i] != '_')
 		{
-			ft_putstr_fd("minishell: ft_unset: `", 2);
+			ft_putstr_fd("minishell: unset: `", 2);
 			ft_putstr_fd(var, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
 			exitstatus = 1;
@@ -81,7 +81,7 @@ t_bool	unset_one_arg(t_vars *v, char *arg)
 		arg_equal = ft_strjoin(arg, "=");
 		if (!arg_equal)
 		{
-			perror("minishell: ft_unset: ");
+			perror("minishell: unset: ");
 			exitstatus = 1;
 			return (__FALSE);
 		}
@@ -100,7 +100,7 @@ t_bool	ft_unset(t_vars *v, t_commands *command)
 		&& command->arguments[1][1] != '\0')
 	{
 		exitstatus = 2;
-		ft_putstr_fd("minishell: ft_unset: no option expected\n", 2);
+		ft_putstr_fd("minishell: unset: no option expected\n", 2);
 		return (__FALSE);
 	}
 	while (command->arguments[i])
