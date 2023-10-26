@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/25 15:06:33 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/26 21:47:39 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_freetokens(t_token *tokens)
 {
 	t_token	*tmp;
+
 	while (tokens != NULL)
 	{
 		tmp = tokens->next;
@@ -28,7 +29,7 @@ void	ft_freecommands(t_vars *v)
 {
 	t_commands	*commands;
 	t_commands	*commands_cpy;
-	int		i;
+	size_t		i;
 
 	commands = v->commands;
 	while (commands != NULL)
@@ -88,8 +89,6 @@ int	clear_commands(t_commands *commands)
 	}
 	return (0);
 }
-
-
 
 t_commands	*get_commands(t_vars *v)
 {

@@ -6,96 +6,67 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 01:57:18 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/26 03:31:14 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/26 21:46:28 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-/*
-void	add_arg(t_token **tokens, t_token *previous_token, t_commands *cmds)
+
+void	get_first_redirection(t_commands *commands)
 {
-	if (previous_token != NULL)
-		previous_token->next = (*tokens)->next;
-	else
-		cmds->tokens = (*tokens)->next;
-	free(*tokens);
-	if (previous_token != NULL)
-		*tokens = previous_token->next;
-	else
-		*tokens = cmds->tokens;
+	t_token	*token_cpy;
+	t_token	*token_to_free;
+
+	token_cpy = commands->tokens;
+	while (token_cpy != NULL && token_cpy->type == 0)
+	{
+		token_to_free = token_cpy;
+		token_cpy = token_cpy->next;
+		free(token_to_free);
+	}
+	commands->tokens = token_cpy;
 }
 
-int	fill_command_arguments(t_commands *commands)
+void	clear_token_list(t_commands *commands)
 {
-	int		arg_c;
-	t_token	*tokens_cpy;
-	t_token	*previous_token;
+	t_token	*token_cpy;
+	t_token	*token_to_free;
 
-	arg_c = 0;
-	tokens_cpy = commands->tokens;
-	previous_token = NULL;
-	while (tokens_cpy != NULL)
+	get_first_redirection(commands);
+	if (commands->tokens == NULL)
+		return ;
+	token_cpy = commands->tokens->next;
+	while (token_cpy->next != NULL)
 	{
-		if (tokens_cpy->type != 1)
+		if (token_cpy->next->type == 0)
 		{
-			(commands->arguments)[arg_c] = (tokens_cpy)->content;
-			arg_c++;
-			add_arg(&tokens_cpy, previous_token, commands);
+			token_to_free = token_cpy->next;
+			token_cpy->next = token_cpy->next->next;
+			free(token_to_free);
 		}
 		else
-		{
-			previous_token = tokens_cpy->next;
-			tokens_cpy = tokens_cpy->next->next;
-		}
+			token_cpy = token_cpy->next->next;
 	}
-	(commands->arguments)[arg_c] = NULL;
-	return (0);
-}*/
+}
 
 void	fill_command_arguments(t_commands *commands)
 {
 	size_t	arg_c;
-	t_token	*tokens_cpy;
-	t_token	*tokens_redir;
-	t_bool	first_redir;
-	t_token	*start_tokens_redir;
-	t_token	*old_cpy;
+	t_token	*token_cpy;
 
+	token_cpy = commands->tokens;
 	arg_c = 0;
-	first_redir = __TRUE;
-	start_tokens_redir = NULL;
-	tokens_cpy = commands->tokens;
-	while (tokens_cpy != NULL)
+	while (token_cpy != NULL)
 	{
-		if (tokens_cpy->type == 0)
+		if (token_cpy->type == 0)
 		{
-			(commands->arguments)[arg_c] = (tokens_cpy)->content;
+			commands->arguments[arg_c] = (token_cpy)->content;
 			arg_c++;
-			old_cpy = tokens_cpy;
-			tokens_cpy = tokens_cpy->next;
-			free(old_cpy);
-			old_cpy = NULL;
+			token_cpy = token_cpy->next;
 		}
 		else
-		{
-			if (first_redir == __TRUE)
-			{
-				start_tokens_redir = tokens_cpy;
-				tokens_redir = tokens_cpy;
-				tokens_redir->next = tokens_cpy->next;
-				tokens_redir = tokens_redir->next;
-				first_redir = __FALSE;
-			}
-			else
-			{
-				tokens_redir->next = tokens_cpy;
-				tokens_redir->next->next = tokens_cpy->next;
-				tokens_redir = tokens_redir->next->next;
-			}
-			tokens_cpy = tokens_cpy->next->next;
-		}
+			token_cpy = token_cpy->next->next;
 	}
-	commands->tokens = start_tokens_redir;
 	commands->arguments[arg_c] = NULL;
 }
 
@@ -119,5 +90,6 @@ int	get_command_arguments(t_commands *commands)
 	commands->arguments = NULL;
 	commands->arguments = malloc(sizeof(char *) * (args_nbr + 1));
 	fill_command_arguments(commands);
+	clear_token_list(commands);
 	return (0);
 }
