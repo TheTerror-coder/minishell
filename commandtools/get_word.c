@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 00:14:11 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 00:35:07 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ char	*double_quote_case(size_t *i, char *ret, t_vars *v, int heredoc)
 	j = 0;
 	while ((v->line)[*i + j] != '"' && (v->line)[*i + j] != '\0')
 	{
-		if ((v->line)[*i + j] == '$' \
+		if ((v->line)[*i + j] == '$' && v->line[*i + j + 1] != '"'\
+			&& v->line[*i + j + 1] != '\'' \
 			&& expand_conditions((v->line)[*i + j + 1], heredoc))
 		{
 			ret = expand_case(i, &j, ret, v);
@@ -110,7 +111,7 @@ char	*double_quote_case(size_t *i, char *ret, t_vars *v, int heredoc)
 	if ((v->line)[*i + j] != '"')
 	{
 		printf("minishell: syntax error: unclosed quote\n");
-		exitstatus = 1;
+		exitstatus = 2;
 		free(ret);
 		return (NULL);
 	}
@@ -131,7 +132,7 @@ char	*single_quote_case(char *input, size_t *i, size_t *j, char *ret)
 	{
 		printf("minishell: syntax error: unclosed quote\n");
 		free(ret);
-		exitstatus = 1;
+		exitstatus = 2;
 		return (NULL);
 	}
 	ret = join_s1_with_sub_s2(ret, input, i, j);
