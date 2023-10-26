@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 05:18:18 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/26 23:36:06 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 00:27:16 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_pipe(char *line, size_t *l_index)
 	if (line[*l_index + j] == '\0' || line[*l_index + j] == '|')
 	{
 		printf("minishell: syntax error\n");
-		exitstatus = 1;
+		exitstatus = 2;
 		return (NULL);
 	}
 	pipe = ft_strdup("|");
