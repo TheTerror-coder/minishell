@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:57:36 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/26 23:29:32 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 00:10:32 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	is_whitespace_or_operator_or_nul(char c)
 int	expand_conditions(char c, int is_hdoc_deli)
 {
 	if ((c == '?' || ft_isalnum(c)) && !(is_hdoc_deli))
+		return (__TRUE);
+	if (c == '"' || c == '\'')
 		return (__TRUE);
 	else
 		return (__FALSE);

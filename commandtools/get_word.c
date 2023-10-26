@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/26 23:29:04 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 00:14:11 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ char	*expand_case(size_t *i, size_t *j, char *ret, t_vars *v)
 	if ((v->line)[*i + *j + 1] == '?')
 		return (expand_exit_status(i, j, ret));
 	*i += 1;
-	if ((v->line)[*i + *j] <= '9' && (v->line)[*i + *j] >= '0')
+	if (((v->line)[*i + *j] <= '9' && (v->line)[*i + *j] >= '0') \
+		|| (v->line)[*i + *j] == '\'' || (v->line)[*i + *j] == '"')
 		return (ret);
 	while (ft_isalnum((v->line)[*i + *j]))
 		(*j)++;
