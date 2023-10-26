@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 20:47:10 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/26 23:31:06 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 01:31:24 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_infile_redir(char *line, size_t *l_index)
 	if (line[*l_index + j] == '\0' || line[*l_index + j] == '|' \
 		|| line[*l_index + j] == '<' || line[*l_index + j] == '>')
 	{
-		printf("minishell: syntax error: missing infile after \"<\"\n");
+		ft_putstr_fd("minishell: syntax error: missing infile after \"<\"\n", 2);
 		exitstatus = 2;
 		return (NULL);
 	}
@@ -45,13 +45,13 @@ int	check_operator_after_infile_redir(char next_char)
 {
 	if (next_char == '>')
 	{
-		printf("minishell: syntax error: <> detected\n");
+		ft_putstr_fd("minishell: syntax error: <> detected\n", 2);
 		exitstatus = 2;
 		return (1);
 	}
 	if (next_char == '|')
 	{
-		printf("minishell: syntax error: <| detected\n");
+		ft_putstr_fd("minishell: syntax error: <| detected\n", 2);
 		exitstatus = 2;
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/19 22:20:11 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 01:34:54 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_bool	find_var(t_vars *v, char *var, char *str)
 	t_env	*tmp;
 
 	tmp = v->my_env;
-	while (tmp->next && strncmp(tmp->var, var, ft_strlen(var)))
+	while (tmp->next && ft_strncmp(tmp->var, var, ft_strlen(var)))
 		tmp = tmp->next;
 	if (strncmp(tmp->var, var, ft_strlen(var)))
 		return (__FALSE);
@@ -81,7 +81,7 @@ t_bool	print_export(t_vars *v)
 	while (s[i] != NULL)
 	{
 		i++;
-		if (s[i] != NULL && strncmp(s[i], s[i - 1], ft_strlen(s[i])) < 0)
+		if (s[i] != NULL && ft_strncmp(s[i], s[i - 1], ft_strlen(s[i])) < 0)
 		{
 			tmp = s[i];
 			s[i] = s[i - 1];

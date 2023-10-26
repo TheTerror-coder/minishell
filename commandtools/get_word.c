@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 00:35:07 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 01:30:47 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	*double_quote_case(size_t *i, char *ret, t_vars *v, int heredoc)
 	}
 	if ((v->line)[*i + j] != '"')
 	{
-		printf("minishell: syntax error: unclosed quote\n");
+		ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
 		exitstatus = 2;
 		free(ret);
 		return (NULL);
@@ -130,7 +130,7 @@ char	*single_quote_case(char *input, size_t *i, size_t *j, char *ret)
 		(*j)++;
 	if (input[*i + *j] != '\'')
 	{
-		printf("minishell: syntax error: unclosed quote\n");
+		ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
 		free(ret);
 		exitstatus = 2;
 		return (NULL);

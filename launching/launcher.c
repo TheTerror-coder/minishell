@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 17:53:11 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/27 01:35:13 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_bool	ft_launcher(t_vars *v)
 	fdbk = __TRUE;
 	if (!ft_run_heredocs(v, v->commands))
 		return (__TRUE);
+
 	if (!v->commands->next)
 	{
 		v->flg_exit_main_procss = __TRUE;
@@ -55,7 +56,7 @@ t_bool	launch_right_builtin(t_vars *v, t_commands *command)
 		return (__FALSE);
 	if (!ft_strncmp("echo", command->main_command, 5))
 	{
-		if (command->arguments[1] && strncmp("-n", command->arguments[1], 3) == 0)
+		if (command->arguments[1] && ft_strncmp("-n", command->arguments[1], 3) == 0)
 			return (ft_echo(command, 1));
 		return (ft_echo(command, 0));
 	}
