@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:53:58 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/25 17:45:07 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/26 23:46:36 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_bool	ft_cmd_has_dir_format(char *command, char *slash)
 
 	stat(command, &__stat);
 	if (S_ISDIR(__stat.st_mode))
-		return (ft_leave(__CMD_NOT_FOUND, "is a directory", __PRINT));
+		return (ft_leave(__CMD_NOT_FOUND, "Is a directory", __PRINT));
 	*slash = '\0';
 	if (!access(command, F_OK))
 		ft_leave(__CMD_NOT_FOUND, "Not a directory", __PRINT);
@@ -67,7 +67,8 @@ int	ft_cmd_has_file_format(char *command)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(command, STDERR_FILENO);
-		ft_putendl_fd(": is a directory", STDERR_FILENO);
+		exitstatus = 126;
+		ft_putendl_fd(": Is a directory", STDERR_FILENO);
 		return (__FALSE);
 	}
 	else if (!access(command, F_OK))
@@ -77,6 +78,7 @@ int	ft_cmd_has_file_format(char *command)
 		else
 			return (ft_leave(__CMD_NOT_EXEC, command, __PERROR));
 	}
+	exitstatus = 127;
 	return (ft_leave(__CMD_NOT_FOUND, "No such file or directory", __PRINT));
 }
 
