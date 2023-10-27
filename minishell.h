@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 17:52:50 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/27 02:17:36 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_bool	ft_run_heredocs(t_vars *v, t_commands *command);
 char	*expand_words_of_line(t_vars *v, char *line);
 
 t_bool	ft_export(t_vars *v, t_commands *command, char **arguments);
-t_bool	ft_echo(t_commands *command, t_bool n_option);
+t_bool	ft_echo(t_commands *command);
 t_bool	ft_cd(t_vars *v, t_commands *command);
 t_bool	ft_cd_no_args(t_vars *v);
 t_bool	ft_cd_oldpwd_case(t_vars *v);
