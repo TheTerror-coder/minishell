@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/27 00:40:23 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 04:16:56 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	check_var_name(char *var)
 	i++;
 	while (var[i] != '\0')
 	{
-		if (!ft_isalpha(var[i]) && !isalnum(var[i]) && var[i] != '_')
+		if (!ft_isalpha(var[i]) && !ft_isalnum(var[i]) && var[i] != '_')
 		{
 			ft_putstr_fd("minishell: unset: `", 2);
 			ft_putstr_fd(var, 2);
