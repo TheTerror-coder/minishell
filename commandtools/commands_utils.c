@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:57:36 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 00:10:32 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 04:13:01 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	expand_conditions(char c, int is_hdoc_deli)
 {
 	if ((c == '?' || ft_isalnum(c)) && !(is_hdoc_deli))
 		return (__TRUE);
-	if (c == '"' || c == '\'')
+	if (c == '"' || c == '\'' || c == '_')
 		return (__TRUE);
 	else
 		return (__FALSE);
