@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 01:34:54 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/28 01:36:03 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_bool	find_var(t_vars *v, char *var, char *str)
 	tmp = v->my_env;
 	while (tmp->next && ft_strncmp(tmp->var, var, ft_strlen(var)))
 		tmp = tmp->next;
-	if (strncmp(tmp->var, var, ft_strlen(var)))
+	if (ft_strncmp(tmp->var, var, ft_strlen(var)))
 		return (__FALSE);
 	free(tmp->var);
 	tmp->var = ft_strdup(str);
@@ -104,8 +104,30 @@ t_bool	print_export(t_vars *v)
 t_bool	export_one_arg(t_vars *v, char *str)
 {
 	char	*var;
+	size_t	i;
 
 	get_var_name(&var, str);
+	if ((var[0] <= '9' && var[0] >= '0') || var[0] == '\0' || var[0] == '=')
+	{
+		exitstatus = 1;
+		ft_putstr_fd("minishell: export: `", 2);
+		ft_putstr_fd(var, 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
+		return (0);
+	}
+	i = 0;
+	while (var[i] != '=' && var[i])
+	{
+		if (!ft_isalnum(var[i]) && var[i] != '_')
+		{
+			exitstatus = 1;
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(var, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			return (0);
+		}
+		i++;
+	}
 	if (!find_var(v, var, str))
 		add_env_var(v, str);
 	return (0);
@@ -116,9 +138,16 @@ t_bool	ft_export(t_vars *v, t_commands *command, char **arguments)
 	int	index;
 
 	(void) command;
-	if (!arguments[1])
+	exitstatus = 0;
+	if (!arguments[1] || (arguments[1][0] == '-' && arguments[1][1] == '-' && arguments[1][2] == '\0'))
 	{
 		print_export(v);
+		return (0);
+	}
+	if (arguments[1][0] == '-' && arguments[1][1] != '\0')
+	{
+		exitstatus = 2;
+		ft_putstr_fd("minishell: export: no option expected\n", 2);
 		return (0);
 	}
 	else
