@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 18:34:37 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/27 15:26:11 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_bool	ft_lnch_executable(t_vars *v)
 
 t_bool	ft_execute(t_vars *v)
 {
-	// exitstatus = EXIT_SUCCESS;
 	if (v->commands && v->commands->next)
 		ft_run_pipeline(v, v->commands);
 	else

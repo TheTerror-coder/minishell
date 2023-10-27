@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/19 21:50:02 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/26 22:04:38 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bool	set_pwd_and_oldpwd(t_vars *v, t_commands *command, char *old_pwd)
 	{
 		free(old_pwd);
 		perror("minishell: cd");
-		return (__FALSE);
+		return (exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	new_pwd = ft_strjoin("PWD=", tmp_pwd);
 	free(tmp_pwd);
@@ -32,7 +32,7 @@ t_bool	set_pwd_and_oldpwd(t_vars *v, t_commands *command, char *old_pwd)
 	if (!new_pwd || !old_pwd)
 	{
 		perror("minishell: cd");
-		return (__FALSE);
+		return (exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	pwd_list = malloc(sizeof(char *) * 4);
 	if (pwd_list)
@@ -60,12 +60,12 @@ t_bool	ft_cd_cdpath_set(t_vars *v, char *dir)
 	if (!cdpath && errno == ENOMEM)
 		perror("minishell: cd");
 	if (!cdpath)
-		return (__FALSE);
+		return (exitstatus = EXIT_FAILURE, __FALSE);
 	split_cdpath = ft_split(cdpath, ':');
 	if (!split_cdpath)
 	{
 		perror("minishell: cd");
-		return (__FALSE);
+		return (exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	free(cdpath);
 	ret = testing_split_cdpath(split_cdpath, dir);
@@ -82,20 +82,20 @@ t_bool	ft_cd_special_cases(t_vars *v, t_commands *command, char *old_pwd)
 		if (ft_cd_no_args(v))
 			return (set_pwd_and_oldpwd(v, command, old_pwd));
 		free(old_pwd);
-		return (__FALSE);
+		return (exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	if (command->arguments[2])
 	{
 		free(old_pwd);
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		return (__FALSE);
+		return (exitstatus = EXIT_FAILURE, __FALSE);
 	}
-	if (!ft_strncmp(command->arguments[1], "-", 2))
+	if (!ft_strncmp(command->arguments[1], "-", STDERR_FILENO))
 	{
 		if (ft_cd_oldpwd_case(v))
 			return (set_pwd_and_oldpwd(v, command, old_pwd));
 		free(old_pwd);
-		return (__FALSE);
+		return (exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	return (__TRUE);
 }
@@ -108,7 +108,7 @@ t_bool	ft_cd(t_vars *v, t_commands *command)
 	if (!old_pwd)
 	{
 		perror("minishell: cd");
-		return (__FALSE);
+		return (exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	if (!(command->arguments[1]) \
 		|| (command->arguments[2]) \
@@ -121,11 +121,11 @@ t_bool	ft_cd(t_vars *v, t_commands *command)
 	if (chdir(command->arguments[1]) == -1)
 	{
 		free(old_pwd);
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(command->arguments[1], 2);
-		ft_putstr_fd(": ", 2);
+		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+		ft_putstr_fd(command->arguments[1], STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
 		perror(NULL);
-		return (__FALSE);
+		return (exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	return (set_pwd_and_oldpwd(v, command, old_pwd));
 }

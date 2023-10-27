@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_options.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:51:38 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/15 05:58:52 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/26 22:09:26 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_bool	do_chdir(char *var)
 		else
 			perror("minishell: cd");
 		free(message_to_print);
-		return (__FALSE);
+		return (exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	return (__TRUE);
 }
@@ -84,13 +84,13 @@ t_bool	talking_chdir(char *path)
 {
 	if (chdir(path) != -1)
 	{
-		ft_putstr_fd(path, 2);
-		ft_putchar_fd('\n', 2);
+		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putchar_fd('\n', STDERR_FILENO);
 		free(path);
 		return (__TRUE);
 	}
 	free(path);
-	return (__FALSE);
+	return (exitstatus = EXIT_FAILURE, __FALSE);
 }
 
 t_bool	testing_split_cdpath(char **split_cdpath, char *dir)
@@ -104,18 +104,18 @@ t_bool	testing_split_cdpath(char **split_cdpath, char *dir)
 	{
 		cdpath = ft_strjoin(split_cdpath[i - 1], dir);
 		if (!cdpath)
-			return (__FALSE);
+			return (exitstatus = EXIT_FAILURE, __FALSE);
 		if (talking_chdir(cdpath))
 			return (__TRUE);
 		cdpath_slash = ft_strjoin(split_cdpath[i - 1], "/");
 		if (!cdpath_slash)
-			return (__FALSE);
+			return (exitstatus = EXIT_FAILURE, __FALSE);
 		cdpath = ft_strjoin(cdpath_slash, dir);
 		free(cdpath_slash);
 		if (!cdpath)
-			return (__FALSE);
+			return (exitstatus = EXIT_FAILURE, __FALSE);
 		if (talking_chdir(cdpath))
 			return (__TRUE);
 	}
-	return (__FALSE);
+	return (exitstatus = EXIT_FAILURE, __FALSE);
 }

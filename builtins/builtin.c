@@ -1,42 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   launcher.c                                         :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/27 02:17:54 by lmohin           ###   ########.fr       */
-=======
-/*   Updated: 2023/10/26 21:41:58 by TheTerror        ###   ########lyon.fr   */
->>>>>>> c456bc4 (update exit code status)
+/*   Created: 2023/10/26 21:40:40 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/10/26 21:42:04 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	ft_launcher(t_vars *v)
-{
-	int	fdbk;
-
-	fdbk = __TRUE;
-	if (!ft_run_heredocs(v, v->commands))
-		return (__TRUE);
-
-	if (!v->commands->next)
-	{
-		v->flg_exit_main_procss = __TRUE;
-		fdbk = ft_run_builtin(v, v->commands);
-		if (fdbk != __SKIP)
-			return (fdbk && 1);
-	}
-	if (!ft_lnch_executable(v))
-		return (__FALSE);
-	return (__TRUE);
-}
-<<<<<<< HEAD
-
+t_bool	launch_right_builtin(t_vars *v, t_commands *command);
 
 int	ft_run_builtin(t_vars *v, t_commands *command)
 {
@@ -58,7 +34,11 @@ t_bool	launch_right_builtin(t_vars *v, t_commands *command)
 	if (!ft_set_io(v, command))
 		return (__FALSE);
 	if (!ft_strncmp("echo", command->main_command, 5))
-		return (ft_echo(command));
+	{
+		if (command->arguments[1] && strncmp("-n", command->arguments[1], 3) == 0)
+			return (ft_echo(command, 1));
+		return (ft_echo(command, 0));
+	}
 	if (!ft_strncmp("cd", command->main_command, 3))
 		return (ft_cd(v, command));
 	if (!ft_strncmp("pwd", command->main_command, 4))
@@ -72,5 +52,3 @@ t_bool	launch_right_builtin(t_vars *v, t_commands *command)
 	else
 		return (ft_exit(v, command));
 }
-=======
->>>>>>> c456bc4 (update exit code status)

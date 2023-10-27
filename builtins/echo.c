@@ -6,7 +6,11 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:22:53 by lmohin            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/27 02:32:42 by lmohin           ###   ########.fr       */
+=======
+/*   Updated: 2023/10/26 21:43:18 by TheTerror        ###   ########lyon.fr   */
+>>>>>>> c456bc4 (update exit code status)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +47,19 @@ t_bool	ft_echo(t_commands *command)
 		i++;
 	while (command->arguments[i] != NULL)
 	{
-		ft_putstr_fd(command->arguments[i], 1);
+		ft_putstr_fd(command->arguments[i], STDOUT_FILENO);
 		i++;
 		if (command->arguments[i] != NULL)
-			ft_putchar_fd(' ', 1);
+			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
+<<<<<<< HEAD
 	if (!n_flag)
 		ft_putchar_fd('\n', 1);
 	exitstatus = 0;
+=======
+	if (!n_option)
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	exitstatus = EXIT_SUCCESS;
+>>>>>>> c456bc4 (update exit code status)
 	return (__TRUE);
 }
