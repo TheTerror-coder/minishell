@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:03:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 18:35:44 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/27 16:50:57 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_bool	ft_plumber(t_vars *v)
 {
 	int		fdbk;
+	char		**my_env;
 	t_ppex	*var;
 
 	fdbk = __TRUE;
@@ -32,7 +33,10 @@ t_bool	ft_plumber(t_vars *v)
 	if (!var->pathcmd)
 		ft_exitpipe(v);
 	ft_freesecondaries(v);
-	execve(var->pathcmd, var->iterator->arguments, v->envp);
+	my_env = env_list_to_tab(v);
+	if (!my_env)
+		ft_exitpipe(v);
+	execve(var->pathcmd, var->iterator->arguments, my_env);
 	perror("ft_plumber(): execve");
 	exitstatus = __CMD_NOT_EXEC;
 	ft_exitpipe(v);

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/27 15:26:11 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/27 16:52:11 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_bool	ft_execute(t_vars *v)
 
 void	ft_run_simplecmnd(t_vars *v)
 {
+	char	**my_env;
+
 	if (!ft_set_io(v, v->commands))
 		ft_exitbackprocss(v, exitstatus);
 	ft_freestr(&v->cmdpath);
@@ -55,7 +57,10 @@ void	ft_run_simplecmnd(t_vars *v)
 		ft_exitbackprocss(v, exitstatus);
 	ft_closetvars(v);
 	ft_freesecondaries(v);
-	execve(v->cmdpath, v->commands->arguments, v->envp);
+	my_env = env_list_to_tab(v);
+	if (!my_env)
+		ft_exitbackprocss(v, exitstatus);	
+	execve(v->cmdpath, v->commands->arguments, my_env);
 	perror("execve");
 	ft_exitbackprocss(v, __CMD_NOT_EXEC);
 }
