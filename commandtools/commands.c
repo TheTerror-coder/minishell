@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 05:49:55 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 16:24:45 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	ft_freecommands(t_vars *v)
 int	get_main_command(t_commands *commands)
 {
 	t_token	*tokens_cpy;
-	char	*void_content;
+	// char	*void_content;
 
 	tokens_cpy = commands->tokens;
-	void_content = NULL;
+	// void_content = NULL;
 	commands->main_command = NULL;
 	tokens_cpy = commands->tokens;
 	while (tokens_cpy != NULL)

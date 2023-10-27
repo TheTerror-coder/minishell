@@ -6,11 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/27 04:16:56 by lmohin           ###   ########.fr       */
-=======
-/*   Updated: 2023/10/26 22:33:14 by TheTerror        ###   ########lyon.fr   */
->>>>>>> c456bc4 (update exit code status)
+/*   Updated: 2023/10/27 16:20:13 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +19,7 @@ t_bool	check_var_name(char *var)
 	i = 0;
 	if (!ft_isalpha(var[0]) && var[0] != '_')
 	{
-<<<<<<< HEAD
-		ft_putstr_fd("minishell: unset: `", 2);
-=======
 		ft_putstr_fd("minishell: ft_unset: `", STDERR_FILENO);
->>>>>>> c456bc4 (update exit code status)
 		ft_putstr_fd(var, 2);
 		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		exitstatus = EXIT_FAILURE;
@@ -38,11 +30,7 @@ t_bool	check_var_name(char *var)
 	{
 		if (!ft_isalpha(var[i]) && !ft_isalnum(var[i]) && var[i] != '_')
 		{
-<<<<<<< HEAD
-			ft_putstr_fd("minishell: unset: `", 2);
-=======
 			ft_putstr_fd("minishell: ft_unset: `", STDERR_FILENO);
->>>>>>> c456bc4 (update exit code status)
 			ft_putstr_fd(var, 2);
 			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 			exitstatus = EXIT_FAILURE;
@@ -93,13 +81,8 @@ t_bool	unset_one_arg(t_vars *v, char *arg)
 		arg_equal = ft_strjoin(arg, "=");
 		if (!arg_equal)
 		{
-<<<<<<< HEAD
-			perror("minishell: unset: ");
-			exitstatus = 1;
-=======
 			perror("minishell: ft_unset: ");
 			exitstatus = EXIT_FAILURE;
->>>>>>> c456bc4 (update exit code status)
 			return (__FALSE);
 		}
 		find_and_unset_arg(v, arg_equal, ft_strlen(arg_equal));
@@ -116,13 +99,8 @@ t_bool	ft_unset(t_vars *v, t_commands *command)
 	if (command->arguments[1] && command->arguments[1][0] == '-' \
 		&& command->arguments[1][1] != '\0')
 	{
-<<<<<<< HEAD
-		exitstatus = 2;
-		ft_putstr_fd("minishell: unset: no option expected\n", 2);
-=======
 		exitstatus = __BUILTIN_ERROR;
 		ft_putstr_fd("minishell: ft_unset: no option expected\n", STDERR_FILENO);
->>>>>>> c456bc4 (update exit code status)
 		return (__FALSE);
 	}
 	while (command->arguments[i])

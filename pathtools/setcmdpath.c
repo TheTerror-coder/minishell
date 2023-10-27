@@ -6,11 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:53:58 by TheTerror         #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/26 23:46:36 by lmohin           ###   ########.fr       */
-=======
-/*   Updated: 2023/10/26 23:51:21 by TheTerror        ###   ########lyon.fr   */
->>>>>>> c456bc4 (update exit code status)
+/*   Updated: 2023/10/27 16:07:17 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +67,8 @@ int	ft_cmd_has_file_format(char *command)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(command, STDERR_FILENO);
-<<<<<<< HEAD
-		exitstatus = 126;
-		ft_putendl_fd(": Is a directory", STDERR_FILENO);
-		return (__FALSE);
-=======
 		ft_putendl_fd(": Is a directory", STDERR_FILENO);
 		return (exitstatus = __CMD_NOT_EXEC, __FALSE);
->>>>>>> c456bc4 (update exit code status)
 	}
 	else if (!access(command, F_OK))
 	{
