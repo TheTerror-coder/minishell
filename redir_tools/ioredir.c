@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:54:11 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/25 19:31:53 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/27 17:37:40 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_bool	ft_inredir(t_vars *v, char *infile)
 {
 	int	nada;
 // ft_putendl_fd("ft_inredir()--------", STDERR_FILENO);
+	if (!infile)
+		return (ft_leave(EXIT_FAILURE, "ambiguous redirect", __PRINT));
 	nada = __CLOSED_FD;
 	if (!ft_fclose(&v->infd))
 		return (__FALSE);
@@ -83,6 +85,8 @@ t_bool	ft_outredir(t_vars *v, char *outfile)
 
 // ft_putendl_fd("ft_outredir()--------", STDERR_FILENO);
 	nada = __CLOSED_FD;
+	if (!outfile)
+		return (ft_leave(EXIT_FAILURE, "ambiguous redirect", __PRINT));
 	if (!ft_fclose(&v->outfd))
 		return (__FALSE);
 	v->outfd = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, \
@@ -104,6 +108,8 @@ t_bool	ft_outappendredir(t_vars *v, char *outfile)
 
 // ft_putendl_fd("ft_outappendredir()--------", STDERR_FILENO);
 	nada = __CLOSED_FD;
+	if (!outfile)
+		return (ft_leave(EXIT_FAILURE, "ambiguous redirect", __PRINT));
 	if (!ft_fclose(&v->outfd))
 		return (__FALSE);
 	v->outfd = open(outfile, O_CREAT | O_WRONLY | O_APPEND, \

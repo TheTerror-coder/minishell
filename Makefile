@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/10/26 21:41:14 by TheTerror        ###   ########lyon.fr    #
+#    Updated: 2023/10/27 16:32:39 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ OBJ := $(SRC:%.c=%.o)
 
 
 all : make_libft $(NAME)
+c : all clean
 
 $(NAME) : $(OBJ)
 	$(CC) -lbsd $(CFLAGS) $(OBJ) $(LIBFT_LIB) -I. -lreadline -o $@

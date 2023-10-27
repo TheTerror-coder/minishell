@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:56:42 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 16:05:17 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/27 17:23:12 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_bool	ft_openatemp(t_vars *v)
 		"ft_openatemp() temp file already exits, \
 		expand a little bit __MAX_ATTEMPTS", \
 		__PRINT));
-	if (ft_fclose(&v->outfd))
+	if (!ft_fclose(&v->outfd))
 		return (__FALSE);
 	v->outfd = open(v->ftemp1, O_CREAT | O_WRONLY | O_TRUNC, \
 					S_IRUSR | S_IRGRP | S_IROTH | S_IWUSR | S_IWGRP);
