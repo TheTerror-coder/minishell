@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:27:13 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/20 07:18:27 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 04:47:11 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,13 @@ char	*check_env_var_set(t_vars *v, char *var)
 		free(var_equal);
 		return (NULL);
 	}
+	free(var_equal);
 	sub_var = \
 		ft_substr(tmp->var, length_var, ft_strlen(tmp->var) - length_var + 1);
 	if (!sub_var)
 		return (NULL);
-	free(var_equal);
+	if (sub_var[0] == '\0')
+		ft_freestr(&sub_var);
 	return (sub_var);
 }
 
