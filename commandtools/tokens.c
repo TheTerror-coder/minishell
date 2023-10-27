@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 06:13:32 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 17:42:14 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,9 @@ size_t	test_expand_null_content(t_vars *v, size_t l_index, int is_hdoc_deli)
 	if (is_hdoc_deli)
 		return (0);
 	j = 0;
-	while (!(is_whitespace((v->line)[l_index])) && (v->line)[l_index] != '\0')
+	if (is_whitespace_or_operator_or_nul((v->line)[l_index]))
+		return (0);
+	while (!is_whitespace_or_operator_or_nul((v->line)[l_index]))
 	{
 		if ((v->line)[l_index] != '$')
 			return (0);
