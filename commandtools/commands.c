@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 16:24:45 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/27 18:11:57 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_freetokens(t_token *tokens)
 	while (tokens != NULL)
 	{
 		tmp = tokens->next;
-		free(tokens->content);
+		ft_freestr(&(tokens->content));
 		free(tokens);
 		tokens = tmp;
 	}
@@ -29,33 +29,26 @@ void	ft_freecommands(t_vars *v)
 {
 	t_commands	*commands;
 	t_commands	*commands_cpy;
-	size_t		i;
 
 	commands = v->commands;
 	while (commands != NULL)
 	{
-		ft_freetokens(commands->tokens);
+		if (commands->tokens)
+			ft_freetokens(commands->tokens);
 		ft_fclose(&commands->hdoc_fd);
-		i = 0;
-		while (commands->arguments[i])
-		{
-			free(commands->arguments[i]);
-			i++;
-		}
-		free(commands->arguments);
+		ft_free2str(&(commands->arguments));
 		commands_cpy = commands;
 		commands = commands->next;
 		free(commands_cpy);
 	}
+	v->commands = NULL;
 }
 
 int	get_main_command(t_commands *commands)
 {
 	t_token	*tokens_cpy;
-	// char	*void_content;
 
 	tokens_cpy = commands->tokens;
-	// void_content = NULL;
 	commands->main_command = NULL;
 	tokens_cpy = commands->tokens;
 	while (tokens_cpy != NULL)
