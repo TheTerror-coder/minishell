@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/26 21:47:39 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 05:49:55 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,19 @@ int	get_main_command(t_commands *commands)
 	tokens_cpy = commands->tokens;
 	void_content = NULL;
 	commands->main_command = NULL;
+	tokens_cpy = commands->tokens;
 	while (tokens_cpy != NULL)
 	{
 		if (tokens_cpy->type == 1)
 			tokens_cpy = tokens_cpy->next->next;
-		else if (tokens_cpy->content[0] != '\0')
+		else if (tokens_cpy->content != NULL)
 		{
 			commands->main_command = tokens_cpy->content;
 			return (0);
 		}
 		else
-		{
-			void_content = tokens_cpy->content;
 			tokens_cpy = tokens_cpy->next;
-		}
 	}
-	commands->main_command = void_content;
 	return (0);
 }
 
@@ -80,7 +77,7 @@ int	clear_commands(t_commands *commands)
 {
 	t_commands	*commands_cpy;
 
-	commands_cpy = commands;
+	commands_cpy = commands;	
 	while (commands_cpy != NULL)
 	{
 		get_main_command(commands_cpy);

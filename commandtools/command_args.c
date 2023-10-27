@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 01:57:18 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/26 21:46:28 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 05:45:24 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,17 @@ void	fill_command_arguments(t_commands *commands)
 
 	token_cpy = commands->tokens;
 	arg_c = 0;
+	token_cpy = commands->tokens;
 	while (token_cpy != NULL)
 	{
-		if (token_cpy->type == 0)
+		if (token_cpy->type == 0 && token_cpy->content)
 		{
 			commands->arguments[arg_c] = (token_cpy)->content;
 			arg_c++;
 			token_cpy = token_cpy->next;
 		}
+		else if (token_cpy->type == 0)
+			token_cpy = token_cpy->next;
 		else
 			token_cpy = token_cpy->next->next;
 	}
@@ -79,11 +82,13 @@ int	get_command_arguments(t_commands *commands)
 	tokens_cpy = commands->tokens;
 	while (tokens_cpy != NULL)
 	{
-		if (tokens_cpy->type != 1)
+		if (tokens_cpy->type != 1 && tokens_cpy->content)
 		{
 			args_nbr++;
 			tokens_cpy = tokens_cpy->next;
 		}
+		else if (tokens_cpy->type != 1)
+			tokens_cpy = tokens_cpy->next;
 		else
 			tokens_cpy = tokens_cpy->next->next;
 	}

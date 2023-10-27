@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/25 18:20:30 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/27 03:47:17 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_vars
 	int		stdin;
 	int		stdout;
 	int		hdoc_fd;
+	t_bool	flg_var_is_null;
 	t_bool	flg_parsing_is_ok;
 	t_bool	flg_expand_in_hdoc;
 	t_bool	flg_exit_main_procss;

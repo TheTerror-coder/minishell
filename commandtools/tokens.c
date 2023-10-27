@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 01:33:32 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/27 05:59:15 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli)
 	else
 		type = 0;
 	content = get_token_content(v, l_index, is_hdoc_deli);
-	if (!content)
+	if (!content && !v->flg_var_is_null)
 	{
 		v->flg_parsing_is_ok = __FALSE;
 		return (NULL);
@@ -111,11 +111,45 @@ t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli)
 	return (token);
 }
 
+size_t	test_expand_null_content(t_vars *v, size_t l_index, int is_hdoc_deli)
+{
+	size_t	j;
+	char	*expand_name;
+
+	if (is_hdoc_deli)
+		return (0);
+	j = 0;
+	while (!(is_whitespace((v->line)[l_index])) && (v->line)[l_index] != '\0')
+	{
+		if ((v->line)[l_index] != '$')
+			return (0);
+		j = 1;
+		if ((v->line)[l_index + j] != '_' && !ft_isalpha((v->line)[l_index + j]))
+			return (0);
+		while (ft_isalnum((v->line)[l_index + j]) || (v->line)[l_index + j] == '_')
+			j++;
+		expand_name = ft_substr((v->line), l_index + 1, j - 1);
+		if (check_env_var_set(v, expand_name))
+			return (0);
+		l_index += j;
+	}
+	return (l_index);
+}
+
 char	*get_token_content(t_vars *v, size_t *l_index, int is_hdoc_deli)
 {
 	char	*content;
 	char	*word;
+	size_t	expand_nbr;
 
+	v->flg_var_is_null = __FALSE;
+	expand_nbr = test_expand_null_content(v, *l_index, is_hdoc_deli);
+	if (expand_nbr)
+	{
+		v->flg_var_is_null = __TRUE;
+		*l_index = expand_nbr;
+		return (NULL);
+	}
 	if ((v->line)[*l_index] == '|')
 	{
 		content = get_pipe(v->line, l_index);
