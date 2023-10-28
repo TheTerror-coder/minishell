@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/28 01:36:03 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 01:15:26 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*adding_quotes(char *s)
 	char	*ret;
 	int		i;
 
-	ret = malloc(sizeof(char) * ft_strlen(s) + 3);
+	ret = malloc(sizeof(char) * (ft_strlen(s) + 3));
 	if (!ret)
 		return (0);
 	i = 0;
@@ -95,9 +95,17 @@ t_bool	print_export(t_vars *v)
 		tmp = adding_quotes(s[i]);
 		if (!tmp)
 			return (1);
-		printf("declare -x %s\n", adding_quotes(s[i++]));
+		printf("declare -x %s\n", tmp);
+		i++;
 		free(tmp);
 	}
+	i = 0;
+	while (s[i] != NULL)
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
 	return (0);
 }
 
@@ -109,6 +117,7 @@ t_bool	export_one_arg(t_vars *v, char *str)
 	get_var_name(&var, str);
 	if ((var[0] <= '9' && var[0] >= '0') || var[0] == '\0' || var[0] == '=')
 	{
+		free(var);
 		exitstatus = 1;
 		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(var, 2);
@@ -121,6 +130,7 @@ t_bool	export_one_arg(t_vars *v, char *str)
 		if (!ft_isalnum(var[i]) && var[i] != '_')
 		{
 			exitstatus = 1;
+			free(var);
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(var, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
@@ -130,6 +140,7 @@ t_bool	export_one_arg(t_vars *v, char *str)
 	}
 	if (!find_var(v, var, str))
 		add_env_var(v, str);
+	free(var);
 	return (0);
 }
 
