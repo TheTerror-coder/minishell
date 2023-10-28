@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:56:42 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/27 17:23:12 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 01:38:14 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,9 @@ t_bool	ft_setftemp(t_vars *v, int n)
 	if (!strnum)
 		return (ft_leave(EXIT_FAILURE, "ft_setftemp(): ft_itoa() failed", PRINT_ERROR));
 	v->ftemp1 = ft_strjoin(__RADICAL, strnum);
+	ft_freestr(&strnum);
 	if (!v->ftemp1)
-	{
-		ft_freestr(&strnum);
 		return (ft_leave(EXIT_FAILURE, "ft_setftemp(): ft_strjoin() failed", PRINT_ERROR));
-	}
 	return (__TRUE);
 }
 

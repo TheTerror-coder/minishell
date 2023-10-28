@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 18:43:07 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/21 18:47:56 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 01:47:38 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ char	*expand_words_of_line(t_vars *v, char *line)
 				line = expand_exit_status_hdoc(line, &l_index);
 			else
 				line = expand_word_inside_line(v, line, &l_index);
+			ft_freestr(&linedup);
 			if (!line)
-				return (ft_freestr(&linedup), NULL);
+				return (NULL);
 		}
 		else
 			l_index++;
@@ -75,8 +76,9 @@ char	*expand_word_inside_line(t_vars *v, char *line, size_t *start_index)
 		return (ft_leave(EXIT_FAILURE, \
 				"expand_word_inside_line(): ft_substr() failed", __PRINT), NULL);
 	expand_content = check_env_var_set(v, expand_name);
+	ft_freestr(&expand_name);
 	if (!expand_content)
-		return (ft_freestr(&expand_name), NULL);
+		return (NULL);
 	ret = first_join(line, expand_content, *start_index);
 	ret = second_join(line, ret, *start_index + 1 + j);
 	if (expand_content)
