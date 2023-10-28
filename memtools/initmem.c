@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:12 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 13:55:37 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 01:56:20 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_vars	*ft_initvars(void)
 
 	v = ft_calloc(1, sizeof(t_vars));
 	if (!v)
-		return (NULL);
+		return (ft_leave(EXIT_FAILURE, "calloc", __PERROR), __FALSE);
 	if (!ft_initfds(v))
 		return (free(v), NULL);
 	return (v);
