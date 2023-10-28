@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/25 17:59:43 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/28 16:16:19 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	ft_exitmainprocss(t_vars *v, int status)
 void	ft_exitbackprocss(t_vars *v, int status)
 {
 	ft_closetvars(v);
+	ft_fclose(&v->stdin);
+	ft_fclose(&v->stdout);
 	ft_freetvars(v);
 	exit(status);
 }

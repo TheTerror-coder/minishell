@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/10/27 16:32:39 by TheTerror        ###   ########lyon.fr    #
+#    Updated: 2023/10/28 16:05:39 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ BUILTINS_PATH = ./builtins/
 ENVTOOLS_PATH = ./envtools/
 PIPEX_PATH = ./pipex/
 COMMANDTOOLS_PATH = ./commandtools/
+SIGNAL_PATH = ./signal/
 
 INCLUDE = minishell.h preminishell.h $(PIPEX_PATH)pipex.h
 
@@ -46,9 +47,10 @@ SRC_PIPEX =	$(addprefix $(PIPEX_PATH), pipex.c) \
 			$(addprefix $(PIPEX_PATH)/fpipetools/, plumber.c iosetter.c) \
 			$(addprefix $(PIPEX_PATH)/memorytools/, initmem.c freemem.c closer.c)
 SRC_COMMAND_TOOLS =	$(addprefix $(COMMANDTOOLS_PATH), create_commands.c command_args.c get_word.c get_redirection.c get_outfile_redir.c get_outfile_append_redir.c get_infile_redir.c get_heredoc.c get_pipe.c commands_utils.c commands.c tokens.c)
+SRC_SIGNAL = $(addprefix $(SIGNAL_PATH), signal.c)
 SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_UTILS) \
 		$(SRC_LAUNCHING) $(SRC_PATHTOOLS) $(SRC_REDIR_TOOLS) $(SRC_BUILTINS) \
-		$(SRC_ENVTOOLS) $(SRC_COMMAND_TOOLS) $(SRC_PIPEX)
+		$(SRC_ENVTOOLS) $(SRC_COMMAND_TOOLS) $(SRC_PIPEX) $(SRC_SIGNAL)
 
 OBJ := $(SRC:%.c=%.o)
 
@@ -64,6 +66,25 @@ $(NAME) : $(OBJ)
 
 make_libft :
 	make -C $(LIBFT_PATH)
+
+leaks: all
+	rm valgrind.txt
+	echo "{" > valgrind_ignore_leaks.txt
+	echo "leak readline" >> valgrind_ignore_leaks.txt
+	echo "Memcheck:Leak" >> valgrind_ignore_leaks.txt
+	echo "..." >> valgrind_ignore_leaks.txt
+	echo "fun:readline" >> valgrind_ignore_leaks.txt
+	echo "}" >> valgrind_ignore_leaks.txt
+	echo "{" >> valgrind_ignore_leaks.txt
+	echo "leak add_history" >> valgrind_ignore_leaks.txt
+	echo "Memcheck:Leak" >> valgrind_ignore_leaks.txt
+	echo "..." >> valgrind_ignore_leaks.txt
+	echo "fun:add_history" >> valgrind_ignore_leaks.txt
+	echo "}" >> valgrind_ignore_leaks.txt
+	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full \
+			--show-leak-kinds=all --track-fds=yes \
+			--show-mismatched-frees=yes --read-var-info=yes \
+			--log-file=valgrind.txt -s ./${NAME}
 
 clean :
 	@make clean -C $(LIBFT_PATH)
