@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:15:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 18:48:39 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 02:21:01 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	v = ft_initvars();
 	if (!v)
 		return (exitstatus);
-	v->envp = envp;
-	if (!ft_setenv(v))
+	if (!ft_setenv(v, envp))
 		return (exitstatus);
 	ft_prompt(v);
 	ft_exitmainprocss(v, EXIT_SUCCESS);

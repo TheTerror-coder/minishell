@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 04:26:44 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/20 06:36:42 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 02:22:16 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_bool	add_env_var(t_vars *v, char *var)
 	return (__TRUE);
 }
 
-t_bool	ft_setenv(t_vars *v)
+t_bool	ft_setenv(t_vars *v, char **envp)
 {
 	t_env		*dup_env;
 	int		i;
@@ -43,13 +43,13 @@ t_bool	ft_setenv(t_vars *v)
 	if (!dup_env)
 		return (__FALSE);
 	dup_env->next = NULL;
-	if (!(v->envp)[0])
+	if (!(envp[0]))
 	{
 		dup_env->var = ft_strdup("SHLVL=1");
 		v->my_env = dup_env;
 		return (__TRUE);
 	}
-	dup_env->var = ft_strdup((v->envp)[0]);
+	dup_env->var = ft_strdup(envp[0]);
 	if (!(dup_env->var))
 	{
 		free(dup_env);
@@ -57,9 +57,9 @@ t_bool	ft_setenv(t_vars *v)
 	}
 	v->my_env = dup_env;
 	i = 1;
-	while ((v->envp)[i])
+	while (envp[i])
 	{
-		if (!add_env_var(v, (v->envp)[i]))
+		if (!add_env_var(v, envp[i]))
 			return (__FALSE);
 		i++;
 	}

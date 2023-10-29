@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/27 02:17:36 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 02:22:38 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_bool	ft_leave(int status, char *msg, t_typ action);
 
 char	**env_list_to_tab(t_vars *v);
 char	*check_env_var_set(t_vars *v, char *var);
-t_bool	ft_setenv(t_vars *v);
+t_bool	ft_setenv(t_vars *v, char **envp);
 t_bool	add_env_var(t_vars *v, char *var);
 t_bool	ft_freeenv(t_vars *v);
 

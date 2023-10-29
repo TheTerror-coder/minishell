@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/27 17:23:17 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 02:12:11 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_bool	ft_heredoc(t_vars *v)
 	int	pid;
 
 	pid = -1;
-	v->exit_code = EXIT_SUCCESS;
 	if (!ft_fclose(&v->hdoc_fd))
 		return (__FALSE);
 	if (!ft_openatemp(v))
@@ -43,7 +42,6 @@ t_bool	ft_heredoc2(t_vars *v)
 	int	pid;
 
 	pid = 0;
-	v->exit_code = EXIT_SUCCESS;
 	pid = fork();
 	if (pid == -1)
 		return (ft_leave(EXIT_FAILURE, "fork", __PERROR));

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/27 03:47:17 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 02:23:45 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,14 @@ typedef struct s_vars
 {
 	t_env	*my_env;
 	t_commands *commands;
-	char	**argv;
-	char	**envp;
 	char	*cmdpath;
 	char	*pwd;
 	char	*line;
 	char	**paths;
 	char	*str;
-	char	*limiter;
 	char	*ftemp1;
+	char	*limiter;
 	int		status;
-	int		exit_code;
-	int		jx;
-	int		nb;
 	int		p1[2];
 	int		p2[2];
 	int		infd;
