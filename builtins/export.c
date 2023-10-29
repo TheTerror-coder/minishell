@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 01:15:26 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 05:27:23 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_bool	find_var(t_vars *v, char *var, char *str)
 	t_env	*tmp;
 
 	tmp = v->my_env;
+	//	faire 2 conditions : export e  --------> e et e=          
+	//			     export e= --------> e et e=
 	while (tmp->next && ft_strncmp(tmp->var, var, ft_strlen(var)))
 		tmp = tmp->next;
 	if (ft_strncmp(tmp->var, var, ft_strlen(var)))
@@ -77,6 +79,8 @@ t_bool	print_export(t_vars *v)
 	int		i;
 
 	i = 0;
+	if (!v->my_env->var)
+		return (0);
 	s = env_list_to_tab(v);
 	while (s[i] != NULL)
 	{
@@ -138,10 +142,15 @@ t_bool	export_one_arg(t_vars *v, char *str)
 		}
 		i++;
 	}
+	if (!v->my_env->var)
+	{
+		v->my_env->var = ft_strdup(str);
+		return (1);
+	}
 	if (!find_var(v, var, str))
 		add_env_var(v, str);
 	free(var);
-	return (0);
+	return (1);
 }
 
 t_bool	ft_export(t_vars *v, t_commands *command, char **arguments)

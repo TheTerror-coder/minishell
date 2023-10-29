@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 18:43:07 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 01:47:38 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 07:09:55 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ char	*expand_word_inside_line(t_vars *v, char *line, size_t *start_index)
 	if (!expand_name)
 		return (ft_leave(EXIT_FAILURE, \
 				"expand_word_inside_line(): ft_substr() failed", __PRINT), NULL);
-	expand_content = check_env_var_set(v, expand_name);
+	if (!check_env_var_set(v->my_env, expand_name))
+		return (NULL);
+	expand_content = get_env_var_content(v->my_env, expand_name);
 	ft_freestr(&expand_name);
 	if (!expand_content)
 		return (NULL);

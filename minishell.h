@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 02:22:38 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 07:05:24 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ void	ft_exitbackprocss(t_vars *v, int status);
 t_bool	ft_leave(int status, char *msg, t_typ action);
 
 char	**env_list_to_tab(t_vars *v);
-char	*check_env_var_set(t_vars *v, char *var);
+t_bool	check_env_var_set(t_env *my_env, char *var);
+char	*get_env_var_content(t_env *my_env, char *var);
 t_bool	ft_setenv(t_vars *v, char **envp);
 t_bool	add_env_var(t_vars *v, char *var);
-t_bool	ft_freeenv(t_vars *v);
+t_bool	free_env(t_vars *v);
 
 void	ft_freetvars(t_vars *v);
 t_bool	ft_lnch_executable(t_vars *v);
@@ -86,6 +87,7 @@ t_bool	ft_run_heredocs(t_vars *v, t_commands *command);
 char	*expand_words_of_line(t_vars *v, char *line);
 
 t_bool	ft_export(t_vars *v, t_commands *command, char **arguments);
+t_bool	export_one_arg(t_vars *v, char *var);
 t_bool	ft_echo(t_commands *command);
 t_bool	ft_cd(t_vars *v, t_commands *command);
 t_bool	ft_cd_no_args(t_vars *v);

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 17:42:14 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 07:19:08 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ size_t	test_expand_null_content(t_vars *v, size_t l_index, int is_hdoc_deli)
 {
 	size_t	j;
 	char	*expand_name;
-	char	*env_var;
 
 	if (is_hdoc_deli)
 		return (0);
@@ -134,13 +133,8 @@ size_t	test_expand_null_content(t_vars *v, size_t l_index, int is_hdoc_deli)
 		expand_name = ft_substr((v->line), l_index + 1, j - 1);
 		if (!expand_name)
 			return (0);
-		env_var = check_env_var_set(v, expand_name);
-		free(expand_name);
-		if (env_var)
-		{
-			free(env_var);
-			return (0);
-		}
+		if (check_env_var_set(v->my_env, expand_name))
+			return (free(expand_name), 0);
 		l_index += j;
 	}
 	return (l_index);

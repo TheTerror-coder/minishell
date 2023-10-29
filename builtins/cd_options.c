@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:51:38 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/26 22:09:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 07:13:42 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ t_bool	ft_cd_no_args(t_vars *v)
 	char	*home;
 	t_bool	ret;
 
-	home = check_env_var_set(v, "HOME");
+	if (!check_env_var_set(v->my_env, "HOME"))
+		return (__FALSE);
+	home = get_env_var_content(v->my_env, "HOME");
 	if (!home)
 	{
 		if (errno == ENOMEM)
@@ -58,7 +60,9 @@ t_bool	ft_cd_oldpwd_case(t_vars *v)
 {
 	char	*oldpwd;
 
-	oldpwd = check_env_var_set(v, "OLDPWD");
+	if (!check_env_var_set(v->my_env, "OLDPWD"))
+		return (__FALSE);
+	oldpwd = get_env_var_content(v->my_env, "OLDPWD");
 	if (!oldpwd || oldpwd[0] == '\0')
 	{
 		if (errno == ENOMEM)

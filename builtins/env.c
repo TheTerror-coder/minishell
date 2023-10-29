@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 05:39:12 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/26 22:18:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 04:10:18 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_bool	ft_env(t_vars *v, t_commands *command)
 		return (__FALSE);
 	}
 	tmp = v->my_env;
+	if (tmp != NULL && tmp->var == NULL)
+		return (__TRUE);
 	while (tmp != NULL)
 	{
 		if (char_is_in_str(tmp->var, '='))

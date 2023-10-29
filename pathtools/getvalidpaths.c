@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:02:30 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/26 20:53:42 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 07:08:48 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ t_bool	ft_add_slash(t_vars *v);
 t_bool	ft_set_path_variable(t_vars *v)
 {
 	char	*line;
-	line = check_env_var_set(v, "PATH");
-	if (!line)
+
+	if (!check_env_var_set(v->my_env, "PATH"))
 		return (ft_free2str(&v->paths), __TRUE);
+	line = get_env_var_content(v->my_env, "PATH");
+	if (!line)
+		return (__FALSE);
 	v->paths = ft_split(line, ':');
 	free(line);
 	if (!v->paths | !v->paths[0])

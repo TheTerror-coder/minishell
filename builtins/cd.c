@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/26 22:04:38 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 07:11:38 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,19 @@ t_bool	ft_cd_cdpath_set(t_vars *v, char *dir)
 	char	**split_cdpath;
 	t_bool	ret;
 
+//check avec / au millieu
 	if (dir[0] == '/' || !ft_strncmp(dir, "..", 3) || !ft_strncmp(dir, "./", 3))
 		return (__FALSE);
-	cdpath = check_env_var_set(v, "CDPATH");
+	if (!check_env_var_set(v->my_env, "CDPATH"))
+		return (__FALSE);
+	cdpath = get_env_var_content(v->my_env, "CDPATH");
 	if (!cdpath && errno == ENOMEM)
+	{
+		exitstatus = EXIT_FAILURE;
 		perror("minishell: cd");
+	}
 	if (!cdpath)
-		return (exitstatus = EXIT_FAILURE, __FALSE);
+		return (__FALSE);
 	split_cdpath = ft_split(cdpath, ':');
 	if (!split_cdpath)
 	{
@@ -70,7 +76,10 @@ t_bool	ft_cd_cdpath_set(t_vars *v, char *dir)
 	free(cdpath);
 	ret = testing_split_cdpath(split_cdpath, dir);
 	if (errno == ENOMEM)
+	{
+		exitstatus = EXIT_FAILURE;
 		perror("minishell: cd");
+	}
 	ft_freesplit(split_cdpath);
 	return (ret);
 }
@@ -99,11 +108,17 @@ t_bool	ft_cd_special_cases(t_vars *v, t_commands *command, char *old_pwd)
 	}
 	return (__TRUE);
 }
-
+/*
+t_bool	check_cd_options(t_vars *v, t_commands *command)
+{
+	if (command->arguments[1] && command->arguments[1][0] == '-' \
+		&& command->arguments[1][1] != '\0')
+*/
 t_bool	ft_cd(t_vars *v, t_commands *command)
 {
 	char	*old_pwd;
 
+//	check_cd_options(v, command);
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 	{

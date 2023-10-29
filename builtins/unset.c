@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/27 16:20:13 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 04:34:22 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,18 @@ t_bool	find_and_unset_arg(t_vars *v, char *arg_equal, size_t length_arg)
 	t_env	*env_previous;
 
 	env_tmp = (v->my_env)->next;
+	env_previous = v->my_env;
 	if (!ft_strncmp(v->my_env->var, arg_equal, length_arg))
 	{
 		free(v->my_env->var);
-		free(v->my_env);
 		free(arg_equal);
-		v->my_env = env_tmp;
+		if (v->my_env->next)
+			v->my_env = v->my_env->next;
+		else
+		{
+			v->my_env->next = NULL;
+			v->my_env->var = NULL;
+		}
 		return (__TRUE);
 	}
 	while (env_tmp && ft_strncmp(env_tmp->var, arg_equal, length_arg))

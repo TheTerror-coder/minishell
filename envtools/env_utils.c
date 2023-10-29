@@ -6,15 +6,15 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:27:13 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 04:47:11 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 07:21:42 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_envsize(t_env *lst)
+size_t	ft_envsize(t_env *lst)
 {
-	int	i;
+	size_t	i;
 
 	if (!lst)
 		return (0);
@@ -27,80 +27,58 @@ int	ft_envsize(t_env *lst)
 	return (i);
 }
 
-t_bool	free_tab(char **s, int size)
+char	**env_list_to_tab(t_vars *v)
 {
-	while (size >= 0)
+	char	**tab;
+	size_t	i;
+	t_env	*env_cpy;
+
+	i = 0;
+	tab = malloc(sizeof(char *) * (ft_envsize(v->my_env) + 1));
+	if (!tab)
+		return (ft_leave(EXIT_FAILURE, "malloc", __PERROR), NULL);
+	env_cpy = v->my_env;
+	while (env_cpy)
 	{
-		free(s[size]);
-		size--;
+		tab[i] = ft_strdup(env_cpy->var);
+		if (!(tab[i]))
+		{
+			ft_leave(EXIT_FAILURE, "ft_strdup", __PERROR);
+			return (ft_free2str(&tab), NULL);
+		}
+		i++;
+		env_cpy = env_cpy->next;
 	}
-	free(s);
+	tab[i] = NULL;
+	return (tab);
+}
+
+t_bool	check_env_var_set(t_env *my_env, char *var)
+{
+	while (my_env->next && (ft_strncmp(my_env->var, var, ft_strlen(var)) || (my_env->var)[ft_strlen(var)] != '='))
+		my_env = my_env->next;
+	if (ft_strncmp(my_env->var, var, ft_strlen(var)) || (my_env->var)[ft_strlen(var)] != '=')
+		return (__FALSE);
+	if ((my_env->var)[ft_strlen(var) + 1] == '\0')
+		return (__FALSE);
 	return (__TRUE);
 }
 
-char	**env_list_to_tab(t_vars *v)
+char	*get_env_var_content(t_env *my_env, char *var)
 {
-	char	**s;
-	int	i;
-	t_env	*cpy;
+	char	*content;
 
-	i = 0;
-	s = malloc(sizeof(char *) * (ft_envsize(v->my_env) + 1));
-	if (!s)
-		return (0);
-	cpy = v->my_env;
-	while (cpy)
-	{
-		s[i] = ft_strdup(cpy->var);
-		if (!(s[i]))
-		{
-			free_tab(s, i);
-			return (NULL);
-		}
-		i++;
-		cpy = cpy->next;
-	}
-	s[i] = NULL;
-	return (s);
+	while (my_env->next && (ft_strncmp(my_env->var, var, ft_strlen(var)) || (my_env->var)[ft_strlen(var)] != '='))
+		my_env = my_env->next;
+	content = ft_substr(my_env->var, ft_strlen(var) + 1, ft_strlen(my_env->var) - ft_strlen(var));	
+	if (!content)
+		return (ft_leave(EXIT_FAILURE, "ft_substr", __PERROR), NULL);
+	return (content);
 }
 
-char	*check_env_var_set(t_vars *v, char *var)
+t_bool	free_env(t_vars *v)
 {
 	t_env	*tmp;
-	char	*sub_var;
-	char	*var_equal;
-	size_t	length_var;
-
-	length_var = ft_strlen(var) + 1;
-	var_equal = ft_strjoin(var, "=");
-	if (!var_equal)
-		return (NULL);
-	tmp = v->my_env;
-	if (!tmp)
-	{
-		free(var_equal);
-		return (NULL);
-	}
-	while (tmp->next && ft_strncmp(tmp->var, var_equal, length_var))
-		tmp = tmp->next;
-	if (ft_strncmp(tmp->var, var_equal, length_var))
-	{
-		free(var_equal);
-		return (NULL);
-	}
-	free(var_equal);
-	sub_var = \
-		ft_substr(tmp->var, length_var, ft_strlen(tmp->var) - length_var + 1);
-	if (!sub_var)
-		return (NULL);
-	if (sub_var[0] == '\0')
-		ft_freestr(&sub_var);
-	return (sub_var);
-}
-
-t_bool	ft_freeenv(t_vars *v)
-{
-	t_env *tmp;
 
 	while ((v->my_env) != NULL)
 	{
