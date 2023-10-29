@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:27:13 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 07:21:42 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 07:31:34 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,17 @@ char	**env_list_to_tab(t_vars *v)
 
 t_bool	check_env_var_set(t_env *my_env, char *var)
 {
-	while (my_env->next && (ft_strncmp(my_env->var, var, ft_strlen(var)) || (my_env->var)[ft_strlen(var)] != '='))
+	size_t	len;
+
+	len = ft_strlen(var);
+	while (my_env->next && (ft_strncmp(my_env->var, var, len) \
+		|| (my_env->var)[len] != '='))
+	{
 		my_env = my_env->next;
-	if (ft_strncmp(my_env->var, var, ft_strlen(var)) || (my_env->var)[ft_strlen(var)] != '=')
+	}
+	if (ft_strncmp(my_env->var, var, len) || (my_env->var)[len] != '=')
 		return (__FALSE);
-	if ((my_env->var)[ft_strlen(var) + 1] == '\0')
+	if ((my_env->var)[len + 1] == '\0')
 		return (__FALSE);
 	return (__TRUE);
 }
@@ -67,10 +73,15 @@ t_bool	check_env_var_set(t_env *my_env, char *var)
 char	*get_env_var_content(t_env *my_env, char *var)
 {
 	char	*content;
+	size_t	len;
 
-	while (my_env->next && (ft_strncmp(my_env->var, var, ft_strlen(var)) || (my_env->var)[ft_strlen(var)] != '='))
+	len = ft_strlen(var);
+	while (my_env->next && (ft_strncmp(my_env->var, var, len) \
+		|| (my_env->var)[len] != '='))
+	{
 		my_env = my_env->next;
-	content = ft_substr(my_env->var, ft_strlen(var) + 1, ft_strlen(my_env->var) - ft_strlen(var));	
+	}
+	content = ft_substr(my_env->var, len + 1, ft_strlen(my_env->var) - len);
 	if (!content)
 		return (ft_leave(EXIT_FAILURE, "ft_substr", __PERROR), NULL);
 	return (content);
