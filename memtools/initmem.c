@@ -6,11 +6,25 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:12 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 02:09:26 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 02:04:57 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_bool	ft_initfds(t_vars *v);
+
+t_vars	*ft_initvars(void)
+{
+	t_vars	*v;
+
+	v = ft_calloc(1, sizeof(t_vars));
+	if (!v)
+		return (ft_leave(EXIT_FAILURE, "ft_calloc", __PERROR), NULL);
+	if (!ft_initfds(v))
+		return (free(v), NULL);
+	return (v);
+}
 
 t_bool	ft_initfds(t_vars *v)
 {
@@ -30,14 +44,3 @@ t_bool	ft_initfds(t_vars *v)
 	return (__TRUE);
 }
 
-t_vars	*ft_initvars(void)
-{
-	t_vars	*v;
-
-	v = ft_calloc(1, sizeof(t_vars));
-	if (!v)
-		return (ft_leave(EXIT_FAILURE, "ft_calloc", __PERROR), NULL);
-	if (!ft_initfds(v))
-		return (free(v), NULL);
-	return (v);
-}
