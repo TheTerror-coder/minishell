@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   get_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 05:18:18 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 01:29:12 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 20:43:25 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_operator_after_pipe(char next_char);
+int	check_operator_after_pipe(t_vars *v, char next_char);
 
-char	*get_pipe(char *line, size_t *l_index)
+char	*get_pipe(t_vars *v, char *line, size_t *l_index)
 {
 	size_t	j;
 	char	*pipe;
 
-	if (check_operator_after_pipe(line[*l_index + 1]))
+	if (check_operator_after_pipe(v, line[*l_index + 1]))
 		return (NULL);
 	j = 1;
 	while (line[*l_index + j] != '\0' && is_whitespace(line[*l_index + j]))
@@ -27,24 +27,24 @@ char	*get_pipe(char *line, size_t *l_index)
 	if (line[*l_index + j] == '\0' || line[*l_index + j] == '|')
 	{
 		ft_putstr_fd("minishell: syntax error\n", 2);
-		exitstatus = 2;
+		v->exitstatus = 2;
 		return (NULL);
 	}
 	pipe = ft_strdup("|");
 	if (!pipe)
 	{
-		exitstatus = 1;
+		v->exitstatus = 1;
 		perror("minishell: get_pipe: ");
 	}
 	return (pipe);
 }
 
-int	check_operator_after_pipe(char next_char)
+int	check_operator_after_pipe(t_vars *v, char next_char)
 {
 	if (next_char == '|')
 	{
 		ft_putstr_fd("minishell: syntax error: || detected\n", 2);
-		exitstatus = 2;
+		v->exitstatus = 2;
 		return (__TRUE);
 	}
 	return (__FALSE);

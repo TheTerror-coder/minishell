@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:03:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/27 16:50:57 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 21:31:21 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bool	ft_plumber(t_vars *v)
 	var = v->var;
 	free(var->pid);
 	var->pid = NULL;
-	if (!ft_close_tvars(v->var))
+	if (!ft_close_tvars(v, v->var))
 		ft_exitpipe(v);
 	v->flg_exit_main_procss = __FALSE;
 	fdbk = ft_run_builtin(v, var->iterator);
@@ -38,7 +38,7 @@ t_bool	ft_plumber(t_vars *v)
 		ft_exitpipe(v);
 	execve(var->pathcmd, var->iterator->arguments, my_env);
 	perror("ft_plumber(): execve");
-	exitstatus = __CMD_NOT_EXEC;
+	v->exitstatus = __CMD_NOT_EXEC;
 	ft_exitpipe(v);
 	return (__FALSE);
 }

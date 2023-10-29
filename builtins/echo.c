@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 01:22:53 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 16:21:41 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 20:13:21 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_bool	is_n_flag(char	*s)
 	return (__TRUE);
 }
 
-t_bool	ft_echo(t_commands *command)
+t_bool	ft_echo(t_vars *v, t_commands *command)
 {
 	t_bool	n_flag;
 	size_t	i;
@@ -50,6 +50,6 @@ t_bool	ft_echo(t_commands *command)
 	}
 	if (!n_flag)
 		ft_putchar_fd('\n', 1);
-	exitstatus = 0;
+	v->exitstatus = EXIT_SUCCESS;
 	return (__TRUE);
 }

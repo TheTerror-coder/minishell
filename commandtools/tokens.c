@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 07:19:08 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 20:51:49 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_token	*get_first_token(t_vars *v, size_t *l_index, int *is_hdoc_deli);
 t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli);
-t_token	*create_token(char *content, int type, int expand_in_hdoc);
+t_token	*create_token(t_vars *v, char *content, int type, int expand_in_hdoc);
 char	*get_token_content(t_vars *v, size_t *l_index, int is_hdoc_deli);
 
 t_token	*break_input_into_tokens(t_vars *v)
@@ -54,7 +54,7 @@ t_token	*get_first_token(t_vars *v, size_t *l_index, int *is_hdoc_deli)
 	if ((init_token->type == 1) && !ft_strncmp(init_token->content, "|", 2))
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-		exitstatus = 2;
+		v->exitstatus = 2;
 		free(init_token->content);
 		free(init_token);
 		v->flg_parsing_is_ok = __FALSE;
@@ -63,7 +63,7 @@ t_token	*get_first_token(t_vars *v, size_t *l_index, int *is_hdoc_deli)
 	return (init_token);
 }
 
-t_token	*create_token(char *content, int type, int expand_in_hdoc)
+t_token	*create_token(t_vars *v, char *content, int type, int expand_in_hdoc)
 {
 	t_token	*token;
 
@@ -71,7 +71,7 @@ t_token	*create_token(char *content, int type, int expand_in_hdoc)
 	if (!token)
 	{
 		free(content);
-		exitstatus = 1;
+		v->exitstatus = 1;
 		return (NULL);
 	}
 	token->content = content;
@@ -105,7 +105,7 @@ t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli)
 		v->flg_parsing_is_ok = __FALSE;
 		return (NULL);
 	}
-	token = create_token(content, type, expand_in_hdoc);
+	token = create_token(v, content, type, expand_in_hdoc);
 	if (!token)
 		v->flg_parsing_is_ok = __FALSE;
 	return (token);
@@ -156,12 +156,12 @@ char	*get_token_content(t_vars *v, size_t *l_index, int is_hdoc_deli)
 	}
 	if ((v->line)[*l_index] == '|')
 	{
-		content = get_pipe(v->line, l_index);
+		content = get_pipe(v, v->line, l_index);
 		(*l_index)++;
 		return (content);
 	}
 	if ((v->line)[*l_index] == '<' || (v->line)[*l_index] == '>')
-		return (get_redirection(v->line, l_index));
+		return (get_redirection(v, v->line, l_index));
 	word = NULL;
 	if (!get_word(v, l_index, is_hdoc_deli, &word))
 		return (NULL);

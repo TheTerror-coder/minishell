@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 02:23:45 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 19:58:02 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 # define __BUILTIN_ERROR 2
 # define __RADICAL "/tmp/ueyjq7ZbZhs26jd56276HJZ"
 # define __FALLOC "failed allocation"
-
-extern int	exitstatus;
 
 typedef enum e_typ
 {
@@ -69,7 +67,7 @@ typedef struct	s_ppex
 	int			pipe_outfd;
 	int			*pid;
 	int			**p;
-	int			status;
+	int			code;
 	int			i;
 	int			nbcmd;
 	t_bool		skip_command_flg;
@@ -86,7 +84,8 @@ typedef struct s_vars
 	char	*str;
 	char	*ftemp1;
 	char	*limiter;
-	int		status;
+	int		exitstatus;
+	int		code;
 	int		p1[2];
 	int		p2[2];
 	int		infd;

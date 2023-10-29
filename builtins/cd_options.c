@@ -6,13 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:51:38 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 08:57:55 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 21:25:34 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	do_chdir(char *var)
+t_bool	do_chdir(t_vars *v, char *var)
 {
 	char	*message_to_print;
 
@@ -24,7 +24,7 @@ t_bool	do_chdir(char *var)
 		else
 			perror("minishell: cd");
 		free(message_to_print);
-		return (exitstatus = EXIT_FAILURE, __FALSE);
+		return (v->exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	return (__TRUE);
 }
@@ -36,10 +36,10 @@ t_bool	ft_cd_no_args(t_vars *v)
 
 	if (!check_env_var_set(v->my_env, "HOME"))
 	{
-		ft_leave(EXIT_FAILURE, "minishell: cd: HOME no set", __PRINT);
+		ft_leave(v, EXIT_FAILURE, "minishell: cd: HOME no set", __PRINT);
 		return (__FALSE);
 	}
-	home = get_env_var_content(v->my_env, "HOME");
+	home = get_env_var_content(v, v->my_env, "HOME");
 	if (!home)
 		return (__FALSE);
 	if (home[0] == '\0')
@@ -47,7 +47,7 @@ t_bool	ft_cd_no_args(t_vars *v)
 		free(home);
 		return (__TRUE);
 	}
-	ret = do_chdir(home);
+	ret = do_chdir(v, home);
 	free(home);
 	return (ret);
 }
@@ -58,15 +58,15 @@ t_bool	ft_cd_oldpwd_case(t_vars *v)
 
 	if (!check_env_var_set(v->my_env, "OLDPWD"))
 	{
-		ft_leave(EXIT_FAILURE, "minishell: cd: OLDPWD not set", __PRINT);
+		ft_leave(v, EXIT_FAILURE, "minishell: cd: OLDPWD not set", __PRINT);
 		return (__FALSE);
 	}
-	oldpwd = get_env_var_content(v->my_env, "OLDPWD");
+	oldpwd = get_env_var_content(v, v->my_env, "OLDPWD");
 	if (!oldpwd)
 		return (__FALSE);
 	if (oldpwd[0] == '\0')
 		return (free(oldpwd), __TRUE);
-	if (do_chdir(oldpwd))
+	if (do_chdir(v, oldpwd))
 	{
 		ft_putstr_fd(oldpwd, 2);
 		ft_putchar_fd('\n', 2);
@@ -78,7 +78,7 @@ t_bool	ft_cd_oldpwd_case(t_vars *v)
 	return (__FALSE);
 }
 
-t_bool	talking_chdir(char *path)
+t_bool	talking_chdir(t_vars *v, char *path)
 {
 	if (chdir(path) != -1)
 	{
@@ -88,10 +88,10 @@ t_bool	talking_chdir(char *path)
 		return (__TRUE);
 	}
 	free(path);
-	return (exitstatus = EXIT_FAILURE, __FALSE);
+	return (v->exitstatus = EXIT_FAILURE, __FALSE);
 }
 
-t_bool	testing_split_cdpath(char **split_cdpath, char *dir)
+t_bool	testing_split_cdpath(t_vars *v, char **split_cdpath, char *dir)
 {
 	int		i;
 	char	*cdpath;
@@ -102,18 +102,18 @@ t_bool	testing_split_cdpath(char **split_cdpath, char *dir)
 	{
 		cdpath = ft_strjoin(split_cdpath[i - 1], dir);
 		if (!cdpath)
-			return (exitstatus = EXIT_FAILURE, __FALSE);
-		if (talking_chdir(cdpath))
+			return (v->exitstatus = EXIT_FAILURE, __FALSE);
+		if (talking_chdir(v, cdpath))
 			return (__TRUE);
 		cdpath_slash = ft_strjoin(split_cdpath[i - 1], "/");
 		if (!cdpath_slash)
-			return (exitstatus = EXIT_FAILURE, __FALSE);
+			return (v->exitstatus = EXIT_FAILURE, __FALSE);
 		cdpath = ft_strjoin(cdpath_slash, dir);
 		free(cdpath_slash);
 		if (!cdpath)
-			return (exitstatus = EXIT_FAILURE, __FALSE);
-		if (talking_chdir(cdpath))
+			return (v->exitstatus = EXIT_FAILURE, __FALSE);
+		if (talking_chdir(v, cdpath))
 			return (__TRUE);
 	}
-	return (exitstatus = EXIT_FAILURE, __FALSE);
+	return (v->exitstatus = EXIT_FAILURE, __FALSE);
 }

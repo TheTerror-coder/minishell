@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 22:53:43 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 09:01:36 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 20:17:01 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ t_bool	ft_exit(t_vars *v, t_commands *command)
 		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
 	else
 	{
-		exitstatus = (char) ft_atoi(command->arguments[1]);
+		v->exitstatus = (char) ft_atoi(command->arguments[1]);
 		ft_exit_op(v);
 	}
-	return (exitstatus = EXIT_FAILURE, __FALSE);
+	return (v->exitstatus = EXIT_FAILURE, __FALSE);
 }
 
 t_bool	ft_arg_is_numeric(t_vars *v, t_commands *command)
@@ -51,7 +51,7 @@ t_bool	ft_arg_is_numeric(t_vars *v, t_commands *command)
 		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(command->arguments[1], STDERR_FILENO);
 		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
-		exitstatus = __BUILTIN_ERROR;
+		v->exitstatus = __BUILTIN_ERROR;
 		ft_exit_op(v);
 	}
 	return (__FALSE);
@@ -87,7 +87,7 @@ t_bool	check_l_l_overflow(t_commands *command)
 void	ft_exit_op(t_vars *v)
 {
 	if (v->flg_exit_main_procss)
-		ft_exitmainprocss(v, exitstatus);
+		ft_exitmainprocss(v, v->exitstatus);
 	else
 		ft_exitpipe(v);
 }

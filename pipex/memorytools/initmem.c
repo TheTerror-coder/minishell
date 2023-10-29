@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:08:46 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/25 18:12:50 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 21:34:24 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,16 @@ void	ft_set_nbcmd(t_ppex *var)
 	}
 }
 
-t_ppex	*ft_init_tvars(t_commands *commands)
+t_ppex	*ft_init_tvars(t_vars *v, t_commands *commands)
 {
 	t_ppex	*var;
 
 	var = NULL;
+	v->exitstatus = EXIT_SUCCESS;
 	var = ft_calloc(1, sizeof(t_ppex));
 	if (!var)
 	{
-		ft_leave(EXIT_FAILURE, \
+		ft_leave(v, EXIT_FAILURE, \
 		"in pipe part: ft_init_tvars(): ft_calloc() failed", __PRINT);
 		exit(EXIT_FAILURE);
 	}

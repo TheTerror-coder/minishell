@@ -6,15 +6,16 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:07:19 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/25 18:13:27 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 21:07:41 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-t_bool	ft_perror(int status, const char *msg, t_typ action)
+t_bool	ft_perror(t_vars *v, int code, const char *msg, t_typ action)
 {
-	exitstatus = status;
+	if (v)
+		v->exitstatus = code;
 	if (!msg)
 		return (__FALSE);
 	ft_putendl_fd("minishell: ", STDERR_FILENO);
@@ -39,13 +40,13 @@ t_bool	ft_waitingroom(t_vars *v)
 	{
 		if (v->var->pid[i] > 0)
 		{
-			fdbk = waitpid(v->var->pid[i], &v->var->status, __WHANG);
+			fdbk = waitpid(v->var->pid[i], &v->var->code, __WHANG);
 			if (fdbk == -1)
-				return (ft_perror(EXIT_FAILURE, "waitpid", __PERROR));
+				return (ft_perror(v, EXIT_FAILURE, "waitpid", __PERROR));
 			if (fdbk == v->var->pid[i])
 			{
-				if (WIFEXITED(v->var->status))
-					exitstatus = WEXITSTATUS(v->var->status);
+				if (WIFEXITED(v->var->code))
+					v->exitstatus = WEXITSTATUS(v->var->code);
 				v->var->pid[i] = -111;
 			}
 		}

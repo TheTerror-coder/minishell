@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 08:59:33 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 21:25:50 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_bool	set_pwd_and_oldpwd(t_vars *v, t_commands *command, char *old_pwd)
 	{
 		free(old_pwd);
 		perror("minishell: cd");
-		return (exitstatus = EXIT_FAILURE, __FALSE);
+		return (v->exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	new_pwd = ft_strjoin("PWD=", tmp_pwd);
 	free(tmp_pwd);
@@ -32,7 +32,7 @@ t_bool	set_pwd_and_oldpwd(t_vars *v, t_commands *command, char *old_pwd)
 	if (!new_pwd || !old_pwd)
 	{
 		perror("minishell: cd");
-		return (exitstatus = EXIT_FAILURE, __FALSE);
+		return (v->exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	pwd_list = malloc(sizeof(char *) * 4);
 	if (pwd_list)
@@ -58,10 +58,10 @@ t_bool	ft_cd_cdpath_set(t_vars *v, char *dir)
 		return (__FALSE);
 	if (!check_env_var_set(v->my_env, "CDPATH"))
 		return (__FALSE);
-	cdpath = get_env_var_content(v->my_env, "CDPATH");
+	cdpath = get_env_var_content(v, v->my_env, "CDPATH");
 	if (!cdpath && errno == ENOMEM)
 	{
-		exitstatus = EXIT_FAILURE;
+		v->exitstatus = EXIT_FAILURE;
 		perror("minishell: cd");
 	}
 	if (!cdpath)
@@ -70,13 +70,13 @@ t_bool	ft_cd_cdpath_set(t_vars *v, char *dir)
 	if (!split_cdpath)
 	{
 		perror("minishell: cd");
-		return (exitstatus = EXIT_FAILURE, __FALSE);
+		return (v->exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	free(cdpath);
-	ret = testing_split_cdpath(split_cdpath, dir);
+	ret = testing_split_cdpath(v, split_cdpath, dir);
 	if (errno == ENOMEM)
 	{
-		exitstatus = EXIT_FAILURE;
+		v->exitstatus = EXIT_FAILURE;
 		perror("minishell: cd");
 	}
 	ft_freesplit(split_cdpath);
@@ -90,31 +90,31 @@ t_bool	ft_cd_special_cases(t_vars *v, t_commands *command, char *old_pwd)
 		if (ft_cd_no_args(v))
 			return (set_pwd_and_oldpwd(v, command, old_pwd));
 		free(old_pwd);
-		return (exitstatus = EXIT_FAILURE, __FALSE);
+		return (v->exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	if (command->arguments[2])
 	{
 		free(old_pwd);
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		return (exitstatus = EXIT_FAILURE, __FALSE);
+		return (v->exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	if (!ft_strncmp(command->arguments[1], "-", STDERR_FILENO))
 	{
 		if (ft_cd_oldpwd_case(v))
 			return (set_pwd_and_oldpwd(v, command, old_pwd));
 		free(old_pwd);
-		return (exitstatus = EXIT_FAILURE, __FALSE);
+		return (v->exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	return (__TRUE);
 }
 
-t_bool	check_cd_options(char *first_arg)
+t_bool	check_cd_options(t_vars *v, char *first_arg)
 {
 	if (first_arg && first_arg[0] == '-' && first_arg[1] != '\0' \
 		&& (first_arg[1] != '-' || first_arg[2] != '\0'))
 	{
 		ft_putstr_fd("minishell: cd: no option expected\n", 2);
-		exitstatus = __BUILTIN_ERROR;
+		v->exitstatus = __BUILTIN_ERROR;
 		return (__FALSE);
 	}
 	return (__TRUE);
@@ -124,11 +124,11 @@ t_bool	ft_cd(t_vars *v, t_commands *command)
 {
 	char	*old_pwd;
 
-	if (!check_cd_options(command->arguments[1]))
+	if (!check_cd_options(v, command->arguments[1]))
 		return (__FALSE);
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
-		return (ft_leave(EXIT_FAILURE, "getcwd", __PERROR), __FALSE);
+		return (ft_leave(v, EXIT_FAILURE, "getcwd", __PERROR), __FALSE);
 	if (!(command->arguments[1]) || (command->arguments[2]) \
 		|| (!ft_strncmp(command->arguments[1], "-", 1)))
 		return (ft_cd_special_cases(v, command, old_pwd));
@@ -143,7 +143,7 @@ t_bool	ft_cd(t_vars *v, t_commands *command)
 		ft_putstr_fd(command->arguments[1], STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 		perror(NULL);
-		return (exitstatus = EXIT_FAILURE, __FALSE);
+		return (v->exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	return (set_pwd_and_oldpwd(v, command, old_pwd));
 }

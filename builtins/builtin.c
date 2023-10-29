@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 21:40:40 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/27 16:17:12 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 21:18:16 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ t_bool	launch_right_builtin(t_vars *v, t_commands *command)
 	if (!ft_set_io(v, command))
 		return (__FALSE);
 	if (!ft_strncmp("echo", command->main_command, 5))
-		return (ft_echo(command));
+		return (ft_echo(v, command));
 	if (!ft_strncmp("cd", command->main_command, 3))
 		return (ft_cd(v, command));
 	if (!ft_strncmp("pwd", command->main_command, 4))
-		return (ft_pwd(command->arguments[1]));
+		return (ft_pwd(v, command->arguments[1]));
 	if (!ft_strncmp("env", command->main_command, 4))
 		return (ft_env(v, command));
 	if (!ft_strncmp("export", command->main_command, 7))

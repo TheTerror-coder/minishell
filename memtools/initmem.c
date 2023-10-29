@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:12 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 02:04:57 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 21:17:31 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ t_vars	*ft_initvars(void)
 
 	v = ft_calloc(1, sizeof(t_vars));
 	if (!v)
-		return (ft_leave(EXIT_FAILURE, "ft_calloc", __PERROR), NULL);
+		return (ft_leave(NULL, EXIT_FAILURE, "ft_calloc", __PERROR), NULL);
 	if (!ft_initfds(v))
 		return (free(v), NULL);
+	v->exitstatus = EXIT_SUCCESS;
 	return (v);
 }
 
@@ -39,7 +40,7 @@ t_bool	ft_initfds(t_vars *v)
 	v->stdin = dup(STDIN_FILENO);
 	v->stdout = dup(STDOUT_FILENO);
 	if (v->stdout < 0 || v->stdin < 0)
-		return (ft_leave(EXIT_FAILURE, "dup", __PERROR), __FALSE);
+		return (ft_leave(NULL, EXIT_FAILURE, "dup", __PERROR), __FALSE);
 	v->hdoc_fd = -111;
 	return (__TRUE);
 }

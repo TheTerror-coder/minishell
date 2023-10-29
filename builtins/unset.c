@@ -6,13 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/29 09:01:59 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 20:20:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	check_var_name(char *var)
+t_bool	check_var_name(t_vars *v, char *var)
 {
 	size_t	i;
 
@@ -22,7 +22,7 @@ t_bool	check_var_name(char *var)
 		ft_putstr_fd("minishell: ft_unset: `", STDERR_FILENO);
 		ft_putstr_fd(var, 2);
 		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-		exitstatus = EXIT_FAILURE;
+		v->exitstatus = EXIT_FAILURE;
 		return (__FALSE);
 	}
 	i++;
@@ -33,7 +33,7 @@ t_bool	check_var_name(char *var)
 			ft_putstr_fd("minishell: ft_unset: `", STDERR_FILENO);
 			ft_putstr_fd(var, 2);
 			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-			exitstatus = EXIT_FAILURE;
+			v->exitstatus = EXIT_FAILURE;
 			return (__FALSE);
 		}
 		i++;
@@ -80,7 +80,7 @@ t_bool	unset_one_arg(t_vars *v, char *arg)
 {
 	char	*arg_equal;
 
-	if (check_var_name(arg))
+	if (check_var_name(v, arg))
 	{
 		if (v->my_env == NULL)
 			return (__TRUE);
@@ -88,7 +88,7 @@ t_bool	unset_one_arg(t_vars *v, char *arg)
 		if (!arg_equal)
 		{
 			perror("minishell: ft_unset: ");
-			exitstatus = EXIT_FAILURE;
+			v->exitstatus = EXIT_FAILURE;
 			return (__FALSE);
 		}
 		find_and_unset_arg(v, arg_equal, ft_strlen(arg_equal));
@@ -100,19 +100,19 @@ t_bool	ft_unset(t_vars *v, t_commands *command)
 {
 	size_t		i;
 
-	exitstatus = 0;
+	v->exitstatus = 0;
 	i = 1;
 	if (command->arguments[1] && command->arguments[1][0] == '-' \
 		&& command->arguments[1][1] != '\0')
 	{
-		exitstatus = __BUILTIN_ERROR;
+		v->exitstatus = __BUILTIN_ERROR;
 		ft_putstr_fd("minishell: ft_unset: no option expected\n", \
 			STDERR_FILENO);
 		return (__FALSE);
 	}
 	while (command->arguments[i])
 	{
-		if (!unset_one_arg(v, command->arguments[i]) && exitstatus == 1)
+		if (!unset_one_arg(v, command->arguments[i]) && v->exitstatus == 1)
 			return (__FALSE);
 		i++;
 	}

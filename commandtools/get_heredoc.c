@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   get_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 20:47:10 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 01:30:04 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 20:36:08 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_operator_after_heredoc(char next_char);
+int	check_operator_after_heredoc(t_vars *v, char next_char);
 
-char	*get_heredoc(char *line, size_t *l_index)
+char	*get_heredoc(t_vars *v, char *line, size_t *l_index)
 {
 	size_t	j;
 	char	*heredoc;
 
-	if (check_operator_after_heredoc(line[*l_index + 2]))
+	if (check_operator_after_heredoc(v, line[*l_index + 2]))
 	{
-		exitstatus = 2;
+		v->exitstatus = 2;
 		return (NULL);
 	}
 	j = 2;
@@ -31,37 +31,37 @@ char	*get_heredoc(char *line, size_t *l_index)
 		|| line[*l_index + j] == '<' || line[*l_index + j] == '>')
 	{
 		ft_putstr_fd("minishell: syntax error: missing delimitator for heredoc\n", 2);
-		exitstatus = 2;
+		v->exitstatus = 2;
 		return (NULL);
 	}
 	(*l_index) += 2;
 	heredoc = ft_strdup("<<");
 	if (!heredoc)
 	{
-		exitstatus = 1;
+		v->exitstatus = 1;
 		perror("minishell: get_heredoc: ");
 	}
 	return (heredoc);
 }
 
-int	check_operator_after_heredoc(char next_char)
+int	check_operator_after_heredoc(t_vars *v, char next_char)
 {
 	if (next_char == '<')
 	{
 		ft_putstr_fd("minishell: syntax error: <<< detected\n", 2);
-		exitstatus = 2;
+		v->exitstatus = 2;
 		return (1);
 	}
 	if (next_char == '>')
 	{
 		ft_putstr_fd("minishell: syntax error: <<> detected\n", 2);
-		exitstatus = 2;
+		v->exitstatus = 2;
 		return (1);
 	}
 	if (next_char == '|')
 	{
 		ft_putstr_fd("minishell: syntax error: <<| detected\n", 2);
-		exitstatus = 2;
+		v->exitstatus = 2;
 		return (1);
 	}
 	return (0);

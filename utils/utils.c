@@ -6,15 +6,16 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/22 13:40:35 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 20:02:46 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	ft_leave(int status, char *msg, t_typ action)
+t_bool	ft_leave(t_vars *v, int code, char *msg, t_typ action)
 {
-	exitstatus = status;
+	if (v)
+		v->exitstatus = code;
 	if (!msg)
 		return (__FALSE);
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -25,35 +26,35 @@ t_bool	ft_leave(int status, char *msg, t_typ action)
 	return (__FALSE);
 }
 
-t_bool	ft_ioset_op(int *infd, int *outfd)
+t_bool	ft_ioset_op(t_vars *v, int *infd, int *outfd)
 {
 	if (*infd > -1)
 	{
 		if (close(STDIN_FILENO) == -1)
-			return (ft_leave(EXIT_FAILURE, "close STDIN_FILENO", __PERROR));
+			return (ft_leave(v, EXIT_FAILURE, "close STDIN_FILENO", __PERROR));
 		if (dup(*infd) == -1)
-			return (ft_leave(EXIT_FAILURE, "dup infd", __PERROR));
-		if (!ft_fclose(infd))
-			return (ft_leave(exitstatus, "close infd", __PRINT));
+			return (ft_leave(v, EXIT_FAILURE, "dup infd", __PERROR));
+		if (!ft_fclose(v, infd))
+			return (ft_leave(v, v->exitstatus, "close infd", __PRINT));
 	}
 	if (*outfd > -1)
 	{
 		if (close(STDOUT_FILENO) == -1)
-			return (ft_leave(EXIT_FAILURE, "close STDOUT_FILENO", __PERROR));
+			return (ft_leave(v, EXIT_FAILURE, "close STDOUT_FILENO", __PERROR));
 		if (dup(*outfd) == -1)
-			return (ft_leave(EXIT_FAILURE, "dup outfd", __PERROR));
-		if (!ft_fclose(outfd))
-			return (ft_leave(exitstatus, "close outfd", __PRINT));
+			return (ft_leave(v, EXIT_FAILURE, "dup outfd", __PERROR));
+		if (!ft_fclose(v, outfd))
+			return (ft_leave(v, v->exitstatus, "close outfd", __PRINT));
 	}
 	return (__TRUE);
 }
 
-t_bool	ft_fclose(int *fd)
+t_bool	ft_fclose(t_vars *v, int *fd)
 {
 	if (*fd >= 0)
 	{
 		if (close(*fd) == -1)
-			return (exitstatus = EXIT_FAILURE, __FALSE);
+			return (v->exitstatus = EXIT_FAILURE, __FALSE);
 		*fd = -111;
 	}
 	return (__TRUE);
@@ -70,7 +71,7 @@ t_bool	ft_raz(t_vars *v)
 	in = dup(v->stdin);
 	out = dup(v->stdout);
 	if (out < 0 || in < 0)
-		ft_leave(EXIT_FAILURE, "ft_raz(): dup", __PERROR);
-	ft_ioset_op(&in, &out);
+		ft_leave(v, EXIT_FAILURE, "ft_raz(): dup", __PERROR);
+	ft_ioset_op(v, &in, &out);
 	return (__TRUE);
 }

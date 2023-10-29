@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:27:13 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 07:31:34 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 21:24:55 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ char	**env_list_to_tab(t_vars *v)
 	i = 0;
 	tab = malloc(sizeof(char *) * (ft_envsize(v->my_env) + 1));
 	if (!tab)
-		return (ft_leave(EXIT_FAILURE, "malloc", __PERROR), NULL);
+		return (ft_leave(v, EXIT_FAILURE, "malloc", __PERROR), NULL);
 	env_cpy = v->my_env;
 	while (env_cpy)
 	{
 		tab[i] = ft_strdup(env_cpy->var);
 		if (!(tab[i]))
 		{
-			ft_leave(EXIT_FAILURE, "ft_strdup", __PERROR);
+			ft_leave(v, EXIT_FAILURE, "ft_strdup", __PERROR);
 			return (ft_free2str(&tab), NULL);
 		}
 		i++;
@@ -70,7 +70,7 @@ t_bool	check_env_var_set(t_env *my_env, char *var)
 	return (__TRUE);
 }
 
-char	*get_env_var_content(t_env *my_env, char *var)
+char	*get_env_var_content(t_vars *v, t_env *my_env, char *var)
 {
 	char	*content;
 	size_t	len;
@@ -83,7 +83,7 @@ char	*get_env_var_content(t_env *my_env, char *var)
 	}
 	content = ft_substr(my_env->var, len + 1, ft_strlen(my_env->var) - len);
 	if (!content)
-		return (ft_leave(EXIT_FAILURE, "ft_substr", __PERROR), NULL);
+		return (ft_leave(v, EXIT_FAILURE, "ft_substr", __PERROR), NULL);
 	return (content);
 }
 

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/27 16:52:11 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 21:38:45 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ t_bool	ft_lnch_executable(t_vars *v)
 	pid = -1;
 	pid = fork();
 	if (pid < 0)
-		return (ft_leave(EXIT_FAILURE, "fork", __PERROR));
+		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	if (!pid)
 		ft_execute(v);
-	v->status = EXIT_SUCCESS;
-	waitpid(pid, &v->status, __WHANG);
-	if (WIFEXITED(v->status))
+	v->code = EXIT_SUCCESS;
+	waitpid(pid, &v->code, __WHANG);
+	if (WIFEXITED(v->code))
 	{
-		exitstatus = WEXITSTATUS(v->status);
-		if (exitstatus != EXIT_SUCCESS && exitstatus != __CMD_NOT_EXEC)
+		v->exitstatus = WEXITSTATUS(v->code);
+		if (v->exitstatus != EXIT_SUCCESS && v->exitstatus != __CMD_NOT_EXEC)
 			return (__FALSE);
 	}
 	return (__TRUE);
@@ -50,16 +50,16 @@ void	ft_run_simplecmnd(t_vars *v)
 	char	**my_env;
 
 	if (!ft_set_io(v, v->commands))
-		ft_exitbackprocss(v, exitstatus);
+		ft_exitbackprocss(v, v->exitstatus);
 	ft_freestr(&v->cmdpath);
 	v->cmdpath = ft_set_cmdpath(v, v->commands->main_command);
 	if (!v->cmdpath)
-		ft_exitbackprocss(v, exitstatus);
+		ft_exitbackprocss(v, v->exitstatus);
 	ft_closetvars(v);
 	ft_freesecondaries(v);
 	my_env = env_list_to_tab(v);
 	if (!my_env)
-		ft_exitbackprocss(v, exitstatus);	
+		ft_exitbackprocss(v, v->exitstatus);	
 	execve(v->cmdpath, v->commands->arguments, my_env);
 	perror("execve");
 	ft_exitbackprocss(v, __CMD_NOT_EXEC);
@@ -118,13 +118,13 @@ t_bool	ft_set_io(t_vars *v, t_commands *command)
 		else if (!ft_strncmp(iterator->content, ">", 2))
 			fdbk = fdbk && ft_outredir(v, iterator->next->content);
 		else if (!ft_strncmp(iterator->content, "<<", 3))
-			fdbk = fdbk && ft_heredocredir(command);
+			fdbk = fdbk && ft_heredocredir(v, command);
 		else if (!ft_strncmp(iterator->content, ">>", 3))
 			fdbk = fdbk && ft_outappendredir(v, iterator->next->content);
 		iterator = iterator->next->next;
 		if (!fdbk)
 			return (__FALSE);
 	}
-	ft_fclose(&command->hdoc_fd);
+	ft_fclose(v, &command->hdoc_fd);
 	return (__TRUE);
 }

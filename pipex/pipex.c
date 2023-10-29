@@ -20,7 +20,7 @@ void	ft_run_pipeline(t_vars *v, t_commands *commands)
 	t_ppex	*var;
 
 	var = NULL;
-	var = ft_init_tvars(commands);
+	var = ft_init_tvars(v, commands);
 	v->var = var;
 	if (!var)
 		ft_exitpipe(v);
@@ -40,7 +40,7 @@ t_bool	ft_pipex(t_vars *v)
 		if (var->i < (var->nbcmd - 1))
 		{
 			if (pipe(var->p[var->i]))
-				return (ft_perror(EXIT_FAILURE, "pipe", __PERROR));
+				return (ft_perror(v, EXIT_FAILURE, "pipe", __PERROR));
 		}
 		ft_manage_pipeline(v);
 		var->i++;
@@ -59,18 +59,18 @@ t_bool	ft_manage_pipeline(t_vars *v)
 	var->skip_command_flg = __FALSE;
 	fdbk = ft_ioset(v);
 	if (!fdbk && !var->skip_command_flg)
-		return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
+		return (ft_perror(v, EXIT_FAILURE, NULL, __PRINT));
 	var->pid[var->i] = fork();
 	if (!var->pid[var->i])
 	{
 		if (!fdbk && var->skip_command_flg)
-			ft_exitbackprocss(v, exitstatus);
+			ft_exitbackprocss(v, v->exitstatus);
 		else if (!var->skip_command_flg)
 			ft_plumber(v);
 	}
 	if (var->pid[var->i] == -1)
-		return (ft_perror(EXIT_FAILURE, "fork", __PERROR));
+		return (ft_perror(v, EXIT_FAILURE, "fork", __PERROR));
 	if (!ft_pcloser(v))
-		return (ft_perror(EXIT_FAILURE, NULL, __PRINT));
+		return (ft_perror(v, EXIT_FAILURE, NULL, __PRINT));
 	return (__TRUE);
 }

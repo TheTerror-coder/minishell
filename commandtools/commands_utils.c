@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:57:36 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 04:13:01 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 20:27:38 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*join_s1_with_sub_s2(char *s1, char *s2, size_t *start, size_t *end)
 	if (!subinput)
 	{
 		perror("minishell: join_s1_with_sub_s2: ");
-		exitstatus = 1;
 		free(s1);
 		return (NULL);
 	}
@@ -62,7 +61,6 @@ char	*join_s1_with_sub_s2(char *s1, char *s2, size_t *start, size_t *end)
 	s1 = ft_strjoin(s1, subinput);
 	if (!s1)
 	{
-		exitstatus = 1;
 		perror("minishell: join_s1_with_sub_s2: ");
 	}
 	free(cpy);

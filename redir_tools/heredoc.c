@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 02:12:11 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 21:15:04 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ t_bool	ft_heredoc(t_vars *v)
 	int	pid;
 
 	pid = -1;
-	if (!ft_fclose(&v->hdoc_fd))
+	if (!ft_fclose(v, &v->hdoc_fd))
 		return (__FALSE);
 	if (!ft_openatemp(v))
 		return (__FALSE);
 	pid = fork();
 	if (pid < 0)
-		return (ft_leave(EXIT_FAILURE, "fork", __PERROR));
+		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	if (pid == 0)
 		ft_heredoc_op1(v);
 	if (!ft_pwait(v, pid, __WHANG))
 		return (__FALSE);
 	if (pipe(v->p1) == -1)
-		return (ft_leave(EXIT_FAILURE, "pipe", __PERROR));
+		return (ft_leave(v, EXIT_FAILURE, "pipe", __PERROR));
 	return (ft_heredoc2(v));
 }
 
@@ -44,16 +44,17 @@ t_bool	ft_heredoc2(t_vars *v)
 	pid = 0;
 	pid = fork();
 	if (pid == -1)
-		return (ft_leave(EXIT_FAILURE, "fork", __PERROR));
+		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	if (pid == 0)
 		ft_heredoc_op2(v);
-	if (!ft_fclose(&v->outfd) || !ft_fclose(&v->p1[1]) || !ft_fclose(&v->hdoc_fd))
+	if (!ft_fclose(v, &v->outfd) || !ft_fclose(v, &v->p1[1]) || \
+		!ft_fclose(v, &v->hdoc_fd))
 		return (__FALSE);
 	v->hdoc_fd = dup(v->p1[0]);
-	if (!ft_fclose(&v->p1[0]))
+	if (!ft_fclose(v, &v->p1[0]))
 		return (__FALSE);
 	if (v->hdoc_fd < 0)
-		return (ft_leave(EXIT_FAILURE, "dup", __PERROR));
+		return (ft_leave(v, EXIT_FAILURE, "dup", __PERROR));
 	if (!ft_pwait(v, pid, WNOHANG))
 		return (__FALSE);
 	return (__TRUE);
@@ -71,14 +72,14 @@ void	ft_heredoc_op1(t_vars *v)
 		{
 			line = expand_words_of_line(v, line);
 			if (!line)
-				ft_exitbackprocss(v, exitstatus);
+				ft_exitbackprocss(v, v->exitstatus);
 		}
 		ft_putendl_fd(line, v->outfd);
 		ft_freestr(&line);
 		line = readline("> ");
 	}
 	ft_freestr(&line);
-	ft_fclose(&v->outfd);
+	ft_fclose(v, &v->outfd);
 	ft_exitbackprocss(v, EXIT_SUCCESS);
 	return ;
 }
@@ -88,11 +89,12 @@ void	ft_heredoc_op2(t_vars *v)
 	char	*line;
 
 	line = NULL;
-	if (!ft_fclose(&v->p1[0]) || !ft_fclose(&v->infd) || !ft_fclose(&v->outfd))
-		ft_exitbackprocss(v, exitstatus);
+	if (!ft_fclose(v, &v->p1[0]) || !ft_fclose(v, &v->infd) || \
+		!ft_fclose(v, &v->outfd))
+		ft_exitbackprocss(v, v->exitstatus);
 	v->infd = open(v->ftemp1, O_RDONLY);
 	if (v->infd == -1)
-		ft_exitbackprocss(v, !ft_leave(EXIT_FAILURE, v->ftemp1, __PERROR));
+		ft_exitbackprocss(v, !ft_leave(v, EXIT_FAILURE, v->ftemp1, __PERROR));
 	line = get_next_line(v->infd);
 	while (line)
 	{

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 05:27:23 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 20:17:32 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_bool	export_one_arg(t_vars *v, char *str)
 	if ((var[0] <= '9' && var[0] >= '0') || var[0] == '\0' || var[0] == '=')
 	{
 		free(var);
-		exitstatus = 1;
+		v->exitstatus = 1;
 		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(var, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
@@ -133,7 +133,7 @@ t_bool	export_one_arg(t_vars *v, char *str)
 	{
 		if (!ft_isalnum(var[i]) && var[i] != '_')
 		{
-			exitstatus = 1;
+			v->exitstatus = 1;
 			free(var);
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(var, 2);
@@ -158,7 +158,7 @@ t_bool	ft_export(t_vars *v, t_commands *command, char **arguments)
 	int	index;
 
 	(void) command;
-	exitstatus = 0;
+	v->exitstatus = 0;
 	if (!arguments[1] || (arguments[1][0] == '-' && arguments[1][1] == '-' && arguments[1][2] == '\0'))
 	{
 		print_export(v);
@@ -166,7 +166,7 @@ t_bool	ft_export(t_vars *v, t_commands *command, char **arguments)
 	}
 	if (arguments[1][0] == '-' && arguments[1][1] != '\0')
 	{
-		exitstatus = 2;
+		v->exitstatus = 2;
 		ft_putstr_fd("minishell: export: no option expected\n", 2);
 		return (0);
 	}

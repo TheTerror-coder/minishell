@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:06:15 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/25 18:20:48 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/29 21:32:24 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	ft_exitpipe(t_vars *v)
 {
 	if (v->var->pid)
 		ft_waitingroom(v);
-	ft_free_tvars(v->var);
+	ft_free_tvars(v, v->var);
 	v->var = NULL;
-	ft_exitbackprocss(v, exitstatus);
+	ft_exitbackprocss(v, v->exitstatus);
 }
 
 void	ft_free_p(t_ppex *var)
@@ -36,9 +36,9 @@ void	ft_free_p(t_ppex *var)
 	var->p = NULL;
 }
 
-void	ft_free_tvars(t_ppex *var)
+void	ft_free_tvars(t_vars *v, t_ppex *var)
 {
-	ft_close_tvars(var);
+	ft_close_tvars(v, var);
 	ft_freestr(&var->pathcmd);
 	ft_free2str(&var->paths);
 	if (var->p)

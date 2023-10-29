@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_word.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 07:16:39 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 21:26:33 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_expand_content(t_vars *v, char *expand_name, char *ret)
 
 	if (!check_env_var_set(v->my_env, expand_name))
 		return (free(expand_name), ret);
-	expand_content = get_env_var_content(v->my_env, expand_name);
+	expand_content = get_env_var_content(v, v->my_env, expand_name);
 	if (!expand_content)
 	{
 		free(expand_name);
@@ -29,7 +29,7 @@ char	*get_expand_content(t_vars *v, char *expand_name, char *ret)
 	ret = ft_strjoin(ret, expand_content);
 	if (!ret)
 	{
-		exitstatus = 1;
+		v->exitstatus = 1;
 		perror("minishell: expand_case: ");
 	}
 	free(cpy);
@@ -38,17 +38,17 @@ char	*get_expand_content(t_vars *v, char *expand_name, char *ret)
 	return (ret);
 }
 
-char	*expand_exit_status(size_t *i, size_t *j, char *ret)
+char	*expand_exit_status(t_vars *v, size_t *i, size_t *j, char *ret)
 {
 	char	*expand_number;
 	char	*cpy;
 
 	*i += 2;
 	*j = 0;
-	expand_number = ft_itoa(exitstatus);
+	expand_number = ft_itoa(v->exitstatus);
 	if (!expand_number)
 	{
-		exitstatus = 1;
+		v->exitstatus = 1;
 		perror("minishell: expand_case: ");
 		return (NULL);
 	}
@@ -58,7 +58,7 @@ char	*expand_exit_status(size_t *i, size_t *j, char *ret)
 	free(cpy);
 	if (!ret)
 	{
-		exitstatus = 1;
+		v->exitstatus = 1;
 		perror("minishell: expand_case: ");
 	}
 	return (ret);
@@ -70,9 +70,9 @@ char	*expand_case(size_t *i, size_t *j, char *ret, t_vars *v)
 
 	ret = join_s1_with_sub_s2(ret, v->line, i, j);
 	if (!ret)
-		return (NULL);
+		return (v->exitstatus = EXIT_FAILURE, NULL);
 	if ((v->line)[*i + *j + 1] == '?')
-		return (expand_exit_status(i, j, ret));
+		return (expand_exit_status(v, i, j, ret));
 	*i += 1;
 	if (((v->line)[*i + *j] <= '9' && (v->line)[*i + *j] >= '0') \
 		|| (v->line)[*i + *j] == '\'' || (v->line)[*i + *j] == '"')
@@ -83,7 +83,7 @@ char	*expand_case(size_t *i, size_t *j, char *ret, t_vars *v)
 	if (!expand_name)
 	{
 		perror("minishell: expand_case: ");
-		exitstatus = 1;
+		v->exitstatus = 1;
 		free(ret);
 		return (NULL);
 	}
@@ -113,11 +113,13 @@ char	*double_quote_case(size_t *i, char *ret, t_vars *v, int heredoc)
 	if ((v->line)[*i + j] != '"')
 	{
 		ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
-		exitstatus = 2;
+		v->exitstatus = 2;
 		free(ret);
 		return (NULL);
 	}
 	ret = join_s1_with_sub_s2(ret, v->line, i, &j);
+	if (!ret)
+		v->exitstatus = EXIT_FAILURE;
 	*i += 1;
 	return (ret);
 }
@@ -134,7 +136,6 @@ char	*single_quote_case(char *input, size_t *i, size_t *j, char *ret)
 	{
 		ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
 		free(ret);
-		exitstatus = 2;
 		return (NULL);
 	}
 	ret = join_s1_with_sub_s2(ret, input, i, j);
@@ -156,7 +157,7 @@ int	get_word(t_vars *v, size_t *index_start, int is_hdoc_deli, char **ret)
 		{
 			*ret = join_s1_with_sub_s2(*ret, v->line, index_start, &j);
 			if (!(*ret))
-				return (__FALSE);
+				return (v->exitstatus = EXIT_FAILURE, __FALSE);
 			*index_start += 1;
 			*ret = double_quote_case(index_start, *ret, v, is_hdoc_deli);
 		}
@@ -165,8 +166,10 @@ int	get_word(t_vars *v, size_t *index_start, int is_hdoc_deli, char **ret)
 		else
 			j++;
 		if (!(*ret) && j == 0)
-			return (__FALSE);
+			return (v->exitstatus = __BUILTIN_ERROR, __FALSE);
 	}
 	*ret = join_s1_with_sub_s2(*ret, v->line, index_start, &j);
+	if (!(*ret))
+		v->exitstatus = EXIT_FAILURE;
 	return (__TRUE);
 }

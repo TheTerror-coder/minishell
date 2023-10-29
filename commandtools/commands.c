@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 18:11:57 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 21:45:08 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_freecommands(t_vars *v)
 	{
 		if (commands->tokens)
 			ft_freetokens(commands->tokens);
-		ft_fclose(&commands->hdoc_fd);
+		ft_fclose(v, &commands->hdoc_fd);
 		ft_free2str(&(commands->arguments));
 		commands_cpy = commands;
 		commands = commands->next;
