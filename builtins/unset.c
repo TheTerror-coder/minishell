@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/29 04:34:22 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 09:01:59 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ t_bool	ft_unset(t_vars *v, t_commands *command)
 		&& command->arguments[1][1] != '\0')
 	{
 		exitstatus = __BUILTIN_ERROR;
-		ft_putstr_fd("minishell: ft_unset: no option expected\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: ft_unset: no option expected\n", \
+			STDERR_FILENO);
 		return (__FALSE);
 	}
 	while (command->arguments[i])

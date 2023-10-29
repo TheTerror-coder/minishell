@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:51:38 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 07:13:42 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 08:57:55 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,17 @@ t_bool	ft_cd_no_args(t_vars *v)
 	t_bool	ret;
 
 	if (!check_env_var_set(v->my_env, "HOME"))
-		return (__FALSE);
-	home = get_env_var_content(v->my_env, "HOME");
-	if (!home)
 	{
-		if (errno == ENOMEM)
-			perror("minishell: cd");
-		else
-			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-		free(home);
+		ft_leave(EXIT_FAILURE, "minishell: cd: HOME no set", __PRINT);
 		return (__FALSE);
 	}
+	home = get_env_var_content(v->my_env, "HOME");
+	if (!home)
+		return (__FALSE);
 	if (home[0] == '\0')
 	{
 		free(home);
-		return (__FALSE);
+		return (__TRUE);
 	}
 	ret = do_chdir(home);
 	free(home);
@@ -61,17 +57,15 @@ t_bool	ft_cd_oldpwd_case(t_vars *v)
 	char	*oldpwd;
 
 	if (!check_env_var_set(v->my_env, "OLDPWD"))
-		return (__FALSE);
-	oldpwd = get_env_var_content(v->my_env, "OLDPWD");
-	if (!oldpwd || oldpwd[0] == '\0')
 	{
-		if (errno == ENOMEM)
-			perror("minishell: cd");
-		else
-			ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
-		free(oldpwd);
+		ft_leave(EXIT_FAILURE, "minishell: cd: OLDPWD not set", __PRINT);
 		return (__FALSE);
 	}
+	oldpwd = get_env_var_content(v->my_env, "OLDPWD");
+	if (!oldpwd)
+		return (__FALSE);
+	if (oldpwd[0] == '\0')
+		return (free(oldpwd), __TRUE);
 	if (do_chdir(oldpwd))
 	{
 		ft_putstr_fd(oldpwd, 2);

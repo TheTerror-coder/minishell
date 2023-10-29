@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 07:11:38 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 08:59:33 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ t_bool	ft_cd_cdpath_set(t_vars *v, char *dir)
 	char	**split_cdpath;
 	t_bool	ret;
 
-//check avec / au millieu
 	if (dir[0] == '/' || !ft_strncmp(dir, "..", 3) || !ft_strncmp(dir, "./", 3))
 		return (__FALSE);
 	if (!check_env_var_set(v->my_env, "CDPATH"))
@@ -86,7 +85,7 @@ t_bool	ft_cd_cdpath_set(t_vars *v, char *dir)
 
 t_bool	ft_cd_special_cases(t_vars *v, t_commands *command, char *old_pwd)
 {
-	if (!(command->arguments[1]))
+	if (!(command->arguments[1]) || !ft_strncmp(command->arguments[1], "--", 3))
 	{
 		if (ft_cd_no_args(v))
 			return (set_pwd_and_oldpwd(v, command, old_pwd));
@@ -108,26 +107,30 @@ t_bool	ft_cd_special_cases(t_vars *v, t_commands *command, char *old_pwd)
 	}
 	return (__TRUE);
 }
-/*
-t_bool	check_cd_options(t_vars *v, t_commands *command)
+
+t_bool	check_cd_options(char *first_arg)
 {
-	if (command->arguments[1] && command->arguments[1][0] == '-' \
-		&& command->arguments[1][1] != '\0')
-*/
+	if (first_arg && first_arg[0] == '-' && first_arg[1] != '\0' \
+		&& (first_arg[1] != '-' || first_arg[2] != '\0'))
+	{
+		ft_putstr_fd("minishell: cd: no option expected\n", 2);
+		exitstatus = __BUILTIN_ERROR;
+		return (__FALSE);
+	}
+	return (__TRUE);
+}
+
 t_bool	ft_cd(t_vars *v, t_commands *command)
 {
 	char	*old_pwd;
 
-//	check_cd_options(v, command);
+	if (!check_cd_options(command->arguments[1]))
+		return (__FALSE);
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
-	{
-		perror("minishell: cd");
-		return (exitstatus = EXIT_FAILURE, __FALSE);
-	}
-	if (!(command->arguments[1]) \
-		|| (command->arguments[2]) \
-		|| (!ft_strncmp(command->arguments[1], "-", 2)))
+		return (ft_leave(EXIT_FAILURE, "getcwd", __PERROR), __FALSE);
+	if (!(command->arguments[1]) || (command->arguments[2]) \
+		|| (!ft_strncmp(command->arguments[1], "-", 1)))
 		return (ft_cd_special_cases(v, command, old_pwd));
 	if (ft_cd_cdpath_set(v, command->arguments[1]))
 		return (set_pwd_and_oldpwd(v, command, old_pwd));

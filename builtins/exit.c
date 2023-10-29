@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 22:53:43 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 01:23:51 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/29 09:01:36 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_bool	ft_arg_is_numeric(t_vars *v, t_commands *command);
 void	ft_exit_op(t_vars *v);
-t_bool	check_long_long_overflow(t_commands *command);
+t_bool	check_l_l_overflow(t_commands *command);
 
 t_bool	ft_exit(t_vars *v, t_commands *command)
 {
@@ -46,7 +46,7 @@ t_bool	ft_arg_is_numeric(t_vars *v, t_commands *command)
 		i++;
 	while (is_whitespace(command->arguments[1][i]))
 		i++;
-	if (i == 0 || command->arguments[1][i] || !check_long_long_overflow(command))
+	if (i == 0 || command->arguments[1][i] || !check_l_l_overflow(command))
 	{
 		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(command->arguments[1], STDERR_FILENO);
@@ -57,11 +57,11 @@ t_bool	ft_arg_is_numeric(t_vars *v, t_commands *command)
 	return (__FALSE);
 }
 
-t_bool	check_long_long_overflow(t_commands *command)
+t_bool	check_l_l_overflow(t_commands *command)
 {
 	long long int	nbr;
-	int		sign;
-	size_t		i;
+	int				sign;
+	size_t			i;
 
 	i = 0;
 	sign = 1;
@@ -75,13 +75,14 @@ t_bool	check_long_long_overflow(t_commands *command)
 	nbr = 0;
 	while (command->arguments[1][i] != '\0')
 	{
-		if ((nbr * 10 * sign + (command->arguments[1][i] - '0') * sign) / (sign * 10) != nbr)
+		if ((nbr * 10 * sign + (command->arguments[1][i] - '0') * sign) \
+			/ (sign * 10) != nbr)
 			return (__FALSE);
 		nbr = nbr * 10 + (command->arguments[1][i] - '0');
 		i++;
 	}
 	return (__TRUE);
-}	
+}
 
 void	ft_exit_op(t_vars *v)
 {
