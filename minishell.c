@@ -6,15 +6,15 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:13 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 06:11:59 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/30 09:32:58 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_bool ft_minishell(t_vars *v);
+t_bool	ft_minishell(t_vars *v);
 
-t_bool ft_prompt(t_vars *v)
+t_bool	ft_prompt(t_vars *v)
 {
 	readline_signals();
 	v->line = readline("minishell$ ");
@@ -35,7 +35,7 @@ t_bool ft_prompt(t_vars *v)
 	return (__TRUE);
 }
 
-t_bool ft_minishell(t_vars *v)
+t_bool	ft_minishell(t_vars *v)
 {
 	size_t	i;
 
