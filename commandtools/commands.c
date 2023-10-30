@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 21:45:08 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 14:29:09 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	clear_commands(t_commands *commands)
 {
 	t_commands	*commands_cpy;
 
-	commands_cpy = commands;	
+	commands_cpy = commands;
 	while (commands_cpy != NULL)
 	{
 		get_main_command(commands_cpy);
@@ -84,10 +84,16 @@ t_commands	*get_commands(t_vars *v)
 {
 	t_commands	*commands;
 	t_token		*tokens;
+	size_t		l_index;
 
 	v->flg_parsing_is_ok = __TRUE;
 	commands = NULL;
-	tokens = break_input_into_tokens(v);
+	tokens = NULL;
+	l_index = 0;
+	while (is_whitespace(v->line[l_index]))
+		l_index++;
+	if (v->line[l_index] != '\0')
+		tokens = break_input_into_tokens(v, l_index);
 	if (v->flg_parsing_is_ok == __FALSE)
 	{
 		ft_freetokens(tokens);

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 20:51:49 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 14:23:42 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,23 @@ t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli);
 t_token	*create_token(t_vars *v, char *content, int type, int expand_in_hdoc);
 char	*get_token_content(t_vars *v, size_t *l_index, int is_hdoc_deli);
 
-t_token	*break_input_into_tokens(t_vars *v)
+t_token	*break_input_into_tokens(t_vars *v, size_t l_index)
 {
 	t_token	*token;
 	t_token	*init_token;
-	size_t	l_index;
 	int		is_hdoc_deli;
 
 	is_hdoc_deli = __FALSE;
-	l_index = 0;
 	token = get_first_token(v, &l_index, &is_hdoc_deli);
 	if (!token)
 		return (NULL);
 	init_token = token;
 	while ((v->line)[l_index] != '\0')
 	{
+		while (is_whitespace((v->line)[l_index]))
+			l_index++;
+		if ((v->line)[l_index] == '\0')
+			return (init_token);
 		token->next = get_one_token(v, &l_index, is_hdoc_deli);
 		if (!(token->next))
 			return (init_token);
@@ -86,64 +88,19 @@ t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli)
 	int		type;
 	int		expand_in_hdoc;
 	char	*content;
-	t_token	*token;
 
-	while (is_whitespace((v->line)[*l_index]))
-		(*l_index)++;
 	expand_in_hdoc = ((v->line)[*l_index] != '"' \
 			&& (v->line)[*l_index] != '\'' && is_hdoc_deli == __TRUE);
-	if ((v->line)[*l_index] == '\0')
-		return (NULL);
-	if ((v->line)[*l_index] == '|' || (v->line)[*l_index] == '<' \
-			|| (v->line)[*l_index] == '>')
-		type = 1;
-	else
-		type = 0;
+	type = ((v->line)[*l_index] == '|' || (v->line)[*l_index] == '<' \
+			|| (v->line)[*l_index] == '>');
 	content = get_token_content(v, l_index, is_hdoc_deli);
 	if (!content && !v->flg_var_is_null)
-	{
-		v->flg_parsing_is_ok = __FALSE;
 		return (NULL);
-	}
-	token = create_token(v, content, type, expand_in_hdoc);
-	if (!token)
-		v->flg_parsing_is_ok = __FALSE;
-	return (token);
-}
-
-size_t	test_expand_null_content(t_vars *v, size_t l_index, int is_hdoc_deli)
-{
-	size_t	j;
-	char	*expand_name;
-
-	if (is_hdoc_deli)
-		return (0);
-	j = 0;
-	if (is_whitespace_or_operator_or_nul((v->line)[l_index]))
-		return (0);
-	while (!is_whitespace_or_operator_or_nul((v->line)[l_index]))
-	{
-		if ((v->line)[l_index] != '$')
-			return (0);
-		j = 1;
-		if ((v->line)[l_index + j] != '_' && !ft_isalpha((v->line)[l_index + j]))
-			return (0);
-		while (ft_isalnum((v->line)[l_index + j]) || (v->line)[l_index + j] == '_')
-			j++;
-		expand_name = ft_substr((v->line), l_index + 1, j - 1);
-		if (!expand_name)
-			return (0);
-		if (check_env_var_set(v->my_env, expand_name))
-			return (free(expand_name), 0);
-		l_index += j;
-	}
-	return (l_index);
+	return (create_token(v, content, type, expand_in_hdoc));
 }
 
 char	*get_token_content(t_vars *v, size_t *l_index, int is_hdoc_deli)
 {
-	char	*content;
-	char	*word;
 	size_t	expand_nbr;
 
 	v->flg_var_is_null = __FALSE;
@@ -155,15 +112,8 @@ char	*get_token_content(t_vars *v, size_t *l_index, int is_hdoc_deli)
 		return (NULL);
 	}
 	if ((v->line)[*l_index] == '|')
-	{
-		content = get_pipe(v, v->line, l_index);
-		(*l_index)++;
-		return (content);
-	}
+		return (get_pipe(v, v->line, l_index));
 	if ((v->line)[*l_index] == '<' || (v->line)[*l_index] == '>')
 		return (get_redirection(v, v->line, l_index));
-	word = NULL;
-	if (!get_word(v, l_index, is_hdoc_deli, &word))
-		return (NULL);
-	return (word);
+	return (get_word(v, l_index, is_hdoc_deli));
 }

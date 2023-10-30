@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 05:18:18 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 20:43:25 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 13:41:45 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*get_pipe(t_vars *v, char *line, size_t *l_index)
 		v->exitstatus = 1;
 		perror("minishell: get_pipe: ");
 	}
+	*l_index += 1;
 	return (pipe);
 }
 

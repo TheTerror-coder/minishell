@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 21:26:33 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 14:13:17 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,33 +143,35 @@ char	*single_quote_case(char *input, size_t *i, size_t *j, char *ret)
 	return (ret);
 }
 
-int	get_word(t_vars *v, size_t *index_start, int is_hdoc_deli, char **ret)
+char	*get_word(t_vars *v, size_t *index_start, int is_hdoc_deli)
 {
 	size_t	j;
+	char	*ret;
 
+	ret = NULL;
 	j = 0;
 	while (!is_whitespace_or_operator_or_nul((v->line)[*index_start + j]))
 	{
 		if ((v->line)[*index_start + j] == '$' \
 			&& expand_conditions((v->line)[*index_start + j + 1], is_hdoc_deli))
-			*ret = expand_case(index_start, &j, *ret, v);
+			ret = expand_case(index_start, &j, ret, v);
 		else if ((v->line)[*index_start + j] == '"')
 		{
-			*ret = join_s1_with_sub_s2(*ret, v->line, index_start, &j);
-			if (!(*ret))
-				return (v->exitstatus = EXIT_FAILURE, __FALSE);
+			ret = join_s1_with_sub_s2(ret, v->line, index_start, &j);
+			if (!ret)
+				return (v->exitstatus = EXIT_FAILURE, NULL);
 			*index_start += 1;
-			*ret = double_quote_case(index_start, *ret, v, is_hdoc_deli);
+			ret = double_quote_case(index_start, ret, v, is_hdoc_deli);
 		}
 		else if ((v->line)[*index_start + j] == '\'')
-			*ret = single_quote_case(v->line, index_start, &j, *ret);
+			ret = single_quote_case(v->line, index_start, &j, ret);
 		else
 			j++;
-		if (!(*ret) && j == 0)
-			return (v->exitstatus = __BUILTIN_ERROR, __FALSE);
+		if (!ret && j == 0)
+			return (v->exitstatus = __BUILTIN_ERROR, NULL);
 	}
-	*ret = join_s1_with_sub_s2(*ret, v->line, index_start, &j);
-	if (!(*ret))
+	ret = join_s1_with_sub_s2(ret, v->line, index_start, &j);
+	if (!ret)
 		v->exitstatus = EXIT_FAILURE;
-	return (__TRUE);
+	return (ret);
 }
