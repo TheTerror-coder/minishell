@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:37:36 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/05/09 16:36:12 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 08:26:41 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_fill(char const *s, char **sstr, char c)
 			{
 				ft_free(sstr, ix);
 				return (0);
-			}	
+			}
 			ix++;
 		}
 		i = len + i;
