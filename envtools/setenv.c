@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 04:26:44 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 20:01:28 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 09:59:24 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,8 @@ t_bool	set_pwd(t_vars *v)
 	return (free(env_pwd), __TRUE);
 }
 
-t_bool	allocate_my_env(t_vars *v)
-{
-	t_env	*env_list;
-
-	env_list = malloc(sizeof(t_env));
-	if (!env_list)
-		return (ft_leave(v, EXIT_FAILURE, "malloc", __PERROR), __FALSE);
-	env_list->var = NULL;
-	env_list->next = NULL;
-	v->my_env = env_list;
-	return (__TRUE);
-}
-
 t_bool	ft_setenv(t_vars *v, char **envp)
 {
-	if (!allocate_my_env(v))
-		return (__FALSE);
 	if ((envp[0]) && !get_old_env(v, envp))
 		return (free_env(v), __FALSE);
 	if (!set_pwd(v))
