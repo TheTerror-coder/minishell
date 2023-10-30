@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 08:14:04 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/30 10:21:44 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			ft_run_builtin(t_vars *v, t_commands *command);
 t_bool		ft_exit(t_vars *v, t_commands *command);
 t_bool		ft_unset(t_vars *v, t_commands *command);
 
-void		readline_signals(void);
+t_bool		set_readline_signals(t_vars *v);
 void		ignore_signals(void);
 
 #endif
