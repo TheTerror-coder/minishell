@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/30 15:32:16 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/30 15:44:37 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,26 +126,25 @@ char	*double_quote_case(size_t *i, char *ret, t_vars *v, int heredoc)
 	return (ret);
 }
 
-char	*single_quote_case(char *input, size_t *i, size_t *j, char *ret)
+char	*single_quote_case(t_vars *v, size_t *i, size_t *j, char *ret)
 {
-	ret = join_s1_with_sub_s2(ret, input, i, j);
+	ret = join_s1_with_sub_s2(ret, v->line, i, j);
 	if (!ret)
 		return (NULL);
 	*i += 1;
-	while (input[*i + *j] != '\'' && input[*i + *j] != '\0')
+	while (v->line[*i + *j] != '\'' && v->line[*i + *j] != '\0')
 		(*j)++;
-	if (input[*i + *j] != '\'')
+	if (v->line[*i + *j] != '\'')
 	{
 		ft_putstr_fd("minishell: syntax error: unclosed quote\n", 2);
+		v->exitstatus = 2;
 		free(ret);
 		return (NULL);
 	}
-	ret = join_s1_with_sub_s2(ret, input, i, j);
+	ret = join_s1_with_sub_s2(ret, v->line, i, j);
 	*i += 1;
 	return (ret);
 }
-
-
 
 char	*get_word(t_vars *v, size_t *index_start, int is_hdoc_deli)
 {
@@ -164,11 +163,11 @@ char	*get_word(t_vars *v, size_t *index_start, int is_hdoc_deli)
 			ret = double_quote_case(index_start, ret, v, is_hdoc_deli);
 		}
 		else if ((v->line)[*index_start + j] == '\'')
-			ret = single_quote_case(v->line, index_start, &j, ret);
+			ret = single_quote_case(v, index_start, &j, ret);
 		else
 			j++;
 		if (!ret && j == 0)
-			return (v->exitstatus = __BUILTIN_ERROR, NULL);	
+			return (NULL);
 	}
 	ret = join_s1_with_sub_s2(ret, v->line, index_start, &j);
 	if (!ret)
