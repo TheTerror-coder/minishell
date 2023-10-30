@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/30 14:13:17 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/30 15:19:35 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,8 @@ char	*double_quote_case(size_t *i, char *ret, t_vars *v, int heredoc)
 	j = 0;
 	while ((v->line)[*i + j] != '"' && (v->line)[*i + j] != '\0')
 	{
-		if ((v->line)[*i + j] == '$' && v->line[*i + j + 1] != '"'\
-			&& v->line[*i + j + 1] != '\'' \
-			&& expand_conditions((v->line)[*i + j + 1], heredoc))
+		if (expand_conditions((v->line)[*i + j], (v->line)[*i + j + 1], heredoc) && v->line[*i + j + 1] != '"'\
+			&& v->line[*i + j + 1] != '\'')
 		{
 			ret = expand_case(i, &j, ret, v);
 			if (!ret)
@@ -152,8 +151,7 @@ char	*get_word(t_vars *v, size_t *index_start, int is_hdoc_deli)
 	j = 0;
 	while (!is_whitespace_or_operator_or_nul((v->line)[*index_start + j]))
 	{
-		if ((v->line)[*index_start + j] == '$' \
-			&& expand_conditions((v->line)[*index_start + j + 1], is_hdoc_deli))
+		if (expand_conditions((v->line)[*index_start + j], (v->line)[*index_start + j + 1], is_hdoc_deli))
 			ret = expand_case(index_start, &j, ret, v);
 		else if ((v->line)[*index_start + j] == '"')
 		{
@@ -168,7 +166,7 @@ char	*get_word(t_vars *v, size_t *index_start, int is_hdoc_deli)
 		else
 			j++;
 		if (!ret && j == 0)
-			return (v->exitstatus = __BUILTIN_ERROR, NULL);
+			return (v->exitstatus = __BUILTIN_ERROR, NULL);	
 	}
 	ret = join_s1_with_sub_s2(ret, v->line, index_start, &j);
 	if (!ret)

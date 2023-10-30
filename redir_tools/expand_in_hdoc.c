@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 18:43:07 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 21:26:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 15:13:27 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ char	*expand_words_of_line(t_vars *v, char *line)
 	while (line && line[l_index] != '\0')
 	{
 		linedup = line;
-		if (line[l_index] == '$' \
-				&& expand_conditions(line[l_index + 1], __FALSE))
+		if (expand_conditions(line[l_index], line[l_index + 1], __FALSE))
 		{
 			if (line[l_index + 1] == '?')
 				line = expand_exit_status_hdoc(v, line, &l_index);
