@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:36:31 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/30 15:19:35 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/30 15:32:16 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,13 @@ char	*double_quote_case(size_t *i, char *ret, t_vars *v, int heredoc)
 	size_t	j;
 
 	j = 0;
+	if (!ret)
+		return (v->exitstatus = EXIT_FAILURE, NULL);
+	*i += 1;
 	while ((v->line)[*i + j] != '"' && (v->line)[*i + j] != '\0')
 	{
-		if (expand_conditions((v->line)[*i + j], (v->line)[*i + j + 1], heredoc) && v->line[*i + j + 1] != '"'\
-			&& v->line[*i + j + 1] != '\'')
+		if (expand_conditions((v->line) + *i + j, heredoc) \
+			&& v->line[*i + j + 1] != '"' && v->line[*i + j + 1] != '\'')
 		{
 			ret = expand_case(i, &j, ret, v);
 			if (!ret)
@@ -142,6 +145,8 @@ char	*single_quote_case(char *input, size_t *i, size_t *j, char *ret)
 	return (ret);
 }
 
+
+
 char	*get_word(t_vars *v, size_t *index_start, int is_hdoc_deli)
 {
 	size_t	j;
@@ -151,14 +156,11 @@ char	*get_word(t_vars *v, size_t *index_start, int is_hdoc_deli)
 	j = 0;
 	while (!is_whitespace_or_operator_or_nul((v->line)[*index_start + j]))
 	{
-		if (expand_conditions((v->line)[*index_start + j], (v->line)[*index_start + j + 1], is_hdoc_deli))
+		if (expand_conditions((v->line) + *index_start + j, is_hdoc_deli))
 			ret = expand_case(index_start, &j, ret, v);
 		else if ((v->line)[*index_start + j] == '"')
 		{
 			ret = join_s1_with_sub_s2(ret, v->line, index_start, &j);
-			if (!ret)
-				return (v->exitstatus = EXIT_FAILURE, NULL);
-			*index_start += 1;
 			ret = double_quote_case(index_start, ret, v, is_hdoc_deli);
 		}
 		else if ((v->line)[*index_start + j] == '\'')

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 15:12:38 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/30 15:34:17 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 int			is_whitespace(char c);
 int			is_whitespace_or_operator_or_nul(char c);
-int			expand_conditions(char c1, char c2, int is_hdoc_deli);
+int			expand_conditions(char *c, int is_hdoc_deli);
 int			is_operator(char c);
 char		*join_s1_with_sub_s2(char *s1, char *s2, size_t *st, size_t *end);
 

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:57:36 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/30 15:09:42 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/30 15:35:11 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	is_whitespace_or_operator_or_nul(char c)
 	return (is_whitespace(c) || is_operator(c) || (c == '\0'));
 }
 
-int	expand_conditions(char c1, char c2, int is_hdoc_deli)
+int	expand_conditions(char *c, int is_hdoc_deli)
 {
-	if (c1 != '$')
+	if (c[0] != '$')
 		return (__FALSE);
-	if ((c2 == '?' || ft_isalnum(c2)) && !(is_hdoc_deli))
+	if ((c[1] == '?' || ft_isalnum(c[1])) && !is_hdoc_deli)
 		return (__TRUE);
-	if (c2 == '"' || c2 == '\'' || c2 == '_')
+	if (c[1] == '"' || c[1] == '\'' || c[1] == '_')
 		return (__TRUE);
 	else
 		return (__FALSE);
