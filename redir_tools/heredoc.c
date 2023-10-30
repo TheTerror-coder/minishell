@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 21:15:04 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 06:15:18 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ t_bool	ft_heredoc(t_vars *v)
 		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	if (pid == 0)
 		ft_heredoc_op1(v);
+	ignore_signals();
 	if (!ft_pwait(v, pid, __WHANG))
 		return (__FALSE);
+	readline_signals();
 	if (pipe(v->p1) == -1)
 		return (ft_leave(v, EXIT_FAILURE, "pipe", __PERROR));
 	return (ft_heredoc2(v));

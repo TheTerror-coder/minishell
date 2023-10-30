@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 21:38:45 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 06:23:12 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ t_bool	ft_lnch_executable(t_vars *v)
 {
 	int	pid;
 
-	pid = -1;
+	pid = -1;	
 	pid = fork();
 	if (pid < 0)
 		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	if (!pid)
 		ft_execute(v);
+	ignore_signals();
 	v->code = EXIT_SUCCESS;
 	waitpid(pid, &v->code, __WHANG);
+	readline_signals();
 	if (WIFEXITED(v->code))
 	{
 		v->exitstatus = WEXITSTATUS(v->code);
