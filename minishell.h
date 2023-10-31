@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 15:34:17 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/31 15:45:05 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_token		*break_input_into_tokens(t_vars *v, size_t l_index);
 
 char		*get_word(t_vars *v, size_t *i, int is_hdoc_deli);
 size_t		test_expand_null_content(t_vars *v, size_t l_index, int is_hdoc_deli); 
+char		*expand_case(size_t *i, size_t *j, char *ret, t_vars *v);
 char		*get_redirection(t_vars *v, char *line, size_t *l_index);
 char		*get_pipe(t_vars *v, char *line, size_t *l_index);
 char		*get_heredoc(t_vars *v, char *line, size_t *l_index);

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:57:36 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/30 15:35:11 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/31 15:22:56 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,15 @@ char	*join_s1_with_sub_s2(char *s1, char *s2, size_t *start, size_t *end)
 	*end = 0;
 	if (!subinput)
 	{
-		perror("minishell: join_s1_with_sub_s2: ");
-		free(s1);
-		return (NULL);
+		perror("minishell: ft_substr");
+		return (free(s1), NULL);
 	}
 	cpy = s1;
 	if (!s1)
 		return (subinput);
 	s1 = ft_strjoin(s1, subinput);
 	if (!s1)
-	{
-		perror("minishell: join_s1_with_sub_s2: ");
-	}
+		perror("minishell: ft_strjoin");
 	free(cpy);
 	free(subinput);
 	return (s1);

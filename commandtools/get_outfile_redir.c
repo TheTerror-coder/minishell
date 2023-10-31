@@ -6,13 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 20:47:10 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 21:22:56 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/31 15:34:00 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_operator_after_outfile_redir(t_vars *v, char next_char);
+t_bool	check_operator_after_outfile_redir(t_vars *v, char next_char);
 
 char	*get_outfile_redir(t_vars *v, char *line, size_t *l_index)
 {
@@ -27,33 +27,31 @@ char	*get_outfile_redir(t_vars *v, char *line, size_t *l_index)
 	if (line[*l_index + j] == '\0' || line[*l_index + j] == '|' \
 		|| line[*l_index + j] == '<' || line[*l_index + j] == '>')
 	{
-		ft_putstr_fd("minishell: syntax error: missing outfile after \">\"\n", 2);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("syntax error: missing outfile after \">\"\n", 2);
 		v->exitstatus = 2;
 		return (NULL);
 	}
 	(*l_index) += 1;
 	outfile_redir = ft_strdup(">");
 	if (!outfile_redir)
-	{
-		v->exitstatus = 1;
-		perror("minishell: get_outfile_redir: ");
-	}
+		ft_leave(v, EXIT_FAILURE, "ft_strdup", __PERROR);
 	return (outfile_redir);
 }
 
-int	check_operator_after_outfile_redir(t_vars *v, char next_char)
+t_bool	check_operator_after_outfile_redir(t_vars *v, char next_char)
 {
 	if (next_char == '<')
 	{
 		ft_putstr_fd("minishell: syntax error: >< detected\n", 2);
 		v->exitstatus = 2;
-		return (1);
+		return (__TRUE);
 	}
 	if (next_char == '|')
 	{
 		ft_putstr_fd("minishell: syntax error: >| detected\n", 2);
 		v->exitstatus = 2;
-		return (1);
+		return (__TRUE);
 	}
-	return (0);
+	return (__FALSE);
 }
