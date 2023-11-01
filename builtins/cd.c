@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 21:25:50 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/31 23:41:48 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ t_bool	ft_cd(t_vars *v, t_commands *command)
 	if (!check_cd_options(v, command->arguments[1]))
 		return (__FALSE);
 	old_pwd = getcwd(NULL, 0);
+	// changer old pwd doit etre $PWD
 	if (!old_pwd)
 		return (ft_leave(v, EXIT_FAILURE, "getcwd", __PERROR), __FALSE);
 	if (!(command->arguments[1]) || (command->arguments[2]) \

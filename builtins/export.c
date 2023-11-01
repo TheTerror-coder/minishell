@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 20:17:32 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/01 00:41:29 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,11 @@ t_bool	export_one_arg(t_vars *v, char *str)
 	get_var_name(&var, str);
 	if ((var[0] <= '9' && var[0] >= '0') || var[0] == '\0' || var[0] == '=')
 	{
-		free(var);
 		v->exitstatus = 1;
 		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(var, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
+		free(var);
 		return (0);
 	}
 	i = 0;
@@ -134,10 +134,10 @@ t_bool	export_one_arg(t_vars *v, char *str)
 		if (!ft_isalnum(var[i]) && var[i] != '_')
 		{
 			v->exitstatus = 1;
-			free(var);
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(var, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
+			free(var);
 			return (0);
 		}
 		i++;

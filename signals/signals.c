@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 06:04:28 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/30 10:26:37 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/31 21:29:28 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ void	ignore_handler(int signal)
 		return ;
 }
 
+void	heredoc_handler(int signal)
+{
+	if (signal == SIGQUIT)
+		ft_putstr_fd("\b\b  \b\b", 1);
+	if (signal == SIGINT)
+	{
+		ft_putstr_fd("\n", 1);
+		g_global = SIGINT;
+		close(0);
+	}
+}
+
 t_bool	set_readline_signals(t_vars *v)
 {
 	struct sigaction	act;
@@ -53,6 +65,17 @@ void	ignore_signals(void)
 	struct sigaction	act;
 
 	act.sa_handler = &ignore_handler;
+	act.sa_flags = SA_RESTART;
+	sigemptyset(&act.sa_mask);
+	sigaction(SIGQUIT, &act, NULL);
+	sigaction(SIGINT, &act, NULL);
+}
+
+void	heredoc_signals(void)
+{
+	struct sigaction	act;
+
+	act.sa_handler = &heredoc_handler;
 	act.sa_flags = SA_RESTART;
 	sigemptyset(&act.sa_mask);
 	sigaction(SIGQUIT, &act, NULL);

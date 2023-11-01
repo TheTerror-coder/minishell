@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 10:24:51 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/31 19:07:48 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_bool	ft_lnch_executable(t_vars *v)
 {
 	int	pid;
 
-	pid = -1;	
+	pid = -1;
 	pid = fork();
 	if (pid < 0)
 		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
@@ -30,9 +30,11 @@ t_bool	ft_lnch_executable(t_vars *v)
 	waitpid(pid, &v->code, __WHANG);
 	if (!set_readline_signals(v))
 		return (__FALSE);
-	if (WIFEXITED(v->code))
+	if (WIFEXITED(v->code) || WIFSIGNALED(v->code))
 	{
 		v->exitstatus = WEXITSTATUS(v->code);
+		if (WIFSIGNALED(v->code))
+			v->exitstatus = 128 + WTERMSIG(v->code);
 		if (v->exitstatus != EXIT_SUCCESS && v->exitstatus != __CMD_NOT_EXEC)
 			return (__FALSE);
 	}
@@ -62,7 +64,7 @@ void	ft_run_simplecmnd(t_vars *v)
 	ft_freesecondaries(v);
 	my_env = env_list_to_tab(v);
 	if (!my_env)
-		ft_exitbackprocss(v, v->exitstatus);	
+		ft_exitbackprocss(v, v->exitstatus);
 	execve(v->cmdpath, v->commands->arguments, my_env);
 	perror("execve");
 	ft_exitbackprocss(v, __CMD_NOT_EXEC);

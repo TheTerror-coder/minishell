@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 10:24:21 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/31 21:27:59 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ t_bool	ft_heredoc(t_vars *v)
 	if (pid < 0)
 		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	if (pid == 0)
+	{
+		heredoc_signals();
 		ft_heredoc_op1(v);
+	}
 	ignore_signals();
 	if (!ft_pwait(v, pid, __WHANG))
 		return (__FALSE);
@@ -69,6 +72,18 @@ void	ft_heredoc_op1(t_vars *v)
 
 	line = NULL;
 	line = readline("> ");
+	if (!line)
+	{
+		if (g_global != SIGINT)
+		{
+			ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted `", 2);
+			ft_putstr_fd(v->limiter, 2);
+			ft_putstr_fd("')\n", 2);
+			ft_exitbackprocss(v, EXIT_FAILURE);
+		}
+		else
+			ft_exitbackprocss(v, 128 + SIGINT);
+	}
 	while (ft_strncmp(line, v->limiter, ft_strlen(v->limiter) + 1))
 	{
 		if (v->flg_expand_in_hdoc)
@@ -80,6 +95,18 @@ void	ft_heredoc_op1(t_vars *v)
 		ft_putendl_fd(line, v->outfd);
 		ft_freestr(&line);
 		line = readline("> ");
+		if (!line)
+		{
+			if (g_global != SIGINT)
+			{
+				ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted `", 2);
+				ft_putstr_fd(v->limiter, 2);
+				ft_putstr_fd("')\n", 2);
+				ft_exitbackprocss(v, EXIT_FAILURE);
+			}
+			else
+				ft_exitbackprocss(v, 128 + SIGINT);
+		}
 	}
 	ft_freestr(&line);
 	ft_fclose(v, &v->outfd);

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 14:55:51 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 00:23:54 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define __BUILTIN_ERROR 2
 # define __RADICAL "/tmp/ueyjq7ZbZhs26jd56276HJZ"
 # define __FALLOC "failed allocation"
+
+extern int	g_global;
 
 typedef enum e_typ
 {
@@ -88,6 +90,8 @@ typedef struct s_vars
 	char		*str;
 	char		*ftemp1;
 	char		*limiter;
+	size_t		expand_start;
+	size_t		expand_end;
 	int			exitstatus;
 	int			code;
 	int			p1[2];

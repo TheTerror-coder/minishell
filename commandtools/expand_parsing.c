@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:36:24 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/31 15:50:06 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 00:23:31 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*get_expand_content(t_vars *v, char *expand_name, char *ret)
 	char	*cpy;
 	char	*expand_content;
 
+	v->expand_start = ft_strlen(ret);
 	if (!check_env_var_set(v->my_env, expand_name))
 		return (free(expand_name), ret);
 	expand_content = get_env_var_content(v, v->my_env, expand_name);
@@ -30,6 +31,7 @@ char	*get_expand_content(t_vars *v, char *expand_name, char *ret)
 	ret = ft_strjoin(ret, expand_content);
 	if (!ret)
 		ft_leave(v, EXIT_FAILURE, "ft_strjoin", __PERROR);
+	v->expand_end = ft_strlen(ret);
 	free(cpy);
 	free(expand_content);
 	free(expand_name);

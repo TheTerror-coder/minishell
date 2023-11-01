@@ -6,11 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:15:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 10:09:56 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/31 20:56:19 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_global;
 
 int	main(int argc, char **argv, char **envp)
 {

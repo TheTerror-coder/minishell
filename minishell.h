@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/31 15:45:05 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/31 19:13:50 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ t_bool		ft_unset(t_vars *v, t_commands *command);
 
 t_bool		set_readline_signals(t_vars *v);
 void		ignore_signals(void);
-
+void		heredoc_signals(void);
 #endif

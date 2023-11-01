@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:13:45 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/27 16:04:14 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/31 19:02:19 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_bool	ft_launcher(t_vars *v)
 	fdbk = __TRUE;
 	if (!ft_run_heredocs(v, v->commands))
 		return (__TRUE);
-
 	if (!v->commands->next)
 	{
 		v->flg_exit_main_procss = __TRUE;

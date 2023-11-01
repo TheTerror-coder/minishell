@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/30 15:22:14 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 00:38:41 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ t_token	*get_one_token(t_vars *v, size_t *l_index, int is_hdoc_deli)
 	int		expand_in_hdoc;
 	char	*content;
 
+	v->expand_start = 0;
+	v->expand_end = 0;
 	expand_in_hdoc = ((v->line)[*l_index] != '"' \
 			&& (v->line)[*l_index] != '\'' && is_hdoc_deli == __TRUE);
 	type = ((v->line)[*l_index] == '|' || (v->line)[*l_index] == '<' \
@@ -106,10 +108,44 @@ char	*get_token_content(t_vars *v, size_t *l_index, int is_hdoc_deli)
 	return (content);
 }
 
+t_token	*allocate_token(t_vars *v)
+{
+	t_token *token;
+
+	token = malloc(sizeof(t_token));
+	if (!token)
+		ft_leave(v, EXIT_FAILURE, "minishell: malloc", __PERROR);
+	return (token);
+}
+
+t_token	*split_in_expand(t_vars *v, char *content)
+{
+	char	*expand_content;
+	char	*new_content;
+	size_t	i;
+
+	expand_content = ft_substr(content, v->expand_start, v->expand_end);
+	i = 0;
+	while (expand_content[i])	
+	{
+		if (is_whitespace(expand_content[i]))
+		{
+			new_content = ft_substr(content, 0, v->expand_start + i);
+			ft_putstr_fd(new_content, 2);
+			return (0);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
 t_token	*create_token(t_vars *v, char *content, int type, int expand_in_hdoc)
 {
 	t_token	*token;
 
+	if (v->expand_start != v->expand_end)
+	
+		/*return*/ (split_in_expand(v, content));
 	token = malloc(sizeof(t_token));
 	if (!token)
 	{
