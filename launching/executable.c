@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/31 19:07:48 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 13:06:13 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_run_simplecmnd(t_vars *v)
 t_bool	ft_run_heredocs(t_vars *v, t_commands *command)
 {
 	t_commands	*cmd_iterator;
-	t_token	*token_iterator;
+	t_token		*token_iterator;
 
 	cmd_iterator = command;
 	while (cmd_iterator)
@@ -97,39 +97,5 @@ t_bool	ft_run_heredocs(t_vars *v, t_commands *command)
 		v->hdoc_fd = __CLOSED_FD;
 		cmd_iterator = cmd_iterator->next;
 	}
-	return (__TRUE);
-}
-
-/*
-* ft_set_io() defines the standard input and standard output of the command
-* to be executed by opening and closing the input/output specified on the 
-* command line in order. So the last entry (file or HEREDOC) indicated on the
-* command line becomes the standard input and so on for the standard output.
-
-* At the end, Always close the heredoc file descriptor (v->hdoc_fd) otherwise 
-* the rear heredoc process will remain waiting.
-*/
-t_bool	ft_set_io(t_vars *v, t_commands *command)
-{
-	t_token	*iterator;
-	t_bool	fdbk;
-
-	fdbk = __TRUE;
-	iterator = command->tokens;
-	while (iterator)
-	{
-		if (!ft_strncmp(iterator->content, "<", 2))
-			fdbk = fdbk && ft_inredir(v, iterator->next->content);
-		else if (!ft_strncmp(iterator->content, ">", 2))
-			fdbk = fdbk && ft_outredir(v, iterator->next->content);
-		else if (!ft_strncmp(iterator->content, "<<", 3))
-			fdbk = fdbk && ft_heredocredir(v, command);
-		else if (!ft_strncmp(iterator->content, ">>", 3))
-			fdbk = fdbk && ft_outappendredir(v, iterator->next->content);
-		iterator = iterator->next->next;
-		if (!fdbk)
-			return (__FALSE);
-	}
-	ft_fclose(v, &command->hdoc_fd);
 	return (__TRUE);
 }

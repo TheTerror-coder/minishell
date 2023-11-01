@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 10:48:18 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 13:14:23 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_bool	ft_closetvars(t_vars *v)
 	return (fdbk);
 }
 
-void	ft_exitmainprocss(t_vars *v, int code)
+t_bool	free_env(t_vars *v)
 {
 	ft_clear_created_tempfiles(v);
 	ft_closetvars(v);

@@ -5,12 +5,53 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 19:12:23 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/31 19:59:21 by lmohin           ###   ########.fr       */
+/*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/10/30 20:46:59 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_bool	ft_leave(t_vars *v, int code, char *msg, t_typ action)
+{
+	if (v)
+		v->exitstatus = code;
+	if (!msg)
+		return (__FALSE);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	if (action == __PRINT)
+		ft_putendl_fd(msg, STDERR_FILENO);
+	else
+		perror(msg);
+	return (__FALSE);
+}
+
+t_bool	ft_fclose(t_vars *v, int *fd)
+{
+	if (*fd >= 0)
+	{
+		if (close(*fd) == -1)
+			return (v->exitstatus = EXIT_FAILURE, __FALSE);
+		*fd = -111;
+	}
+	return (__TRUE);
+}
+
+t_bool	ft_raz(t_vars *v)
+{
+	int	in;
+	int	out;
+
+	in = __CLOSED_FD;
+	out = __CLOSED_FD;
+	v->flg_exit_main_procss = __FALSE;
+	in = dup(v->stdin);
+	out = dup(v->stdout);
+	if (out < 0 || in < 0)
+		ft_leave(v, EXIT_FAILURE, "ft_raz(): dup", __PERROR);
+	ft_ioset_op(v, &in, &out);
+	return (__TRUE);
+}
 
 t_bool	ft_pwait(t_vars *v, int pid, int option)
 {
@@ -20,15 +61,7 @@ t_bool	ft_pwait(t_vars *v, int pid, int option)
 	if (ret == -1)
 		return (ft_leave(v, EXIT_FAILURE, "waitpid", __PERROR));
 	if (ret == pid)
-	{
 		if (WIFEXITED(v->code))
 			v->exitstatus = WEXITSTATUS(v->code);
-		if (WIFSIGNALED(v->code))
-		{
-			ft_putnbr_fd(WTERMSIG(v->code), 2);
-			v->exitstatus = 128 + WTERMSIG(v->code);
-			return (__FALSE);
-		}
-	}
 	return (__TRUE);
 }

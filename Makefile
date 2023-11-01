@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/10/31 15:45:21 by lmohin           ###   ########.fr        #
+#    Updated: 2023/11/01 13:02:16 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBFT_LIB = $(LIBFT_PATH)/libft.a
 LIBFT_PATH = ./libft/
 OBJECTS_PATH = ./objects/
 MEMTOOLS_PATH = ./memtools/
-UTILS_PATH = ./utils/
+OTHERS_PATH = ./others/
 PARSING_PATH = ./parsing/
 LAUNCHING_PATH = ./launching/
 PATHTOOLS_PATH = ./pathtools/
@@ -25,7 +25,6 @@ BUILTINS_PATH = ./builtins/
 ENVTOOLS_PATH = ./envtools/
 PIPEX_PATH = ./pipex/
 COMMANDTOOLS_PATH = ./commandtools/
-SIGNAL_PATH = ./signals/
 
 INCLUDE = minishell.h preminishell.h $(PIPEX_PATH)pipex.h
 
@@ -34,23 +33,22 @@ CC = 				cc
 CFLAGS=				-Wall -Werror -Wextra	
 RM =				rm -rf
 
-SRC_BUILTINS = $(addprefix $(BUILTINS_PATH), builtin.c exit.c unset.c export.c echo.c cd.c cd_options.c pwd.c env.c)
-SRC_MEMTOOLS = $(addprefix $(MEMTOOLS_PATH), initmem.c freemem.c)
-SRC_UTILS = $(addprefix $(UTILS_PATH), utils.c tmpfile.c)
+SRC_BUILTINS = $(addprefix $(BUILTINS_PATH), exit.c unset.c export.c echo.c cd.c cd_options.c pwd.c env.c)
+SRC_MEMTOOLS = $(addprefix $(MEMTOOLS_PATH), exitprocess.c initmem.c freemem.c)
+SRC_OTHERS = $(addprefix $(OTHERS_PATH), utils.c tmpfile.c)
 SRC_PARSING = $(addprefix $(PARSING_PATH), parseline1.c parseline2.c parseargv1.c setpipeline.c)
-SRC_LAUNCHING = $(addprefix $(LAUNCHING_PATH), launcher.c executable.c)
-SRC_PATHTOOLS = $(addprefix $(PATHTOOLS_PATH), setcmdpath.c getvalidpaths.c utils.c)
+SRC_LAUNCHING = $(addprefix $(LAUNCHING_PATH), launcher.c executable.c builtin.c)
+SRC_PATHTOOLS = $(addprefix $(PATHTOOLS_PATH), setcmdpath.c greppath.c)
 SRC_ENVTOOLS = $(addprefix $(ENVTOOLS_PATH), setenv.c env_utils.c)
-SRC_REDIR_TOOLS = $(addprefix $(REDIR_TOOLS_PATH), ioredir.c heredoc.c expand_in_hdoc.c)
+SRC_REDIR_TOOLS = $(addprefix $(REDIR_TOOLS_PATH), io_tools.c ioredir.c heredoc.c expand_in_hdoc.c)
 SRC_PIPEX =	$(addprefix $(PIPEX_PATH), pipex.c) \
-			$(addprefix $(PIPEX_PATH)/utils/, utils1.c utils2.c) \
+			$(addprefix $(PIPEX_PATH)/utils/, utils.c) \
 			$(addprefix $(PIPEX_PATH)/fpipetools/, plumber.c iosetter.c) \
 			$(addprefix $(PIPEX_PATH)/memorytools/, initmem.c freemem.c closer.c)
 SRC_COMMAND_TOOLS =	$(addprefix $(COMMANDTOOLS_PATH), expand_parsing.c null_expand_test.c create_commands.c command_args.c get_word.c get_redirection.c get_outfile_redir.c get_outfile_append_redir.c get_infile_redir.c get_heredoc.c get_pipe.c commands_utils.c commands.c tokens.c)
-SRC_SIGNALS =	$(addprefix $(SIGNAL_PATH), signals.c)
-SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_UTILS) \
+SRC = 	main.c minishell.c $(SRC_MEMTOOLS) $(SRC_OTHERS) \
 		$(SRC_LAUNCHING) $(SRC_PATHTOOLS) $(SRC_REDIR_TOOLS) $(SRC_BUILTINS) \
-		$(SRC_ENVTOOLS) $(SRC_COMMAND_TOOLS) $(SRC_PIPEX) $(SRC_SIGNALS)
+		$(SRC_ENVTOOLS) $(SRC_COMMAND_TOOLS) $(SRC_PIPEX)
 
 OBJ := $(SRC:%.c=%.o)
 

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 10:18:31 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 13:07:28 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void		ft_freecommands(t_vars *v);
 t_token		*break_input_into_tokens(t_vars *v, size_t l_index);
 
 char		*get_word(t_vars *v, size_t *i, int is_hdoc_deli);
-size_t		test_expand_null_content(t_vars *v, size_t l_index, int is_hdoc_deli); 
+size_t		test_expand_null_content(t_vars *v, size_t l_index, \
+				int is_hdoc_deli);
 char		*expand_case(size_t *i, size_t *j, char *ret, t_vars *v);
 char		*expand_case_double_quote(size_t *i, size_t *j, char *ret, t_vars *v);
 char		*get_end_expand_content(t_vars *v, char *expand_content, size_t i);
@@ -109,3 +110,5 @@ t_bool		set_readline_signals(t_vars *v);
 void		ignore_signals(void);
 void		heredoc_signals(void);
 #endif
+
+/* ************************************************************************** */

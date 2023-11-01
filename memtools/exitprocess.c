@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   exitprocess.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 13:16:21 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 21:09:13 by TheTerror        ###   ########lyon.fr   */
+/*   Created: 2023/07/08 16:38:43 by TheTerror         #+#    #+#             */
+/*   Updated: 2023/11/01 13:15:13 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../minishell.h"
 
-t_bool	ft_fwait(t_vars *v, int pid, int option)
+void	ft_exitmainprocss(t_vars *v, int code)
 {
-	t_ppex	*var;
-	int	ret;
+	ft_clear_created_tempfiles(v);
+	ft_closetvars(v);
+	ft_fclose(v, &v->stdin);
+	ft_fclose(v, &v->stdout);
+	ft_freetvars(v);
+	exit(code);
+}
 
-	var = v->var;
-	ret = waitpid(pid, &var->code, option);
-	if (ret == -1)
-		return (ft_perror(v, EXIT_FAILURE, "waitpid", __PERROR));
-	if (ret == pid)
-		if (WIFEXITED(var->code))
-			v->exitstatus = WEXITSTATUS(var->code);
-	return (__TRUE);
+void	ft_exitbackprocss(t_vars *v, int code)
+{
+	ft_closetvars(v);
+	ft_fclose(v, &v->stdin);
+	ft_fclose(v, &v->stdout);
+	ft_freetvars(v);
+	exit(code);
 }

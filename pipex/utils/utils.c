@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:07:19 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/31 18:43:52 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 13:10:20 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,27 @@ t_bool	ft_waitingroom(t_vars *v)
 			{
 				if (WIFEXITED(v->var->code))
 					v->exitstatus = WEXITSTATUS(v->var->code);
-				if (WIFSIGNALED(v->var->code))
-					v->exitstatus = 128 + WTERMSIG(v->var->code);
 				v->var->pid[i] = -111;
 			}
 		}
 		i++;
+	}
+	return (__TRUE);
+}
+
+t_bool	ft_fwait(t_vars *v, int pid, int option)
+{
+	t_ppex	*var;
+	int		ret;
+
+	var = v->var;
+	ret = waitpid(pid, &var->code, option);
+	if (ret == -1)
+		return (ft_perror(v, EXIT_FAILURE, "waitpid", __PERROR));
+	if (ret == pid)
+	{
+		if (WIFEXITED(var->code))
+			v->exitstatus = WEXITSTATUS(var->code);
 	}
 	return (__TRUE);
 }

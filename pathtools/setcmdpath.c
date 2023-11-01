@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:53:58 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 20:57:16 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 21:50:01 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_try_find_the_path(t_vars *v, char *command);
 char	*ft_set_cmdpath(t_vars *v, char *command)
 {
 	char	*slash;
-	int	fdbk;
+	int		fdbk;
 
 	slash = NULL;
 	if (!command)

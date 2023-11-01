@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 18:43:07 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 15:34:02 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/10/30 21:46:25 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ char	*expand_exit_status_hdoc(t_vars *v, char *line, size_t *start_index)
 	expand_number = NULL;
 	expand_number = ft_itoa(v->exitstatus);
 	if (!expand_number)
-		return (ft_leave(v, EXIT_FAILURE, "expand_exit_status_hdoc(): ft_itoa() failed", __PRINT), NULL);
+		return (ft_leave(v, EXIT_FAILURE, \
+			"expand_exit_status_hdoc(): ft_itoa() failed", __PRINT), NULL);
 	ret = first_join(v, line, expand_number, *start_index);
 	ret = second_join(v, line, ret, *start_index + 2);
 	ft_freestr(&expand_number);
@@ -74,7 +75,7 @@ char	*expand_word_inside_line(t_vars *v, char *line, size_t *start_index)
 	expand_name = ft_substr(line, *start_index + 1, j);
 	if (!expand_name)
 		return (ft_leave(v, EXIT_FAILURE, \
-				"expand_word_inside_line(): ft_substr() failed", __PRINT), NULL);
+			"expand_word_inside_line(): ft_substr() failed", __PRINT), NULL);
 	if (!check_env_var_set(v->my_env, expand_name))
 		return (NULL);
 	expand_content = get_env_var_content(v, v->my_env, expand_name);
@@ -85,11 +86,11 @@ char	*expand_word_inside_line(t_vars *v, char *line, size_t *start_index)
 	ret = second_join(v, line, ret, *start_index + 1 + j);
 	if (expand_content)
 		*start_index += ft_strlen(expand_content);
-	free(expand_content);
-	return (ret);
+	return (free(expand_content), ret);
 }
 
-char	*first_join(t_vars *v, char *line, char *expand_content, size_t start_index)
+char	*first_join(t_vars *v, char *line, char *expand_content, \
+												size_t start_index)
 {
 	char	*ret;
 	char	*cpy;
@@ -104,7 +105,8 @@ char	*first_join(t_vars *v, char *line, char *expand_content, size_t start_index
 	ret = ft_strjoin(ret, expand_content);
 	ft_freestr(&cpy);
 	if (!ret)
-		return (ft_leave(v, EXIT_FAILURE, "first_join(): ft_strjoin() failed", __PRINT), NULL);
+		return (ft_leave(v, EXIT_FAILURE, \
+			"first_join(): ft_strjoin() failed", __PRINT), NULL);
 	return (ret);
 }
 
@@ -117,13 +119,13 @@ char	*second_join(t_vars *v, char *line, char *ret, size_t end_index)
 		return (NULL);
 	sub = ft_substr(line, end_index, ft_strlen(line));
 	if (!sub)
-		return (free(ret), \
-		ft_leave(v, EXIT_FAILURE, "second_join(): ft_substr() failed", __PRINT), \
-		NULL);
+		return (free(ret), ft_leave(v, EXIT_FAILURE, \
+			"second_join(): ft_substr() failed", __PRINT), NULL);
 	cpy = ret;
 	ret = ft_strjoin(ret, sub);
 	if (!ret)
-		ft_leave(v, EXIT_FAILURE, "second_join(): ft_strjoin() failed", __PRINT);
+		ft_leave(v, EXIT_FAILURE, \
+			"second_join(): ft_strjoin() failed", __PRINT);
 	free(cpy);
 	free(sub);
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:15:53 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/31 20:56:19 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 13:07:47 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,14 @@ int	main(int argc, char **argv, char **envp)
 	ft_prompt(v);
 	ft_exitmainprocss(v, EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
+}
+
+t_bool	set_readline_signals(t_vars *v)
+{
+	(void) v;
+	return (__TRUE);
+}
+
+void	ignore_signals(void)
+{
 }

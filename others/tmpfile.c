@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 16:56:42 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 21:37:03 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 21:34:00 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bool	ft_clear_loop(t_vars *v, char *strnum, char *name, int n);
 t_bool	ft_openatemp(t_vars *v)
 {
 	int		n;
-	
+
 	n = __MAX_ATTEMPTS;
 	if (!ft_setftemp(v, n))
 		return (__FALSE);
@@ -50,11 +50,13 @@ t_bool	ft_setftemp(t_vars *v, int n)
 	ft_freestr(&v->ftemp1);
 	strnum = ft_itoa(n);
 	if (!strnum)
-		return (ft_leave(v, EXIT_FAILURE, "ft_setftemp(): ft_itoa() failed", PRINT_ERROR));
+		return (ft_leave(v, EXIT_FAILURE, \
+					"ft_setftemp(): ft_itoa() failed", PRINT_ERROR));
 	v->ftemp1 = ft_strjoin(__RADICAL, strnum);
 	ft_freestr(&strnum);
 	if (!v->ftemp1)
-		return (ft_leave(v, EXIT_FAILURE, "ft_setftemp(): ft_strjoin() failed", PRINT_ERROR));
+		return (ft_leave(v, EXIT_FAILURE, \
+					"ft_setftemp(): ft_strjoin() failed", PRINT_ERROR));
 	return (__TRUE);
 }
 
@@ -69,10 +71,12 @@ t_bool	ft_clear_created_tempfiles(t_vars *v)
 	n = __MAX_ATTEMPTS;
 	strnum = ft_itoa(n);
 	if (!strnum)
-		return (ft_leave(v, EXIT_FAILURE, "ft_clear_created_tempfiles(): ft_itoa() failed", __PRINT));
+		return (ft_leave(v, EXIT_FAILURE, \
+				"ft_clear_created_tempfiles(): ft_itoa() failed", __PRINT));
 	name = ft_strjoin(__RADICAL, strnum);
 	if (!name)
-		return (ft_freestr(&strnum), ft_leave(v, EXIT_FAILURE, "ft_clear_created_tempfiles(): ft_strjoin() failed", __PRINT));
+		return (ft_freestr(&strnum), ft_leave(v, EXIT_FAILURE, \
+				"ft_clear_created_tempfiles(): ft_strjoin() failed", __PRINT));
 	if (!ft_clear_loop(v, strnum, name, n))
 		return (__FALSE);
 	return (__TRUE);
@@ -88,10 +92,12 @@ t_bool	ft_clear_loop(t_vars *v, char *strnum, char *name, int n)
 		ft_freestr(&name);
 		strnum = ft_itoa(n);
 		if (!strnum)
-			return (ft_leave(v, EXIT_FAILURE, "ft_clear_loop(): ft_itoa() failed", __PRINT));
+			return (ft_leave(v, EXIT_FAILURE, \
+				"ft_clear_loop(): ft_itoa() failed", __PRINT));
 		name = ft_strjoin(__RADICAL, strnum);
 		if (!name)
-			return (ft_freestr(&strnum), ft_leave(v, EXIT_FAILURE, "ft_clear_loop(): ft_strjoin() failed", __PRINT));
+			return (ft_freestr(&strnum), ft_leave(v, EXIT_FAILURE, \
+				"ft_clear_loop(): ft_strjoin() failed", __PRINT));
 	}
 	ft_freestr(&strnum);
 	ft_freestr(&name);

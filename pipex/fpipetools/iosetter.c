@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 14:13:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 21:28:21 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 21:38:21 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ t_bool	ft_io_firstcmnd(t_vars *v)
 	prime_stdin = -111;
 	prime_stdin = dup(v->stdin);
 	if (prime_stdin < 0)
-		return (ft_perror(v, EXIT_FAILURE, "ft_io_firstcmnd(): prime_stdin: dup()", __PERROR));
+		return (ft_perror(v, EXIT_FAILURE, \
+			"ft_io_firstcmnd(): prime_stdin: dup()", __PERROR));
 	if (!ft_ioset_op(v, &prime_stdin, &var->p[0][1]))
 		return (__FALSE);
 	if (!ft_set_io(v, var->iterator))
@@ -67,7 +68,8 @@ t_bool	ft_io_lastcmnd(t_vars *v)
 	var = v->var;
 	prime_stdout = dup(v->stdout);
 	if (prime_stdout < 0)
-		return (ft_perror(v, EXIT_FAILURE, "ft_io_lastcmnd(): prime_stdout: dup()", __PERROR));
+		return (ft_perror(v, EXIT_FAILURE, \
+			"ft_io_lastcmnd(): prime_stdout: dup()", __PERROR));
 	if (!ft_ioset_op(v, &var->pipe_outfd, &prime_stdout))
 		return (__FALSE);
 	if (!ft_set_io(v, var->iterator))

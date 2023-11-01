@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:27:13 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 21:24:55 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 21:13:32 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,4 @@ char	*get_env_var_content(t_vars *v, t_env *my_env, char *var)
 	if (!content)
 		return (ft_leave(v, EXIT_FAILURE, "ft_substr", __PERROR), NULL);
 	return (content);
-}
-
-t_bool	free_env(t_vars *v)
-{
-	t_env	*tmp;
-
-	while ((v->my_env) != NULL)
-	{
-		tmp = (v->my_env)->next;
-		free((v->my_env)->var);
-		free(v->my_env);
-		v->my_env = tmp;
-	}
-	return (__TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:03:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 21:31:21 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 21:45:14 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 t_bool	ft_plumber(t_vars *v)
 {
 	int		fdbk;
-	char		**my_env;
+	char	**my_env;
 	t_ppex	*var;
 
 	fdbk = __TRUE;
 	var = v->var;
-	free(var->pid);
-	var->pid = NULL;
 	if (!ft_close_tvars(v, v->var))
 		ft_exitpipe(v);
 	v->flg_exit_main_procss = __FALSE;

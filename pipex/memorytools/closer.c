@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:49:42 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 21:30:29 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/10/30 21:37:12 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,12 @@ t_bool	ft_reset_std(t_vars *v)
 	prime_stdout = -111;
 	prime_stdin = dup(v->stdin);
 	if (prime_stdin < 0)
-		return (ft_perror(v, EXIT_FAILURE, "ft_reset_std(): prime_stdin: dup()", __PERROR));
+		return (ft_perror(v, EXIT_FAILURE, \
+				"ft_reset_std(): prime_stdin: dup()", __PERROR));
 	prime_stdout = dup(v->stdout);
 	if (prime_stdout < 0)
-		return (ft_fclose(v, &prime_stdin), \
-			ft_perror(v, EXIT_FAILURE, "ft_reset_std(): prime_stdout: dup()", __PERROR));
+		return (ft_fclose(v, &prime_stdin), ft_perror(v, EXIT_FAILURE, \
+				"ft_reset_std(): prime_stdout: dup()", __PERROR));
 	if (!ft_ioset_op(v, &prime_stdin, &prime_stdout))
 		return (__FALSE);
 	return (__TRUE);
