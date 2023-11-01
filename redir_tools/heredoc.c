@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/31 21:27:59 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 16:41:29 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_bool	ft_heredoc2(t_vars *v);
 void	ft_heredoc_op1(t_vars *v);
 void	ft_heredoc_op2(t_vars *v);
+void	ft_signal_terminate(t_vars *v);
 
 t_bool	ft_heredoc(t_vars *v)
 {
@@ -73,17 +74,7 @@ void	ft_heredoc_op1(t_vars *v)
 	line = NULL;
 	line = readline("> ");
 	if (!line)
-	{
-		if (g_global != SIGINT)
-		{
-			ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted `", 2);
-			ft_putstr_fd(v->limiter, 2);
-			ft_putstr_fd("')\n", 2);
-			ft_exitbackprocss(v, EXIT_FAILURE);
-		}
-		else
-			ft_exitbackprocss(v, 128 + SIGINT);
-	}
+		ft_signal_terminate(v);
 	while (ft_strncmp(line, v->limiter, ft_strlen(v->limiter) + 1))
 	{
 		if (v->flg_expand_in_hdoc)
@@ -96,17 +87,7 @@ void	ft_heredoc_op1(t_vars *v)
 		ft_freestr(&line);
 		line = readline("> ");
 		if (!line)
-		{
-			if (g_global != SIGINT)
-			{
-				ft_putstr_fd("minishell: warning: here-document delimited by end-of-file (wanted `", 2);
-				ft_putstr_fd(v->limiter, 2);
-				ft_putstr_fd("')\n", 2);
-				ft_exitbackprocss(v, EXIT_FAILURE);
-			}
-			else
-				ft_exitbackprocss(v, 128 + SIGINT);
-		}
+			ft_signal_terminate(v);
 	}
 	ft_freestr(&line);
 	ft_fclose(v, &v->outfd);
@@ -139,4 +120,18 @@ void	ft_heredoc_op2(t_vars *v)
 	ft_freestr(&line);
 	ft_exitbackprocss(v, EXIT_SUCCESS);
 	return ;
+}
+
+void	ft_signal_terminate(t_vars *v)
+{
+	if (g_global != SIGINT)
+	{
+		ft_putstr_fd("minishell: warning: here-document delimited by \
+							end-of-file (wanted `", 2);
+		ft_putstr_fd(v->limiter, 2);
+		ft_putstr_fd("')\n", 2);
+		ft_exitbackprocss(v, EXIT_FAILURE);
+	}
+	else
+		ft_exitbackprocss(v, 128 + SIGINT);
 }

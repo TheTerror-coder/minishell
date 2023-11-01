@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/11/01 14:19:25 by TheTerror        ###   ########lyon.fr    #
+#    Updated: 2023/11/01 17:13:33 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ CC = 				cc
 CFLAGS=				-Wall -Werror -Wextra	
 RM =				rm -rf
 
-SRC_BUILTINS =		$(addprefix $(BUILTINS_PATH), exit.c unset.c export.c echo.c cd.c cd_options.c pwd.c env.c)
+SRC_BUILTINS =		$(addprefix $(BUILTINS_PATH), exit.c unset.c export.c echo.c cd.c cd_options.c cd_tools.c pwd.c env.c)
 SRC_MEMTOOLS =		$(addprefix $(MEMTOOLS_PATH), exitprocess.c initmem.c freemem.c)
 SRC_OTHERS =		$(addprefix $(OTHERS_PATH), utils.c tmpfile.c)
 SRC_LAUNCHING =		$(addprefix $(LAUNCHING_PATH), launcher.c executable.c builtin.c)
@@ -44,10 +44,11 @@ SRC_PIPEX =			$(addprefix $(PIPEX_PATH), pipex.c) \
 					$(addprefix $(PIPEX_PATH)/utils/, utils.c) \
 					$(addprefix $(PIPEX_PATH)/fpipetools/, plumber.c iosetter.c) \
 					$(addprefix $(PIPEX_PATH)/memorytools/, initmem.c freemem.c closer.c)
-SRC_COMMAND_TOOLS =	$(addprefix $(COMMANDTOOLS_PATH), expand_parsing.c null_expand_test.c create_commands.c \
-					command_args.c get_word.c get_redirection.c get_outfile_redir.c get_outfile_append_redir.c \
-					get_infile_redir.c get_heredoc.c get_pipe.c commands_utils.c commands.c tokens.c)
-SRC_SIGNALS =		$(addprefix $(SIGNAL_PATH), signals.c)
+SRC_COMMAND_TOOLS =	$(addprefix $(COMMANDTOOLS_PATH), expand_parsing0.c expand_parsing1.c null_expand_test.c \
+					create_commands.c command_args.c get_word.c get_redirection.c get_outfile_redir.c \
+					get_outfile_append_redir.c get_infile_redir.c get_heredoc.c get_pipe.c commands_utils.c \
+					commands.c tokens.c tokens_tools.c)
+SRC_SIGNALS =		$(addprefix $(SIGNAL_PATH), signals.c ignore.c handler.c)
 
 SRC = 				main.c minishell.c $(SRC_MEMTOOLS) $(SRC_OTHERS) $(SRC_LAUNCHING) $(SRC_PATHTOOLS) $(SRC_REDIR_TOOLS) \
 					$(SRC_BUILTINS) $(SRC_ENVTOOLS) $(SRC_COMMAND_TOOLS) $(SRC_PIPEX) $(SRC_SIGNALS)
