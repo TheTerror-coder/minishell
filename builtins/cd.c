@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/01 17:15:53 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/01 21:27:09 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,6 @@ t_bool	ft_cd(t_vars *v, t_commands *command)
 	if (errno == ENOMEM)
 		return (__FALSE);
 	if (chdir(command->arguments[1]) == -1)
-		print_chdir_error(v, old_pwd, command);
+		return (print_chdir_error(v, old_pwd, command), __FALSE);
 	return (set_pwd_and_oldpwd(v, command, old_pwd));
 }
