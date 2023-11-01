@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:07:19 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 13:10:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/01 21:11:46 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_bool	ft_waitingroom(t_vars *v)
 			{
 				if (WIFEXITED(v->var->code))
 					v->exitstatus = WEXITSTATUS(v->var->code);
+				if (WIFSIGNALED(v->var->code))
+					v->exitstatus = 128 + WTERMSIG(v->var->code);
 				v->var->pid[i] = -111;
 			}
 		}
