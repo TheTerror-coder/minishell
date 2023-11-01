@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:57:36 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/31 15:22:56 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 08:00:53 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,18 @@ int	expand_conditions(char *c, int is_hdoc_deli)
 		return (__FALSE);
 }
 
-char	*join_s1_with_sub_s2(char *s1, char *s2, size_t *start, size_t *end)
+char	*join_s1_with_sub_line(char *s1, t_vars *v, size_t *start, size_t *end)
 {
 	char	*cpy;
 	char	*subinput;
 
-	subinput = ft_substr(s2, *start, *end);
+	subinput = ft_substr(v->line, *start, *end);
 	*start += *end;
 	*end = 0;
 	if (!subinput)
 	{
-		perror("minishell: ft_substr");
+		ft_leave(v, EXIT_FAILURE, "ft_substr", __PERROR);
+		v->flg_parsing_is_ok = __FALSE;
 		return (free(s1), NULL);
 	}
 	cpy = s1;
@@ -61,7 +62,10 @@ char	*join_s1_with_sub_s2(char *s1, char *s2, size_t *start, size_t *end)
 		return (subinput);
 	s1 = ft_strjoin(s1, subinput);
 	if (!s1)
-		perror("minishell: ft_strjoin");
+	{
+		ft_leave(v, EXIT_FAILURE, "ft_strjoin", __PERROR);
+		v->flg_parsing_is_ok = __FALSE;
+	}
 	free(cpy);
 	free(subinput);
 	return (s1);

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:04:51 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 00:23:54 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 02:00:41 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ typedef struct s_vars
 	char		*str;
 	char		*ftemp1;
 	char		*limiter;
-	size_t		expand_start;
-	size_t		expand_end;
+	char		*token_buffer;
 	int			exitstatus;
 	int			code;
 	int			p1[2];

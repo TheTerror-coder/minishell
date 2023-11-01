@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/31 19:13:50 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/01 10:18:31 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			is_whitespace(char c);
 int			is_whitespace_or_operator_or_nul(char c);
 int			expand_conditions(char *c, int is_hdoc_deli);
 int			is_operator(char c);
-char		*join_s1_with_sub_s2(char *s1, char *s2, size_t *st, size_t *end);
+char		*join_s1_with_sub_line(char *s1, t_vars *v, size_t *st, size_t *end);
 
 t_commands	*create_commands(t_token *tokens);
 int			get_command_arguments(t_commands *commands);
@@ -44,6 +44,8 @@ t_token		*break_input_into_tokens(t_vars *v, size_t l_index);
 char		*get_word(t_vars *v, size_t *i, int is_hdoc_deli);
 size_t		test_expand_null_content(t_vars *v, size_t l_index, int is_hdoc_deli); 
 char		*expand_case(size_t *i, size_t *j, char *ret, t_vars *v);
+char		*expand_case_double_quote(size_t *i, size_t *j, char *ret, t_vars *v);
+char		*get_end_expand_content(t_vars *v, char *expand_content, size_t i);
 char		*get_redirection(t_vars *v, char *line, size_t *l_index);
 char		*get_pipe(t_vars *v, char *line, size_t *l_index);
 char		*get_heredoc(t_vars *v, char *line, size_t *l_index);

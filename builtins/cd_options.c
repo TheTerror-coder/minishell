@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:51:38 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 21:25:34 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/01 11:32:13 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bool	do_chdir(t_vars *v, char *var)
 		if (message_to_print)
 			perror(message_to_print);
 		else
-			perror("minishell: cd");
+			perror("minishell: chdir ");
 		free(message_to_print);
 		return (v->exitstatus = EXIT_FAILURE, __FALSE);
 	}
