@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 12:44:15 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 21:33:15 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/01 23:27:42 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_bool	ft_pcloser(t_vars *v);
 t_bool	ft_perror(t_vars *v, int code, const char *msg, t_typ action);
 void	ft_exitpipe(t_vars *v);
 t_bool	ft_ioset(t_vars *v);
-t_bool	ft_fwait(t_vars *v, int pid, int option);
 t_bool	ft_plumber(t_vars *v);
 t_bool	ft_waitingroom(t_vars *v);
 
