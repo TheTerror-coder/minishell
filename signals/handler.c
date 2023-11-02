@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:19:15 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 21:10:37 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 14:05:59 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,4 @@ void	launch_handler(int signal)
 		return ;
 	if (signal == SIGINT)
 		ft_putstr_fd("\n", 1);
-}
-
-void	main_simple_handler(int signal)
-{
-	if(signal == SIGQUIT)
-		return ;
-	if (signal == SIGINT)
-		ft_putstr_fd("\n", 2);
 }

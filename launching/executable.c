@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 21:03:55 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 14:05:43 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ t_bool	ft_lnch_executable(t_vars *v)
 		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	if (!pid)
 	{
-		launch_signals();
+		ignore_signals();
 		ft_execute(v);
 	}
-	ignore_signals();
-	if (!v->commands->next)
-		main_simple_signals();
+	launch_signals();
 	v->code = EXIT_SUCCESS;
 	waitpid(pid, &v->code, __WHANG);
 	if (!set_readline_signals(v))
