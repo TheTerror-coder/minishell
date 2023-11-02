@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 23:14:02 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/01 17:13:18 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 18:51:55 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ t_token	*create_token(t_vars *v, char *content, int type, int expand_in_hdoc)
 	if (!token)
 	{
 		free(content);
-		v->exitstatus = 1;
+		ft_leave(v, EXIT_FAILURE, "malloc", __PERROR);
 		return (NULL);
 	}
 	token->content = content;

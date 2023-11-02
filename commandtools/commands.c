@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/02 16:30:37 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 19:44:43 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,23 @@ int	get_main_command(t_commands *commands)
 	return (0);
 }
 
-int	clear_commands(t_commands *commands)
+t_bool	clear_commands(t_vars *v, t_commands *commands)
 {
 	t_commands	*commands_cpy;
 
 	commands_cpy = commands;
 	while (commands_cpy != NULL)
 	{
+		commands_cpy->arguments = NULL;
 		get_main_command(commands_cpy);
-		get_command_arguments(commands_cpy);
+		if (!get_command_arguments(commands_cpy))
+		{
+			ft_leave(v, EXIT_FAILURE, "malloc", __PERROR);
+			return (__FALSE);
+		}
 		commands_cpy = commands_cpy->next;
 	}
-	return (0);
+	return (__TRUE);
 }
 
 t_commands	*get_commands(t_vars *v)
@@ -100,6 +105,9 @@ t_commands	*get_commands(t_vars *v)
 		return (NULL);
 	}
 	commands = create_commands(v, tokens);
-	clear_commands(commands);
+	if (!commands)
+		return (NULL);
+	if (!clear_commands(v, commands))
+		return (ft_freecommands(v), NULL);
 	return (commands);
 }

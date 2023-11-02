@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:38:12 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/31 16:39:54 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 18:21:10 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,14 @@ t_bool	ft_initfds(t_vars *v)
 	v->stdin = -111;
 	v->stdout = -111;
 	v->stdin = dup(STDIN_FILENO);
-	v->stdout = dup(STDOUT_FILENO);
-	if (v->stdout < 0 || v->stdin < 0)
+	if (v->stdin < 0)
 		return (ft_leave(NULL, EXIT_FAILURE, "dup", __PERROR), __FALSE);
+	v->stdout = dup(STDOUT_FILENO);
+	if (v->stdout < 0)
+	{
+		close(v->stdin);
+		return (ft_leave(NULL, EXIT_FAILURE, "dup", __PERROR), __FALSE);
+	}
 	v->hdoc_fd = -111;
 	return (__TRUE);
 }

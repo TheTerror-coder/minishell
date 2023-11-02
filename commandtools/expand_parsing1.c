@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:49:59 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 16:52:01 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 18:27:53 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*get_end_expand_content(t_vars *v, char *expand_content, size_t i)
 		v->flg_parsing_is_ok = __FALSE;
 	}
 	free(expand_content);
+	expand_content = NULL;
 	return (sub_content);
 }
 
@@ -65,7 +66,8 @@ char	*no_whitespace_start(t_vars *v, char *expand_content, char *ret)
 		if (!v->token_buffer)
 			return (free(ret), NULL);
 	}
-	free(expand_content);
+	else
+		free(expand_content);
 	return (join_ret_with_sub_content(v, ret, sub_content));
 }
 
