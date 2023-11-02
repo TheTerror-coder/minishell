@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 06:04:28 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/02 14:06:15 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 14:24:28 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	heredoc_signals(void)
 void	launch_signals(void)
 {
 	struct sigaction	act;
-	
+
 	act.sa_handler = &launch_handler;
 	act.sa_flags = SA_RESTART;
 	sigemptyset(&act.sa_mask);

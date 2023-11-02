@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 14:02:42 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 14:20:17 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,8 @@ t_bool	ft_pwait(t_vars *v, int pid, int option)
 	{
 		if (WIFEXITED(v->code))
 			v->exitstatus = WEXITSTATUS(v->code);
-		if (WIFSIGNALED(v->code))
-		{
-			ft_putnbr_fd(WTERMSIG(v->code), 2);
-			v->exitstatus = 128 + WTERMSIG(v->code);
-			return (__FALSE);
-		}
 	}
+	if (v->exitstatus != 0)
+		return (__FALSE);
 	return (__TRUE);
 }
