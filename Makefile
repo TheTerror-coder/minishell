@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/11/02 13:47:08 by lmohin           ###   ########.fr        #
+#    Updated: 2023/11/02 17:48:00 by lmohin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ CC = 				cc
 CFLAGS=				-Wall -Werror -Wextra	
 RM =				rm -rf
 
-SRC_BUILTINS =		$(addprefix $(BUILTINS_PATH), exit.c unset.c export_utils.c export.c echo.c cd.c cd_options.c cd_tools.c pwd.c env.c)
+SRC_BUILTINS =		$(addprefix $(BUILTINS_PATH), exit.c unset.c export_special_compare.c export_utils.c export.c echo.c cd.c cd_options.c cd_tools.c pwd.c env.c)
 SRC_MEMTOOLS =		$(addprefix $(MEMTOOLS_PATH), exitprocess.c initmem.c freemem.c)
 SRC_OTHERS =		$(addprefix $(OTHERS_PATH), utils.c tmpfile.c)
 SRC_LAUNCHING =		$(addprefix $(LAUNCHING_PATH), launcher.c executable.c builtin.c)

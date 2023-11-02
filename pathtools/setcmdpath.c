@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:53:58 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 15:58:55 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 17:00:53 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_set_cmdpath(t_vars *v, char *command)
 	if (fdbk == __FALSE)
 		return (NULL);
 	if (fdbk == __TRUE)
-		return (ft_strdup(command));
+		return (dup_secured(v, command));
 	if (!ft_set_path_variable(v))
 		return (NULL);
 	return (ft_try_find_the_path(v, command));

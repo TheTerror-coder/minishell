@@ -6,11 +6,21 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 14:20:17 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 17:02:24 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*dup_secured(t_vars *v, char *str)
+{
+	char	*dup;
+
+	dup = ft_strdup(str);
+	if (!dup)
+		ft_leave(v, EXIT_FAILURE, "ft_strdup", __PERROR);
+	return (dup);
+}
 
 t_bool	ft_leave(t_vars *v, int code, char *msg, t_typ action)
 {

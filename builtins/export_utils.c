@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 13:37:59 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/02 13:55:46 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 17:41:53 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ t_bool	print_export(t_vars *v)
 	if (!s)
 		return (__FALSE);
 	i = 1;
+	order_tab(s);
 	while (s[++i])
 	{
 		if (ft_strncmp(s[i], "_", 2) && ft_strncmp(s[i], "_=", 3))

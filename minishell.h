@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 16:30:50 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 17:03:07 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_vars		*ft_initvars(void);
 void		ft_exitmainprocss(t_vars *v, int code);
 void		ft_exitbackprocss(t_vars *v, int code);
 
+char		*dup_secured(t_vars *v, char *str);
 t_bool		ft_leave(t_vars *v, int code, char *msg, t_typ action);
 
 char		**env_list_to_tab(t_vars *v);

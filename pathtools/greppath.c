@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 12:02:30 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 20:36:08 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 16:59:19 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ t_bool	ft_set_path_variable(t_vars *v)
 	v->paths = ft_split(line, ':');
 	free(line);
 	if (!v->paths | !v->paths[0])
-		return (ft_leave(v, EXIT_FAILURE, \
-			"ft_set_path_variable() : ft_split() failed", __PRINT));
+		return (ft_leave(v, EXIT_FAILURE, "ft_split", __PERROR));
 	if (!ft_add_slash(v))
 		return (__FALSE);
 	return (__TRUE);
@@ -47,8 +46,7 @@ t_bool	ft_add_slash(t_vars *v)
 		if (!v->paths[i])
 		{
 			v->paths[i] = line;
-			return (ft_leave(v, EXIT_FAILURE, \
-				"ft_rm_path(): ft_strjoin() failed", __PRINT));
+			return (ft_leave(v, EXIT_FAILURE, "ft_strjoin", __PERROR));
 		}
 		free(line);
 		i++;

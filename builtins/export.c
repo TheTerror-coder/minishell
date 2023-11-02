@@ -6,11 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/02 13:54:19 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 17:49:03 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_bool	compare_str_and_var(char *env_var, char *str);
 
 char	*get_var_name(t_vars *v, char *str)
 {
@@ -31,11 +33,9 @@ t_bool	find_var(t_vars *v, char *var, char *str)
 	t_env	*tmp;
 
 	tmp = v->my_env;
-	while (tmp->next && ft_strncmp(tmp->var, var, ft_strlen(var)))
+	while (tmp->next && !compare_str_and_var(tmp->var, var))
 		tmp = tmp->next;
-	if (ft_strncmp(tmp->var, var, ft_strlen(var)))
-		return (add_env_var(v, str));
-	if (tmp->var[ft_strlen(var)] != '=' && tmp->var[ft_strlen(var)] != '\0')
+	if (!compare_str_and_var(tmp->var, var))
 		return (add_env_var(v, str));
 	else
 	{
