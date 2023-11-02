@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 21:10:17 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 11:38:38 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void		ft_exitbackprocss(t_vars *v, int code);
 t_bool		ft_leave(t_vars *v, int code, char *msg, t_typ action);
 
 char		**env_list_to_tab(t_vars *v);
+t_bool		var_env_compare(t_env *env_tmp, char *name, size_t length_name);
 t_bool		check_env_var_set(t_env *my_env, char *var);
 char		*get_env_var_content(t_vars *v, t_env *my_env, char *var);
 t_bool		ft_setenv(t_vars *v, char **envp);

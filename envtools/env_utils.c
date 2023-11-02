@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:27:13 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/30 21:13:32 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 11:40:12 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,19 @@ char	*get_env_var_content(t_vars *v, t_env *my_env, char *var)
 	if (!content)
 		return (ft_leave(v, EXIT_FAILURE, "ft_substr", __PERROR), NULL);
 	return (content);
+}
+
+t_bool	var_env_compare(t_env *env_tmp, char *name, size_t length_name)
+{
+	if (ft_strncmp(env_tmp->var, name, length_name))
+	{
+		if (!ft_strncmp(env_tmp->var, name, length_name - 1) && \
+			env_tmp->var[length_name - 1] == '\0')
+		{
+			return (__TRUE);
+		}
+		else
+			return (__FALSE);
+	}
+	return (__TRUE);
 }

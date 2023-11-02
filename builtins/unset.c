@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 04:06:37 by marvin            #+#    #+#             */
-/*   Updated: 2023/10/29 20:20:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 11:37:41 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_bool	check_var_name(t_vars *v, char *var)
 	i = 0;
 	if (!ft_isalpha(var[0]) && var[0] != '_')
 	{
-		ft_putstr_fd("minishell: ft_unset: `", STDERR_FILENO);
+		ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
 		ft_putstr_fd(var, 2);
 		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		v->exitstatus = EXIT_FAILURE;
@@ -28,16 +28,37 @@ t_bool	check_var_name(t_vars *v, char *var)
 	i++;
 	while (var[i] != '\0')
 	{
-		if (!ft_isalpha(var[i]) && !ft_isalnum(var[i]) && var[i] != '_')
+		if (!ft_isalnum(var[i]) && var[i] != '_')
 		{
-			ft_putstr_fd("minishell: ft_unset: `", STDERR_FILENO);
-			ft_putstr_fd(var, 2);
+			ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
+			ft_putstr_fd(var, STDERR_FILENO);
 			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 			v->exitstatus = EXIT_FAILURE;
 			return (__FALSE);
 		}
 		i++;
 	}
+	return (__TRUE);
+}
+
+t_bool	unset_first_env(t_vars *v, char *arg_equal, size_t length_arg)
+{
+	t_env	*env_tmp;
+
+	if (!var_env_compare(v->my_env, arg_equal, length_arg))
+		return (__FALSE);
+	free(v->my_env->var);
+	free(arg_equal);
+	env_tmp = v->my_env;
+	if (v->my_env->next)
+		v->my_env = v->my_env->next;
+	else
+	{
+		v->my_env->next = NULL;
+		v->my_env->var = NULL;
+		return (__TRUE);
+	}
+	free(env_tmp);
 	return (__TRUE);
 }
 
@@ -48,20 +69,9 @@ t_bool	find_and_unset_arg(t_vars *v, char *arg_equal, size_t length_arg)
 
 	env_tmp = (v->my_env)->next;
 	env_previous = v->my_env;
-	if (!ft_strncmp(v->my_env->var, arg_equal, length_arg))
-	{
-		free(v->my_env->var);
-		free(arg_equal);
-		if (v->my_env->next)
-			v->my_env = v->my_env->next;
-		else
-		{
-			v->my_env->next = NULL;
-			v->my_env->var = NULL;
-		}
+	if (unset_first_env(v, arg_equal, length_arg))
 		return (__TRUE);
-	}
-	while (env_tmp && ft_strncmp(env_tmp->var, arg_equal, length_arg))
+	while (env_tmp && !var_env_compare(env_tmp, arg_equal, length_arg))
 	{
 		env_previous = env_tmp;
 		env_tmp = env_tmp->next;
@@ -80,19 +90,16 @@ t_bool	unset_one_arg(t_vars *v, char *arg)
 {
 	char	*arg_equal;
 
-	if (check_var_name(v, arg))
+	if (v->my_env == NULL)
+		return (__TRUE);
+	arg_equal = ft_strjoin(arg, "=");
+	if (!arg_equal)
 	{
-		if (v->my_env == NULL)
-			return (__TRUE);
-		arg_equal = ft_strjoin(arg, "=");
-		if (!arg_equal)
-		{
-			perror("minishell: ft_unset: ");
-			v->exitstatus = EXIT_FAILURE;
-			return (__FALSE);
-		}
-		find_and_unset_arg(v, arg_equal, ft_strlen(arg_equal));
+		perror("minishell: unset: ");
+		v->exitstatus = EXIT_FAILURE;
+		return (__FALSE);
 	}
+	find_and_unset_arg(v, arg_equal, ft_strlen(arg_equal));
 	return (__TRUE);
 }
 
@@ -106,14 +113,19 @@ t_bool	ft_unset(t_vars *v, t_commands *command)
 		&& command->arguments[1][1] != '\0')
 	{
 		v->exitstatus = __BUILTIN_ERROR;
-		ft_putstr_fd("minishell: ft_unset: no option expected\n", \
+		ft_putstr_fd("minishell: unset: no option expected\n", \
 			STDERR_FILENO);
 		return (__FALSE);
 	}
+	if (!v->my_env->var)
+		return (__TRUE);
 	while (command->arguments[i])
 	{
-		if (!unset_one_arg(v, command->arguments[i]) && v->exitstatus == 1)
+		if (check_var_name(v, command->arguments[i]) \
+			&& !unset_one_arg(v, command->arguments[i]))
+		{
 			return (__FALSE);
+		}
 		i++;
 	}
 	return (__TRUE);
