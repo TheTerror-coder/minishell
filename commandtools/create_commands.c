@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 04:14:54 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/15 18:04:49 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 16:47:33 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,21 @@ void	free_tokens(t_token *tokens)
 	}
 }
 
-int	get_commands_recursively(t_commands *command, t_token **tokens)
+t_bool	get_cmds_recursively(t_vars *v, t_commands *command, t_token **tokens)
 {
-	command->next = create_commands((*tokens)->next);
+	command->next = create_commands(v, (*tokens)->next);
 	free((*tokens)->content);
 	free((*tokens));
 	if (!command->next)
 	{
 		free_tokens(command->tokens);
 		free(command);
-		return (0);
+		return (__FALSE);
 	}
-	return (1);
+	return (__TRUE);
 }
 
-t_commands	*create_commands(t_token *tokens)
+t_commands	*create_commands(t_vars *v, t_token *tokens)
 {
 	t_commands	*command;
 	t_token		*token_previous;
@@ -50,7 +50,7 @@ t_commands	*create_commands(t_token *tokens)
 	if (!command)
 	{
 		free_tokens(tokens);
-		return (NULL);
+		return (ft_leave(v, EXIT_FAILURE, "malloc", __PERROR), NULL);
 	}
 	command->tokens = tokens;
 	command->hdoc_fd = __CLOSED_FD;
@@ -61,7 +61,7 @@ t_commands	*create_commands(t_token *tokens)
 		token_previous = tokens;
 		tokens = tokens->next;
 	}
-	if (tokens != NULL && !get_commands_recursively(command, &tokens))
+	if (tokens != NULL && !get_cmds_recursively(v, command, &tokens))
 		command = NULL;
 	token_previous->next = NULL;
 	return (command);

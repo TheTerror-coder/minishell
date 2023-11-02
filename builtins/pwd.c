@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 03:58:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/29 20:18:01 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 16:32:53 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ t_bool	ft_pwd(t_vars *v, char *first_arg)
 	if (first_arg && first_arg[0] == '-' && first_arg[1] != '\0' \
 		&& (first_arg[1] != '-' || first_arg[2] != '\0'))
 	{
-		ft_putstr_fd("minishell: ft_pwd(): no option expected\n", 2);
+		ft_putstr_fd("minishell: pwd: no option expected\n", 2);
 		v->exitstatus = __BUILTIN_ERROR;
 		return (__FALSE);
 	}
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
-		perror("minishell: ft_pwd()");
+		perror("minishell: pwd");
 		v->exitstatus = EXIT_FAILURE;
 		return (__FALSE);
 	}

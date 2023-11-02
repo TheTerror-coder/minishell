@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 05:19:27 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/01 21:27:09 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 16:37:09 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ t_bool	ft_cd_cdpath_set(t_vars *v, char *dir)
 	split_cdpath = ft_split(cdpath, ':');
 	if (!split_cdpath)
 	{
-		perror("minishell: cd");
+		perror("minishell: ft_split");
+		free(cdpath);
 		return (v->exitstatus = EXIT_FAILURE, __FALSE);
 	}
 	free(cdpath);

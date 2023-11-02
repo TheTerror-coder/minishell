@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:11:20 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 17:13:21 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 16:46:31 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,21 @@ t_bool	print_chdir_error(t_vars *v, char *old_pwd, t_commands *command)
 	ft_putstr_fd(": ", STDERR_FILENO);
 	perror(NULL);
 	return (v->exitstatus = EXIT_FAILURE, __FALSE);
+}
+
+t_bool	do_chdir(t_vars *v, char *var)
+{
+	char	*message_to_print;
+
+	if (chdir(var) == -1)
+	{
+		message_to_print = ft_strjoin("minishell: cd: ", var);
+		if (message_to_print)
+			perror(message_to_print);
+		else
+			perror("minishell: chdir ");
+		free(message_to_print);
+		return (v->exitstatus = EXIT_FAILURE, __FALSE);
+	}
+	return (__TRUE);
 }

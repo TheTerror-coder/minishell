@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 05:18:18 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/30 13:41:45 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 16:28:18 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ char	*get_pipe(t_vars *v, char *line, size_t *l_index)
 	}
 	pipe = ft_strdup("|");
 	if (!pipe)
-	{
-		v->exitstatus = 1;
-		perror("minishell: get_pipe: ");
-	}
+		ft_leave(v, EXIT_FAILURE, "ft_strdup", __PERROR);
 	*l_index += 1;
 	return (pipe);
 }

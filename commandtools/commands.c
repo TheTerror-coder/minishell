@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 23:31:19 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/30 14:29:09 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 16:30:37 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_commands	*get_commands(t_vars *v)
 		ft_freetokens(tokens);
 		return (NULL);
 	}
-	commands = create_commands(tokens);
+	commands = create_commands(v, tokens);
 	clear_commands(commands);
 	return (commands);
 }
