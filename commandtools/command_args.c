@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 01:57:18 by lmohin            #+#    #+#             */
-/*   Updated: 2023/10/27 05:45:24 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 19:45:27 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	fill_command_arguments(t_commands *commands)
 	size_t	arg_c;
 	t_token	*token_cpy;
 
-	token_cpy = commands->tokens;
 	arg_c = 0;
 	token_cpy = commands->tokens;
 	while (token_cpy != NULL)
@@ -73,9 +72,9 @@ void	fill_command_arguments(t_commands *commands)
 	commands->arguments[arg_c] = NULL;
 }
 
-int	get_command_arguments(t_commands *commands)
+t_bool	get_command_arguments(t_commands *commands)
 {
-	int		args_nbr;
+	size_t	args_nbr;
 	t_token	*tokens_cpy;
 
 	args_nbr = 0;
@@ -92,9 +91,10 @@ int	get_command_arguments(t_commands *commands)
 		else
 			tokens_cpy = tokens_cpy->next->next;
 	}
-	commands->arguments = NULL;
 	commands->arguments = malloc(sizeof(char *) * (args_nbr + 1));
+	if (!commands->arguments)
+		return (__FALSE);
 	fill_command_arguments(commands);
 	clear_token_list(commands);
-	return (0);
+	return (__TRUE);
 }

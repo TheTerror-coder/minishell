@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 17:03:07 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 19:16:05 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		*join_s1_with_sub_line(char *s1, t_vars *v, size_t *st, \
 													size_t *end);
 
 t_commands	*create_commands(t_vars *v, t_token *tokens);
-int			get_command_arguments(t_commands *commands);
+t_bool		get_command_arguments(t_commands *commands);
 t_commands	*get_commands(t_vars *v);
 void		ft_freecommands(t_vars *v);
 t_token		*break_input_into_tokens(t_vars *v, size_t l_index);

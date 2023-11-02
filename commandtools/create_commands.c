@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 04:14:54 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/02 16:47:33 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 19:33:36 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ t_commands	*create_commands(t_vars *v, t_token *tokens)
 	if (tokens != NULL && !get_cmds_recursively(v, command, &tokens))
 		command = NULL;
 	token_previous->next = NULL;
+	v->commands = command;
 	return (command);
 }
