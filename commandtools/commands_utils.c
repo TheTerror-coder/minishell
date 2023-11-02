@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:57:36 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/01 08:00:53 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 15:19:13 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	expand_conditions(char *c, int is_hdoc_deli)
 {
 	if (c[0] != '$')
 		return (__FALSE);
-	if ((c[1] == '?' || ft_isalnum(c[1])) && !is_hdoc_deli)
+	if ((c[1] == '?' || ft_isalpha(c[1])) && !is_hdoc_deli)
 		return (__TRUE);
 	if (c[1] == '"' || c[1] == '\'' || c[1] == '_')
 		return (__TRUE);

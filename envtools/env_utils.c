@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:27:13 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/02 11:40:12 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 16:04:57 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	**env_list_to_tab(t_vars *v)
 	t_env	*env_cpy;
 
 	i = 0;
+	if (!v->my_env->var)
+		return (NULL);
 	tab = malloc(sizeof(char *) * (ft_envsize(v->my_env) + 1));
 	if (!tab)
 		return (ft_leave(v, EXIT_FAILURE, "malloc", __PERROR), NULL);
@@ -63,6 +65,8 @@ t_bool	check_env_var_set(t_env *my_env, char *var)
 	{
 		my_env = my_env->next;
 	}
+	if (!my_env->var)
+		return (__FALSE);
 	if (ft_strncmp(my_env->var, var, len) || (my_env->var)[len] != '=')
 		return (__FALSE);
 	if ((my_env->var)[len + 1] == '\0')

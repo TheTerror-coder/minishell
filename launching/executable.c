@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 14:05:43 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 16:03:45 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_run_simplecmnd(t_vars *v)
 	ft_closetvars(v);
 	ft_freesecondaries(v);
 	my_env = env_list_to_tab(v);
-	if (!my_env)
+	if (!my_env && v->my_env->var)
 		ft_exitbackprocss(v, v->exitstatus);
 	execve(v->cmdpath, v->commands->arguments, my_env);
 	perror("execve");

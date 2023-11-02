@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:23:24 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/01 06:51:46 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 15:41:08 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_bool	check_env_var(t_env *my_env, char *var)
 	size_t	len;
 
 	len = ft_strlen(var);
+	if (!my_env->var)
+		return (__FALSE);
 	while (my_env->next && (ft_strncmp(my_env->var, var, len) \
 		|| (my_env->var)[len] != '='))
 	{

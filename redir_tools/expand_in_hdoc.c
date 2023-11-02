@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 18:43:07 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 21:46:25 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 16:08:12 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,17 @@ char	*expand_word_inside_line(t_vars *v, char *line, size_t *start_index)
 	char	*ret;
 	size_t	j;
 
-	if (line[*start_index + 1] <= '9' && line[*start_index + 1] >= '0')
-		return (*start_index += 1, line);
 	j = 0;
-	while (ft_isalnum(line[*start_index + 1 + j]))
+	while (ft_isalnum(line[*start_index + 1 + j]) || line[*start_index + 1 + j] == '_')
 		j++;
 	expand_name = ft_substr(line, *start_index + 1, j);
 	if (!expand_name)
 		return (ft_leave(v, EXIT_FAILURE, \
 			"expand_word_inside_line(): ft_substr() failed", __PRINT), NULL);
 	if (!check_env_var_set(v->my_env, expand_name))
-		return (NULL);
-	expand_content = get_env_var_content(v, v->my_env, expand_name);
+		expand_content = ft_strdup("");
+	else
+		expand_content = get_env_var_content(v, v->my_env, expand_name);
 	ft_freestr(&expand_name);
 	if (!expand_content)
 		return (NULL);
