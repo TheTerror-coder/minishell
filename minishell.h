@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 11:38:38 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 13:56:39 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ char		*expand_words_of_line(t_vars *v, char *line);
 
 t_bool		ft_export(t_vars *v, t_commands *command, char **arguments);
 t_bool		export_one_arg(t_vars *v, char *var);
+t_bool		print_not_valid_identifier(t_vars *v, char *str);
+t_bool		print_export(t_vars *v);
 t_bool		ft_echo(t_vars *v, t_commands *command);
 t_bool		ft_cd(t_vars *v, t_commands *command);
 t_bool		ft_cd_no_args(t_vars *v);
