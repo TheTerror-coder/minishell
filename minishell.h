@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 17:03:07 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 21:04:44 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,6 @@ void		ignore_signals(void);
 void		heredoc_signals(void);
 void		main_simple_signals(void);
 void		launch_signals(void);
+void		ignore_sigpipe(void);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 18:08:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 16:03:45 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 19:31:51 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ t_bool	ft_lnch_executable(t_vars *v)
 
 	pid = -1;
 	pid = fork();
-	if (pid < 0)
-		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	if (!pid)
 	{
 		ignore_signals();
 		ft_execute(v);
 	}
+	if (pid < 0)
+		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	launch_signals();
 	v->code = EXIT_SUCCESS;
 	waitpid(pid, &v->code, __WHANG);
@@ -96,6 +96,7 @@ t_bool	ft_run_heredocs(t_vars *v, t_commands *command)
 			}
 			token_iterator = token_iterator->next->next;
 		}
+		ft_fclose(v, &cmd_iterator->hdoc_fd);
 		cmd_iterator->hdoc_fd = v->hdoc_fd;
 		v->hdoc_fd = __CLOSED_FD;
 		cmd_iterator = cmd_iterator->next;

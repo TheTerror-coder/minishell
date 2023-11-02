@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:20:54 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 16:22:19 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 21:04:24 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,14 @@ void	ignore_signals(void)
 	sigemptyset(&act.sa_mask);
 	sigaction(SIGQUIT, &act, NULL);
 	sigaction(SIGINT, &act, NULL);
+}
+
+void	ignore_sigpipe(void)
+{
+	struct sigaction	act;
+
+	act.sa_handler = SIG_IGN;
+	act.sa_flags = SA_RESTART;
+	sigemptyset(&act.sa_mask);
+	sigaction(SIGPIPE, &act, NULL);
 }

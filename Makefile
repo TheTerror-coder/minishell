@@ -6,7 +6,7 @@
 #    By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 21:29:59 by TheTerror         #+#    #+#              #
-#    Updated: 2023/11/02 17:48:00 by lmohin           ###   ########.fr        #
+#    Updated: 2023/11/02 18:09:55 by TheTerror        ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ make_libft :
 	make -C $(LIBFT_PATH)
 
 leaks: all
+	touch valgrind.txt
 	rm valgrind.txt
 	echo "{" > valgrind_ignore_leaks.txt
 	echo "leak readline" >> valgrind_ignore_leaks.txt

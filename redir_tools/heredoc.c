@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 14:21:39 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 21:04:09 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ t_bool	ft_heredoc(t_vars *v)
 	if (!ft_openatemp(v))
 		return (__FALSE);
 	pid = fork();
-	if (pid < 0)
-		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	if (pid == 0)
 	{
 		heredoc_signals();
 		ft_heredoc_op1(v);
+		ft_exitbackprocss(v, EXIT_SUCCESS);
 	}
+	if (pid < 0)
+		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	ignore_signals();
 	if (!ft_pwait(v, pid, __WHANG))
 		return (__FALSE);
@@ -50,20 +51,20 @@ t_bool	ft_heredoc2(t_vars *v)
 
 	pid = 0;
 	pid = fork();
-	if (pid == -1)
-		return (ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	if (pid == 0)
 		ft_heredoc_op2(v);
+	if (pid < 0)
+		return (ft_closetvars(v), ft_leave(v, EXIT_FAILURE, "fork", __PERROR));
 	if (!ft_fclose(v, &v->outfd) || !ft_fclose(v, &v->p1[1]) || \
 		!ft_fclose(v, &v->hdoc_fd))
-		return (__FALSE);
+		return (ft_closetvars(v), __FALSE);
 	v->hdoc_fd = dup(v->p1[0]);
 	if (!ft_fclose(v, &v->p1[0]))
-		return (__FALSE);
+		return (ft_closetvars(v), __FALSE);
 	if (v->hdoc_fd < 0)
-		return (ft_leave(v, EXIT_FAILURE, "dup", __PERROR));
+		return (ft_closetvars(v), ft_leave(v, EXIT_FAILURE, "dup", __PERROR));
 	if (!ft_pwait(v, pid, WNOHANG))
-		return (__FALSE);
+		return (ft_closetvars(v), __FALSE);
 	return (__TRUE);
 }
 
@@ -99,6 +100,7 @@ void	ft_heredoc_op2(t_vars *v)
 {
 	char	*line;
 
+	ignore_sigpipe();
 	line = NULL;
 	if (!ft_fclose(v, &v->p1[0]) || !ft_fclose(v, &v->infd) || \
 		!ft_fclose(v, &v->outfd))

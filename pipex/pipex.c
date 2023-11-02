@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 12:43:39 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/08/02 16:39:20 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 21:59:11 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ t_bool	ft_pipex(t_vars *v)
 			if (pipe(var->p[var->i]))
 				return (ft_perror(v, EXIT_FAILURE, "pipe", __PERROR));
 		}
-		ft_manage_pipeline(v);
+		if (!ft_manage_pipeline(v))
+			return (__FALSE);
 		var->i++;
 		var->iterator = var->iterator->next;
 	}
@@ -63,8 +64,10 @@ t_bool	ft_manage_pipeline(t_vars *v)
 	var->pid[var->i] = fork();
 	if (!var->pid[var->i])
 	{
+		free(var->pid);
+		var->pid = NULL;
 		if (!fdbk && var->skip_command_flg)
-			ft_exitbackprocss(v, v->exitstatus);
+			ft_exitpipe(v);
 		else if (!var->skip_command_flg)
 			ft_plumber(v);
 	}

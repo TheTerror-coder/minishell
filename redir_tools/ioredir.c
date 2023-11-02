@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:54:11 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/30 21:49:26 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 19:31:40 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ t_bool	ft_launch_heredoc(t_vars *v, char *limiter)
 	if (!ft_heredoc(v))
 		return (__FALSE);
 	if (v->hdoc_fd < 0)
-		return (ft_leave(v, EXIT_FAILURE, \
-				"heredoc file descriptor error", __PRINT));
+		return (__FALSE);
 	return (__TRUE);
 }
 

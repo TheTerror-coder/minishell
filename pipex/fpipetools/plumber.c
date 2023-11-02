@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:03:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 16:13:02 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 21:58:56 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ t_bool	ft_plumber(t_vars *v)
 	t_ppex	*var;
 
 	var = v->var;
-	free(var->pid);
-	var->pid = NULL;
 	if (!ft_close_tvars(v, v->var))
 		ft_exitpipe(v);
 	v->flg_exit_main_procss = __FALSE;

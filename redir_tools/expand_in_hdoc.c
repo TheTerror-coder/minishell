@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 18:43:07 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 16:08:12 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 22:08:27 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ char	*expand_word_inside_line(t_vars *v, char *line, size_t *start_index)
 	size_t	j;
 
 	j = 0;
-	while (ft_isalnum(line[*start_index + 1 + j]) || line[*start_index + 1 + j] == '_')
+	while (ft_isalnum(line[*start_index + 1 + j]) || \
+				line[*start_index + 1 + j] == '_')
 		j++;
 	expand_name = ft_substr(line, *start_index + 1, j);
 	if (!expand_name)

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 16:06:15 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/29 21:32:24 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/02 21:30:57 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ft_free_p(t_ppex *var)
 	int	i;
 
 	i = 0;
+	if (!var->p)
+		return ;
 	while (i < var->nbcmd)
 	{
 		free(var->p[i]);
