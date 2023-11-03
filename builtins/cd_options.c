@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:51:38 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/02 16:46:37 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/03 11:18:54 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_bool	ft_cd_oldpwd_case(t_vars *v)
 
 	if (!check_env_var_set(v->my_env, "OLDPWD"))
 	{
-		ft_leave(v, EXIT_FAILURE, "minishell: cd: OLDPWD not set", __PRINT);
+		ft_leave(v, EXIT_FAILURE, "cd: OLDPWD not set", __PRINT);
 		return (__FALSE);
 	}
 	oldpwd = get_env_var_content(v, v->my_env, "OLDPWD");
