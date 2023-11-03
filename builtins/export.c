@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 04:55:35 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/02 17:49:03 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/03 12:00:02 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,10 @@ t_bool	export_one_arg(t_vars *v, char *str)
 	return (free(var), __TRUE);
 }
 
-t_bool	ft_export(t_vars *v, t_commands *command, char **arguments)
+t_bool	ft_export(t_vars *v, char **arguments)
 {
 	int	index;
 
-	(void) command;
 	v->exitstatus = 0;
 	if (!arguments[1] || !ft_strncmp(arguments[1], "--", 3))
 		return (print_export(v));

@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 21:40:40 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 13:40:32 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/03 11:55:33 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_bool	launch_right_builtin(t_vars *v, t_commands *command)
 	if (!ft_strncmp("env", command->main_command, 4))
 		return (ft_env(v, command));
 	if (!ft_strncmp("export", command->main_command, 7))
-		return (ft_export(v, command, command->arguments));
+		return (ft_export(v, command->arguments));
 	if (!ft_strncmp("unset", command->main_command, 6))
 		return (ft_unset(v, command));
 	else

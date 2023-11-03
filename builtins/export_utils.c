@@ -6,7 +6,7 @@
 /*   By: lmohin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 13:37:59 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/02 17:41:53 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/03 12:02:25 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_bool	print_export(t_vars *v)
 	s = env_list_to_tab(v);
 	if (!s)
 		return (__FALSE);
-	i = 1;
+	i = -1;
 	order_tab(s);
 	while (s[++i])
 	{
