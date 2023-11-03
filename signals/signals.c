@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 06:04:28 by lmohin            #+#    #+#             */
-/*   Updated: 2023/11/03 14:26:35 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/03 14:32:23 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	readline_handler(int signal);
 void	heredoc_handler(int signal);
 void	launch_handler(int signal);
 
-t_bool	set_readline_signals(void)
+void	set_readline_signals(void)
 {
 	struct sigaction	act;
 
@@ -25,7 +25,6 @@ t_bool	set_readline_signals(void)
 	sigemptyset(&act.sa_mask);
 	sigaction(SIGQUIT, &act, NULL);
 	sigaction(SIGINT, &act, NULL);
-	return (__TRUE);
 }
 
 void	heredoc_signals(void)

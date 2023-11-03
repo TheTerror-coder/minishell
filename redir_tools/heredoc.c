@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:53:24 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 21:04:09 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/03 14:31:51 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_bool	ft_heredoc(t_vars *v)
 	ignore_signals();
 	if (!ft_pwait(v, pid, __WHANG))
 		return (__FALSE);
-	if (!set_readline_signals(v))
+	set_readline_signals();
 		return (__FALSE);
 	if (pipe(v->p1) == -1)
 		return (ft_leave(v, EXIT_FAILURE, "pipe", __PERROR));
