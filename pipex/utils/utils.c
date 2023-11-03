@@ -6,11 +6,13 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:07:19 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/03 14:28:20 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/03 14:40:06 by TheTerror        ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
+
+void	ft_set_exitstatus(t_vars *v, t_bool *flg_signal);
 
 t_bool	ft_perror(t_vars *v, int code, const char *msg, t_typ action)
 {
@@ -47,13 +49,7 @@ t_bool	ft_waitingroom(t_vars *v)
 				return (ft_perror(v, EXIT_FAILURE, "waitpid", __PERROR));
 			if (fdbk == v->var->pid[i])
 			{
-				if (WIFEXITED(v->var->code))
-					v->exitstatus = WEXITSTATUS(v->var->code);
-				if (WIFSIGNALED(v->var->code))
-				{
-					v->exitstatus = 128 + WTERMSIG(v->var->code);
-					flg_signal = 128 + WTERMSIG(v->var->code);
-				}
+				ft_set_exitstatus(v, &flg_signal);
 				v->var->pid[i] = -111;
 			}
 		}
@@ -62,4 +58,15 @@ t_bool	ft_waitingroom(t_vars *v)
 	if (flg_signal == 130)
 		ft_putstr_fd("\n", 1);
 	return (__TRUE);
+}
+
+void	ft_set_exitstatus(t_vars *v, t_bool *flg_signal)
+{
+	if (WIFEXITED(v->var->code))
+		v->exitstatus = WEXITSTATUS(v->var->code);
+	if (WIFSIGNALED(v->var->code))
+	{
+		v->exitstatus = 128 + WTERMSIG(v->var->code);
+		*flg_signal = 128 + WTERMSIG(v->var->code);
+	}
 }
