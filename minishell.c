@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:13 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/10/31 18:56:16 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/03 14:27:20 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ t_bool	ft_minishell(t_vars *v);
 
 t_bool	ft_prompt(t_vars *v)
 {
-	if (!set_readline_signals(v))
-		ft_exitmainprocss(v, EXIT_FAILURE);
+	set_readline_signals();
 	v->line = readline("minishell$ ");
 	while (v->line)
 	{

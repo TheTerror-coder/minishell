@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:49:26 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/03 11:55:16 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/03 14:26:59 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,12 @@
 
 # include "./preminishell.h"
 # include <errno.h>
-# include <string.h>
-# include <stdio.h>
-# include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
-# include <bsd/string.h>
 
 # include "./libft/ft_printf/ft_printf.h"
 # include "./pipex/pipex.h"
@@ -112,11 +108,9 @@ int			ft_run_builtin(t_vars *v, t_commands *command);
 t_bool		ft_exit(t_vars *v, t_commands *command);
 t_bool		ft_unset(t_vars *v, t_commands *command);
 
-t_bool		set_readline_signals(t_vars *v);
+void		set_readline_signals(void);
 void		ignore_signals(void);
 void		heredoc_signals(void);
-void		main_simple_signals(void);
-void		launch_signals(void);
 void		ignore_sigpipe(void);
 
 #endif

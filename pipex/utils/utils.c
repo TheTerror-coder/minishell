@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:07:19 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/01 23:42:29 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/03 14:28:20 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ t_bool	ft_perror(t_vars *v, int code, const char *msg, t_typ action)
 
 t_bool	ft_waitingroom(t_vars *v)
 {
-	int	i;
-	int	fdbk;
+	int		i;
+	int		fdbk;
+	t_bool	flg_signal;
 
 	i = 0;
 	fdbk = 0;
+	flg_signal = 0;
 	while (i < v->var->nbcmd)
 	{
 		if (v->var->pid[i] > 0)
@@ -48,11 +50,16 @@ t_bool	ft_waitingroom(t_vars *v)
 				if (WIFEXITED(v->var->code))
 					v->exitstatus = WEXITSTATUS(v->var->code);
 				if (WIFSIGNALED(v->var->code))
+				{
 					v->exitstatus = 128 + WTERMSIG(v->var->code);
+					flg_signal = 128 + WTERMSIG(v->var->code);
+				}
 				v->var->pid[i] = -111;
 			}
 		}
 		i++;
 	}
+	if (flg_signal == 130)
+		ft_putstr_fd("\n", 1);
 	return (__TRUE);
 }

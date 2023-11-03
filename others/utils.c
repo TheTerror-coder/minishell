@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:10:06 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 17:02:24 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/02 20:00:11 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ char	*dup_secured(t_vars *v, char *str)
 t_bool	ft_leave(t_vars *v, int code, char *msg, t_typ action)
 {
 	if (v)
+	{
 		v->exitstatus = code;
+		v->flg_parsing_is_ok = __FALSE;
+	}
 	if (!msg)
 		return (__FALSE);
 	ft_putstr_fd("minishell: ", STDERR_FILENO);

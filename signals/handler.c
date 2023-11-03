@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:19:15 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 14:05:59 by lmohin           ###   ########.fr       */
+/*   Updated: 2023/11/03 14:25:57 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,4 @@ void	heredoc_handler(int signal)
 		g_global = SIGINT;
 		close(0);
 	}
-}
-
-void	launch_handler(int signal)
-{
-	if (signal == SIGQUIT)
-		return ;
-	if (signal == SIGINT)
-		ft_putstr_fd("\n", 1);
 }
