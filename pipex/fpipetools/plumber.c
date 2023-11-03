@@ -6,7 +6,7 @@
 /*   By: TheTerror <jfaye@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 17:03:55 by TheTerror         #+#    #+#             */
-/*   Updated: 2023/11/02 21:58:56 by TheTerror        ###   ########lyon.fr   */
+/*   Updated: 2023/11/03 10:24:29 by lmohin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_bool	ft_plumber(t_vars *v)
 	execve(var->pathcmd, var->iterator->arguments, my_env);
 	perror("ft_plumber(): execve");
 	v->exitstatus = __CMD_NOT_EXEC;
+	ft_free2str(&my_env);
 	ft_exitpipe(v);
 	return (__FALSE);
 }
