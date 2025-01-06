@@ -1,7 +1,7 @@
 # Project "Minishell - As beautiful as a shell"
 
 Summary:
-This project involves creating a simple shell in C, similar to a mini bash. You will learn a lot about processes and file descriptors, while implementing core functionalities for an interactive shell. It’s a hands-on exercise in managing commands, redirections, pipes, and environment variables.
+This project involves creating a shell in C, similar to a mini bash. You will learn a lot about processes and file descriptors, while implementing core functionalities for an interactive shell. It’s a hands-on exercise in managing commands, redirections, pipes, and environment variables.
 
 Mandatory Part:
 
