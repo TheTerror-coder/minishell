@@ -1,4 +1,4 @@
-# Project "Minishell - As beautiful as a shell"
+# Minishell - As beautiful as a shell
 
 Description : Le projet consiste à créer un shell simple, une sorte de mini-bash, qui permet d'exécuter des commandes via un interpréteur de lignes de commande interactif. À travers ce projet, tu vas apprendre à manipuler les processus, les descripteurs de fichiers, la gestion de l'historique des commandes, les redirections, les pipes et l’expansion des variables d’environnement, tout en respectant les principes de base d’un shell Unix.
 
